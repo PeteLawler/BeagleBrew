@@ -2,9 +2,11 @@
 <Config>
 	<!-- Where the BeagleBrew will be served from -->
 	<RootDir>/var/www/BeagleBrew</RootDir>
+
 	<!-- Place templates (themes) in templates folder -->
 	<!-- The static folder must contain the corresponding css and js files -->
 	<Template>beagle_bootstrap.html</Template>
+
 	<!-- Use LCD - yes or no-->
 	<Use_LCD>no</Use_LCD>
 
@@ -17,6 +19,9 @@
         <!-- BBB Pins use Head_pin or NAME nomenclature as per BBB SRM -->
         <GPIO_pin_numbering_scheme>BBB</GPIO_pin_numbering_scheme>
 
+	<!-- If your relay board work inverted mode set to 1 -->
+	<GPIO_Inverted>1</GPIO_Inverted>
+
 	<!-- Temperature Sensor Id -->
 	<!-- For Temp Control the Temp_Sensor_Id must have a corresponding GPIO Pin used -->
 	<!-- for heat, otherwise the temperature sensor is only for temp readout -->
@@ -25,11 +30,11 @@
 	<Temp_Sensor_Id>28-000000000000</Temp_Sensor_Id>
 	<Heat_Pin>TIMER7</Heat_Pin>
 	<Temp_Sensor_Id>28-000000000001</Temp_Sensor_Id>
-	<!-- If your relay board work inverted mode set to 1 -->
-	<GPIO_Inverted>1</GPIO_Inverted>
+
 	<!-- Up to 2 GPIO pins are supported but can easily be expanded in code-->
 	<!-- Repeat <GPIO_Pin> element name -->
 	<GPIO_Pin>TIMER4</GPIO_Pin>
+
 	<!-- Units C (Celsius) or F (Fahrenheit) -->
 	<!-- Note: Default is F for Android app which can switch between F and C-->
 	<Temp_Units>C</Temp_Units>
