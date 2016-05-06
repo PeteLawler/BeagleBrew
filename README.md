@@ -4,6 +4,8 @@
 
 This fork should still work with RPi, but no guarantees are currently made to fit for purpose on either platform.
 
+The Adafruit Library seems to work 'best' by using the PIN NAME, as per the <a href="https://github.com/CircuitCo/BeagleBone-Black/raw/master/BBB_SRM.pdf">BeableBone Black System Reference Manual</a>
+
 ----------
 
 # Raspberry Pi Temperature Controller
