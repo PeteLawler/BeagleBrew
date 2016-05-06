@@ -32,5 +32,5 @@
 	<GPIO_Pin>TIMER4</GPIO_Pin>
 	<!-- Units C (Celsius) or F (Fahrenheit) -->
 	<!-- Note: Default is F for Android app which can switch between F and C-->
-	<Temp_Units>F</Temp_Units>
+	<Temp_Units>C</Temp_Units>
 </Config>
