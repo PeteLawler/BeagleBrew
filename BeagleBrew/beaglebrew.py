@@ -26,7 +26,6 @@ from subprocess import Popen, PIPE, call
 from datetime import datetime
 import time, random, serial, os
 from smbus import SMBus
-import RPi.GPIO as GPIO
 from pid import pidpy as PIDController
 import xml.etree.ElementTree as ET
 from flask import Flask, render_template, request, jsonify
@@ -224,22 +223,37 @@ def heatProcGPIO(cycle_time, duty_cycle, pinNum, conn):
     p = current_process()
     print 'Starting:', p.name, p.pid
     if pinNum > 0:
-        GPIO.setup(pinNum, GPIO.OUT)
+        if gpioNumberingScheme == "BBB":
+            GPIO.setup(str(pinNum), GPIO.OUT)
+        else:
+            GPIO.setup(pinNum, GPIO.OUT)
         while (True):
             while (conn.poll()): #get last
                 cycle_time, duty_cycle = conn.recv()
             conn.send([cycle_time, duty_cycle])  
             if duty_cycle == 0:
-                GPIO.output(pinNum, OFF)
+                if gpioNumberingScheme == "BBB":
+                    GPIO.output(str(pinNum), OFF)
+		else:
+                    GPIO.output(pinNum, OFF)
                 time.sleep(cycle_time)
             elif duty_cycle == 100:
-                GPIO.output(pinNum, ON)
+                if gpioNumberingScheme == "BBB":
+                    GPIO.output(str(pinNum), ON)
+		else:
+                    GPIO.output(pinNum, ON)
                 time.sleep(cycle_time)
             else:
                 on_time, off_time = getonofftime(cycle_time, duty_cycle)
-                GPIO.output(pinNum, ON)
+                if gpioNumberingScheme == "BBB":
+                    GPIO.output(str(pinNum), ON)
+		else:
+                    GPIO.output(pinNum, ON)
                 time.sleep(on_time)
-                GPIO.output(pinNum, OFF)
+                if gpioNumberingScheme == "BBB":
+                    GPIO.output(str(pinNum), OFF)
+		else:
+                    GPIO.output(pinNum, OFF)
                 time.sleep(off_time)
 
 def unPackParamInitAndPost(paramStatus):
@@ -452,7 +466,6 @@ if __name__ == '__main__':
     # /boot/config.txt needs 'dtoverlay=w1-gpio' at the bottom of the file
     call(["modprobe", "w1-gpio"])
     call(["modprobe", "w1-therm"])
-    call(["modprobe", "i2c-bcm2708"])
     call(["modprobe", "i2c-dev"])
     
     # Retrieve root element from config.xml for parsing
@@ -476,8 +489,14 @@ if __name__ == '__main__':
     gpioNumberingScheme = xml_root.find('GPIO_pin_numbering_scheme').text.strip()
     if gpioNumberingScheme == "BOARD":
         GPIO.setmode(GPIO.BOARD)
+    elif gpioNumberingScheme == "BCM":
+ 	GPIO.setmode(GPIO.BCM)
+    if gpioNumberingScheme == "BBB":
+        print("WARNING: For kernels 4.1+, adafruit's library MUST be patched with https://github.com/grizmio/adafruit-beaglebone-io-python/blob/d9ad2b38120666c80f86fc8eb8c64bf699a4e339/adafruit.patch")
+        import Adafruit_BBIO.GPIO as GPIO
     else:
-	GPIO.setmode(GPIO.BCM)
+        call(["modprobe", "i2c-bcm2708"])
+        import RPi.GPIO as GPIO
 
     gpioInverted = xml_root.find('GPIO_Inverted').text.strip()
     if gpioInverted == "0":
@@ -490,14 +509,23 @@ if __name__ == '__main__':
 
     pinHeatList=[]
     for pin in xml_root.iter('Heat_Pin'):
-        pinHeatList.append(int(pin.text.strip()))
+        if gpioNumberingScheme == "BBB":
+            pinHeatList.append(pin.text.strip())
+        else:
+            pinHeatList.append(int(pin.text.strip()))
         
     pinGPIOList=[]
     for pin in xml_root.iter('GPIO_Pin'):
-        pinGPIOList.append(int(pin.text.strip()))
+        if gpioNumberingScheme == "BBB":
+            pinGPIOList.append(pin.text.strip())
+        else:
+            pinGPIOList.append(int(pin.text.strip()))
         
     for pinNum in pinGPIOList:
-        GPIO.setup(pinNum, GPIO.OUT)
+        if gpioNumberingScheme == "BBB":
+            GPIO.output(str(pinNum), OFF)
+        else:
+            GPIO.output(pinNum, OFF)
     
     for tempSensorId in xml_root.iter('Temp_Sensor_Id'):
         myTempSensor = Temp1Wire.Temp1Wire(tempSensorId.text.strip())     
