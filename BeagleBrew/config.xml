@@ -26,7 +26,7 @@
 	<Heat_Pin>TIMER7</Heat_Pin>
 	<Temp_Sensor_Id>28-000000000001</Temp_Sensor_Id>
 	<!-- If your relay board work inverted mode set to 1 -->
-	<GPIO_Inverted>0</GPIO_Inverted>
+	<GPIO_Inverted>1</GPIO_Inverted>
 	<!-- Up to 2 GPIO pins are supported but can easily be expanded in code-->
 	<!-- Repeat <GPIO_Pin> element name -->
 	<GPIO_Pin>TIMER4</GPIO_Pin>
