@@ -329,7 +329,8 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
         temp_ma = 0.0
 
 	#overwrite log file for new data log
-        ff = open("brewery" + str(myTempSensor.sensorNum) + ".csv", "wb")
+        ff = open(LogDir + LogFile + str(myTempSensor.sensorNum) + ".csv", "wb")
+        ff.write("elapsed time,temperature,target,heat output\n")
         ff.close()
 
         readyPIDcalc = False
@@ -403,7 +404,7 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
                 print "Current Temp: %3.2f deg %s, Heat Output: %3.1f%%" \
                                                         % (temp, tempUnits, duty_cycle)
 
-                logdata(myTempSensor.sensorNum, temp, duty_cycle)
+                logdata(myTempSensor.sensorNum, temp, set_point, duty_cycle)
 
                 readytemp == False
 
@@ -450,12 +451,10 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
                 readyPOST = False
             time.sleep(.01)
         
-
-def logdata(tank, temp, heat):
-    f = open("brewery" + str(tank) + ".csv", "ab")
-    f.write("%3.1f;%3.3f;%3.3f\n" % (getbrewtime(), temp, heat))
+def logdata(tank, temp, set_point, heat):
+    f = open(LogDir + LogFile + str(tank) + ".csv", "ab")
+    f.write("%3.1f,%3.3f,%3.3f,%3.3f\n" % (getbrewtime(), temp, set_point, heat))
     f.close()
-
 
 if __name__ == '__main__':
 
@@ -478,6 +477,14 @@ if __name__ == '__main__':
         os.chdir(root_dir_elem.text.strip())
     else:
         print("No RootDir tag found in config.xml, running from current directory")
+
+    LogDir = xml_root.find('LogDir').text.strip()
+    if LogDir == "":
+        LogDir = "/var/log/"
+
+    LogFile = xml_root.find('LogFile').text.strip()
+    if LogDir == "":
+        LogDir = beaglebrew
 
     useLCD = xml_root.find('Use_LCD').text.strip()
     if useLCD == "yes":

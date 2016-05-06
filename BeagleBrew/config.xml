@@ -8,6 +8,10 @@
 	<!-- Use LCD - yes or no-->
 	<Use_LCD>no</Use_LCD>
 
+        <!-- Log config -->
+        <LogDir>/var/log/</LogDir>
+        <LogFile>maticomatic.log</LogFile>
+
 	<!-- GPIO pin numbering scheme - choose BOARD or BCM. -->
         <!-- If something else than these are given, BCM is chosen as default. -->
         <!-- BBB Pins use Head_pin or NAME nomenclature as per BBB SRM -->
