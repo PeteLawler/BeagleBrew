@@ -1,6 +1,10 @@
 # Beaglebone Black Temperature Controller
 
-## This is a fork in progress of...
+## This is a fork in progress of Steven Smith's Raspberry Pi Temperature Controller
+
+This fork should still work with RPi, but no guarantees are currently made to fit for purpose on either platform.
+
+----------
 
 # Raspberry Pi Temperature Controller
 
