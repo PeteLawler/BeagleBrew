@@ -6,7 +6,7 @@
 	<!-- The static folder must contain the corresponding css and js files -->
 	<Template>raspibrew_bootstrap.html</Template>
 	<!-- Use LCD - yes or no-->
-	<Use_LCD>yes</Use_LCD>
+	<Use_LCD>no</Use_LCD>
 
 	<!-- GPIO pin numbering scheme - choose BOARD or BCM. -->
         <!-- If something else than these are given, BCM is chosen as default. -->
