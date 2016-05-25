@@ -32,6 +32,7 @@ from flask import Flask, render_template, request, jsonify
 
 import Temp1Wire
 import Display
+import sqlite3
 
 global parent_conn, parent_connB, parent_connC, statusQ, statusQ_B, statusQ_C
 global xml_root, template_name, pinHeatList, pinGPIOList
@@ -485,6 +486,14 @@ if __name__ == '__main__':
     LogFile = xml_root.find('LogFile').text.strip()
     if LogDir == "":
         LogDir = beaglebrew
+
+    SQLite3Dir = xml_root.find('SQLite3Dir').text.strip()
+    if SQLite3Dir == "":
+        SQLite3Dir = "/var/lib/beaglebrew"
+
+    SQLite3File = xml_root.find('SQLite3File').text.strip()
+    if SQLite3File == "":
+        SQLite3File = "beaglebrew.db"
 
     useLCD = xml_root.find('Use_LCD').text.strip()
     if useLCD == "yes":

@@ -14,6 +14,10 @@
         <LogDir>/var/log/</LogDir>
         <LogFile>maticomatic.log</LogFile>
 
+	<!-- SQLite3 config -->
+	<SQLite3Dir>/var/lib/beaglebrew/</SQLite3Dir>
+	<SQLite3File>beaglebrew.db</SQLite3File>
+
 	<!-- GPIO pin numbering scheme - choose BOARD or BCM. -->
         <!-- If something else than these are given, BCM is chosen as default. -->
         <!-- BBB Pins use Head_pin or NAME nomenclature as per BBB SRM -->
