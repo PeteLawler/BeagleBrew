@@ -1,0 +1,10 @@
+[Unit]
+Description=BeagleBrew service
+After=network.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python -u /var/www/BeagleBrew/beaglebrew.py 2>&1
+
+[Install]
+WantedBy=multi-user.target
