@@ -18,6 +18,10 @@
 	<SQLite3Dir>/var/lib/beaglebrew/</SQLite3Dir>
 	<SQLite3File>beaglebrew.db</SQLite3File>
 
+	<!-- TIme format -->
+	<!-- Absolute or relative -->
+	<TimeFormat>Relative</TimeFormat>
+
 	<!-- GPIO pin numbering scheme - choose BOARD or BCM. -->
         <!-- If something else than these are given, BCM is chosen as default. -->
         <!-- BBB Pins use Head_pin or NAME nomenclature as per BBB SRM -->
