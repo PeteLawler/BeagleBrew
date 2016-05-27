@@ -18,7 +18,7 @@
 	<SQLite3Dir>/var/lib/beaglebrew/</SQLite3Dir>
 	<SQLite3File>beaglebrew.db</SQLite3File>
 
-	<!-- TIme format -->
+	<!-- Time format -->
 	<!-- Absolute or relative -->
 	<TimeFormat>Relative</TimeFormat>
 
