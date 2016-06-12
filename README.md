@@ -4,7 +4,7 @@
 
 This fork should still work with RPi, but no guarantees are currently made to fit for purpose on either platform.
 
-Patch your Adafruit BB IO Library with <a href="https://github.com/grizmio/adafruit-beaglebone-io-python/blob/d9ad2b38120666c80f86fc8eb8c64bf699a4e339/adafruit.patch">grizmio's patch</a>. I'm carrying <a href="https://github.com/PeteLawler/adafruit-beaglebone-io-python">my own fork</a> as well, which should be (ie untested) compatible with both 3.8 and all above kernels.
+Use <a href="https://github.com/adafruit/adafruit-beaglebone-io-python">Adafruit's BBIO Python</a> library.
 
 The Adafruit Library seems to work 'best' by using the PIN NAME, as per the <a href="https://github.com/CircuitCo/BeagleBone-Black/raw/master/BBB_SRM.pdf">BeableBone Black System Reference Manual</a>
 
