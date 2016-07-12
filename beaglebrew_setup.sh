@@ -1,10 +1,10 @@
 #!/bin/bash
 #
-# RasPiBrew Setup Script
+# BeagleBrew Setup Script
 # 
 # type the following commands:
-# chmod +x raspibrew_setup.sh
-# sudo ./raspibrew_setup.sh
+# chmod +x beaglebrew_setup.sh
+# sudo ./beaglebrew_setup.sh
 # sudo reboot
 #
 
@@ -32,12 +32,15 @@ apt-get -y install python-dev
 apt-get -y install libpcre3-dev
 pip install Flask
 
+cp beaglebrew.service /etc/systemd/system/.
+chmod 755 /etc/systemd/system/beaglebrew.service
+systemctl daemon-reload
+systemctl disable beaglebrew.service
+
 while true; do
-    read -p "Do you wish to automatically boot RasPiBrew?" yn
+    read -p "Do you wish to automatically boot BeagleBrew?" yn
     case $yn in
-        [Yy]* ) cp ./brewonboot /etc/init.d;
-		chmod 755 /etc/init.d/brewonboot;
-		update-rc.d brewonboot defaults;
+        [Yy]* ) systemctl enable beaglebrew.service;
 		break;;
         [Nn]* ) break;;
         * ) echo "Please answer yes or no.";;
