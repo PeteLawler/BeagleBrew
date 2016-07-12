@@ -50,7 +50,7 @@ done
 while true; do
     read -p "Reboot to complete installation?" yn
     case $yn in
-        [Yy]* ) reboot; break;;
+        [Yy]* ) systemctl reboot; break;;
         [Nn]* ) break;;
         * ) echo "Please answer yes or no.";;
     esac
