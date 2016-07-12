@@ -8,6 +8,11 @@
 # sudo reboot
 #
 
+if ! id | grep -q root; then
+        echo "must be run as root"
+        exit
+fi
+
 while true; do
     read -p "Do you wish to run apt-get update & apt-get upgrade?" yn
     case $yn in
