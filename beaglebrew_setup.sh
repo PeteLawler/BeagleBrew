@@ -9,17 +9,17 @@
 #
 
 if ! id | grep -q root; then
-        echo "must be run as root"
-        exit
+	echo "must be run as root"
+	exit
 fi
 
 while true; do
-    read -p "Do you wish to run apt-get update & apt-get upgrade?" yn
-    case $yn in
-        [Yy]* ) apt-get -y update; apt-get -y upgrade; break;;
-        [Nn]* ) break;;
-        * ) echo "Please answer yes or no.";;
-    esac
+	read -p "Do you wish to run apt-get update & apt-get upgrade?" yn
+	case $yn in
+		[Yy]* ) apt-get -y update; apt-get -y upgrade; break;;
+		[Nn]* ) break;;
+		* ) echo "Please answer yes or no.";;
+	esac
 done
 
 #Install pip (package installer):
@@ -43,22 +43,21 @@ systemctl daemon-reload
 systemctl disable beaglebrew.service
 
 while true; do
-    read -p "Do you wish to automatically boot BeagleBrew?" yn
-    case $yn in
-        [Yy]* ) systemctl enable beaglebrew.service;
+	read -p "Do you wish to automatically boot BeagleBrew?" yn
+	case $yn in
+		[Yy]* ) systemctl enable beaglebrew.service;
 		break;;
-        [Nn]* ) break;;
-        * ) echo "Please answer yes or no.";;
-    esac
+		[Nn]* ) break;;
+		* ) echo "Please answer yes or no.";;
+	esac
 done
 
 while true; do
-    read -p "Reboot to complete installation?" yn
-    case $yn in
-        [Yy]* ) systemctl reboot; break;;
-        [Nn]* ) break;;
-        * ) echo "Please answer yes or no.";;
-    esac
+	read -p "Reboot to complete installation?" yn
+	case $yn in
+		[Yy]* ) systemctl reboot; break;;
+		[Nn]* ) break;;
+		* ) echo "Please answer yes or no.";;
+	esac
 done
-
 
