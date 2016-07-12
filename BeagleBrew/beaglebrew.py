@@ -508,7 +508,6 @@ if __name__ == '__main__':
     elif gpioNumberingScheme == "BCM":
  	GPIO.setmode(GPIO.BCM)
     if gpioNumberingScheme == "BBB":
-        print("WARNING: For kernels 4.1+, adafruit's library MUST be patched with https://github.com/grizmio/adafruit-beaglebone-io-python/blob/d9ad2b38120666c80f86fc8eb8c64bf699a4e339/adafruit.patch")
         import Adafruit_BBIO.GPIO as GPIO
     else:
         call(["modprobe", "i2c-bcm2708"])
