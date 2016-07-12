@@ -534,12 +534,6 @@ if __name__ == '__main__':
             pinGPIOList.append(pin.text.strip())
         else:
             pinGPIOList.append(int(pin.text.strip()))
-        
-    for pinNum in pinGPIOList:
-        if gpioNumberingScheme == "BBB":
-            GPIO.output(str(pinNum), OFF)
-        else:
-            GPIO.output(pinNum, OFF)
     
     for tempSensorId in xml_root.iter('Temp_Sensor_Id'):
         myTempSensor = Temp1Wire.Temp1Wire(tempSensorId.text.strip())     
@@ -574,6 +568,12 @@ if __name__ == '__main__':
             p = Process(name = "tempControlProc", target=tempControlProc, args=(myTempSensor, display, pinNum, readOnly, \
                                                               param.status, statusQ_C, child_conn))
             p.start()
+
+    for pinNum in pinGPIOList:
+        if gpioNumberingScheme == "BBB":
+            GPIO.output(str(pinNum), OFF)
+        else:
+            GPIO.output(pinNum, OFF)
 
     app.debug = True 
     app.run(use_reloader=False, host='0.0.0.0')
