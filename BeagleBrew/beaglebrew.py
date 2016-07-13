@@ -459,14 +459,13 @@ def logdata(tank, temp, set_point, heat):
 if __name__ == '__main__':
 
     brewtime = time.time()
-        
-    
+
     # The next two calls are not needed for January 2015 or newer builds (kernel 3.18.8 and higher)
     # /boot/config.txt needs 'dtoverlay=w1-gpio' at the bottom of the file
     call(["modprobe", "w1-gpio"])
     call(["modprobe", "w1-therm"])
     call(["modprobe", "i2c-dev"])
-    
+
     # Retrieve root element from config.xml for parsing
     tree = ET.parse('/absolute/location/config.xml')
     xml_root = tree.getroot()
