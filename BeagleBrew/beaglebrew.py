@@ -520,7 +520,6 @@ if __name__ == '__main__':
 	ON = 0
 	OFF = 1
 
-
     pinHeatList=[]
     for pin in xml_root.iter('Heat_Pin'):
         if gpioNumberingScheme == "BBB":
