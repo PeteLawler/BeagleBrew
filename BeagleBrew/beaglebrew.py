@@ -58,6 +58,7 @@ class param:
         "i_param" : 165,
         "d_param" : 4             
     }
+
 # main web page    
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -140,6 +141,7 @@ def GPIO_Toggle(GPIO_Num=None, onoff=None):
     else:
         out = {"pin" : 0, "status" : "off"}
     return jsonify(**out)
+
 #get status from RasPiBrew using firefox web browser (first temp sensor / backwards compatibility)
 @app.route('/getstatus') #only GET
 def getstatusB():          
@@ -164,6 +166,7 @@ def getstatus(sensorNum=None):
 
 def getbrewtime():
     return (time.time() - brewtime)    
+
 # Stand Alone Get Temperature Process               
 def gettempProc(conn, myTempSensor):
     p = current_process()
@@ -174,12 +177,14 @@ def gettempProc(conn, myTempSensor):
         num = myTempSensor.readTempC()
         elapsed = "%.2f" % (time.time() - t)
         conn.send([num, myTempSensor.sensorNum, elapsed])
+
 #Get time heating element is on and off during a set cycle time
 def getonofftime(cycle_time, duty_cycle):
     duty = duty_cycle/100.0
     on_time = cycle_time*(duty)
     off_time = cycle_time*(1.0-duty)   
     return [on_time, off_time]
+
 # Stand Alone Heat Process using I2C (optional)
 def heatProcI2C(cycle_time, duty_cycle, conn):
     p = current_process()
@@ -257,6 +262,7 @@ def unPackParamInitAndPost(paramStatus):
     d_param = paramStatus["d_param"] 
     return mode, cycle_time, duty_cycle, boil_duty_cycle, set_point, boil_manage_temp, num_pnts_smooth, \
            k_param, i_param, d_param
+
 def packParamGet(numTempSensors, myTempSensorNum, temp, tempUnits, elapsed, mode, cycle_time, duty_cycle, boil_duty_cycle, set_point, \
                                  boil_manage_temp, num_pnts_smooth, k_param, i_param, d_param):
     param.status["numTempSensors"] = numTempSensors
@@ -274,8 +280,8 @@ def packParamGet(numTempSensors, myTempSensorNum, temp, tempUnits, elapsed, mode
     param.status["k_param"] = k_param
     param.status["i_param"] = i_param
     param.status["d_param"] = d_param
-
     return param.status
+
 # Main Temperature Control Process
 def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, statusQ, conn):
         mode, cycle_time, duty_cycle, boil_duty_cycle, set_point, boil_manage_temp, num_pnts_smooth, \
@@ -427,6 +433,7 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
                     parent_conn_heat.send([cycle_time, duty_cycle])
                 readyPOST = False
             time.sleep(.01)
+
 def logdata(tank, temp, set_point, heat):
     f = open(LogDir + LogFile + str(tank) + ".csv", "ab")
     f.write("%3.1f,%3.3f,%3.3f,%3.3f\n" % (getbrewtime(), temp, set_point, heat))
