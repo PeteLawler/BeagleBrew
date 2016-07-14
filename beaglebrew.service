@@ -5,6 +5,7 @@ After=network.service
 [Service]
 Type=simple
 ExecStart=/usr/bin/python -u /var/www/BeagleBrew/beaglebrew.py 2>&1
+WorkingDirectory=/var/www/BeagleBrew
 
 [Install]
 WantedBy=multi-user.target
