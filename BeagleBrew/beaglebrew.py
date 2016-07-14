@@ -535,11 +535,5 @@ if __name__ == '__main__':
                                                               param.status, statusQ_C, child_conn))
             p.start()
 
-    for pinNum in pinGPIOList:
-        if gpioNumberingScheme == "BBB":
-            GPIO.output(str(pinNum), OFF)
-        else:
-            GPIO.output(pinNum, OFF)
-
     app.debug = True 
     app.run(use_reloader=False, host='0.0.0.0')
