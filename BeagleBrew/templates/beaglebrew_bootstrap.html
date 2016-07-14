@@ -9,7 +9,6 @@
 		<link type="text/css" href="static/external/bootstrap-3.0.3/css/bootstrap.min.css" rel="stylesheet">
 		<link type="text/css" href="static/external/css-toggle-switch/toggle-switch.css" rel="stylesheet">
 		<link type="text/css" href="static/beaglebrew_bootstrap.css" rel="stylesheet">
-
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -18,13 +17,10 @@
 		<![endif]-->
 	</head>
 	<body>
-
 		<div class="container">
-
 			<div class="page-header">
 				<h1>BeagleBrew</h1>
 			</div>
-
 			<div class="row">
 				<div class="col-xs-5">
 					<table id="dataTable" class="table table-bordered table-condensed table-responsive style="border-collapse:collapse;"">
@@ -33,7 +29,6 @@
 								<th class="col-xs-4">Vessel</th>
 								<th class="col-xs-4">Temp</th>
 								<th class="col-xs-4">Heat Output</th>
-
 							</tr>
 						</thead>
 						<tbody>
@@ -45,7 +40,6 @@
 							<tr>
 								<td colspan="3" class="hiddenRow" id="vessel1">
 								<div class="accordian-body collapse" id="extra_data_info1">
-
 									<div class="voffset15"></div>
 									Mode:<span id="modeResponse" class="label label-default"></span>
 									<br>
@@ -56,9 +50,7 @@
 									Kc:<span id="k_paramResponse" class="label label-default"></span>
 									Ti:<span id="i_paramResponse" class="label label-default"></span>
 									Td:<span id="d_paramResponse" class="label label-default"></span>
-
 									<div class="voffset15"></div>
-
 								</div></td>
 							</tr>
 							<tr id="secondRow" data-toggle="collapse" data-target="#extra_data_info2" class="selectRow accordion-toggle">
@@ -69,9 +61,7 @@
 							<tr>
 								<td colspan="3" class="hiddenRow" id="vessel2">
 								<div class="accordian-body collapse" id="extra_data_info2">
-
 									<div class="voffset15"></div>
-
 									Mode:<span id="modeResponse2" class="label label-default"></span>
 									<br>
 									Cycle Time(sec): <span id="cycletimeResponse2" class="label label-default"></span>
@@ -81,9 +71,7 @@
 									Kc:<span id="k_paramResponse2" class="label label-default"></span>
 									Ti:<span id="i_paramResponse2" class="label label-default"></span>
 									Td:<span id="d_paramResponse2" class="label label-default"></span>
-									
 									<div class="voffset15"></div>
-
 								</div></td>
 							</tr>
 							<tr id="thirdRow" data-toggle="collapse" data-target="#extra_data_info3" class="selectRow accordion-toggle">
@@ -94,9 +82,7 @@
 							<tr>
 								<td colspan="3" class="hiddenRow" id="vessel3">
 								<div class="accordian-body collapse" id="extra_data_info3">
-
 									<div class="voffset15"></div>
-
 									Mode:<span id="modeResponse3" class="label label-default"></span>
 									<br>
 									Cycle Time(sec): <span id="cycletimeResponse3" class="label label-default"></span>
@@ -106,30 +92,21 @@
 									Kc:<span id="k_paramResponse3" class="label label-default"></span>
 									Ti:<span id="i_paramResponse3" class="label label-default"></span>
 									Td:<span id="d_paramResponse3" class="label label-default"></span>
-									
 									<div class="voffset15"></div>
-
 								</div></td>
 							</tr>
 						</tbody>
 					</table>
-
 					<div class="voffset20"></div>
-
 					<fieldset class="border">
-
 						<legend class="border">
 							PID Control Panel
 						</legend>
-
 						<div class="voffset10"></div>
-
 						<form id="controlPanelForm" method="post" class="form-horizontal" role="form">
-
 							<div class="row">
 								<div class="form-group">
 									<div class="btn-group col-sm-offset-3" data-toggle="buttons">
-										
 										<label class="btn btn-primary">
 											<input type="radio" name="mode" id="auto" value="auto">
 											Auto </label>
@@ -190,10 +167,8 @@
 										</div>
 									</div>
 									<div class="col-xs-2"></div>
-
 								</div>
 							</div>
-
 							<div class="voffset20"></div>
 							<div class="row">
 								<div class="form-group">
@@ -204,14 +179,11 @@
 									</div>
 								</div>
 							</div>
-
 						</form>
 					</fieldset>
-
 				</div>
 				<div class="col-xs-7 hidden-xs">
 					<fieldset class="border">
-
 						<legend class="border">
 							Line Plots
 						</legend>
@@ -230,7 +202,6 @@
 									Window Size:
 									<input id="windowSizeText" type="text" name="windowSize"  maxlength = "6" size ="6" value=1000000 style="text-align: right;"/>
 									<br>
-
 									<button class="btn btn-default" id = "stop">
 										Stop Capture
 									</button>
@@ -238,44 +209,32 @@
 										Restart Capture
 									</button>
 									<!-- <button id = "calcpid">Calculate PID</button> -->
-
 								</div>
 							</div>
 					</fieldset>
 				</div>
 				<div class="row">
 					<fieldset class="border">
-
 						<legend class="border">
 							GPIO Control Panel
 						</legend>
-
 						<div class="voffset15"></div>
-
 						<label id="GPIO_label1" class="switch-light well col-xs-3" onclick="">
 							<input id="GPIO1" type="checkbox">
 							<span>PUMP/STIR1:<span>Off</span> <span>On</span> </span> <a id="GPIO_Color1" class="btn btn-danger"></a> </label>
-
 						<label id="GPIO_label2" class="switch-light well col-xs-3" onclick="">
 							<input id="GPIO2" type="checkbox">
 							<span>&nbsp&nbspPUMP/STIR2:&nbsp&nbsp<span>Off</span> <span>On</span> </span> <a id="GPIO_Color2" class="btn btn-danger"></a> </label>
-
 					</fieldset>
 				</div>
-
 			</div>
 		</div>
-
 		<div class="row">
 			<div class="col-xs-4">
-
 			</div>
-
 		</div>
 		<!-- row -->
-
 		</div><!-- /.container -->
-
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script type="text/javascript" src="static/external/jquery-2.0.3/jquery-2.0.3.min.js"></script>
 		<!-- Include all compiled plugins (below), or include individual files as needed -->

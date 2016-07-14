@@ -4,7 +4,6 @@
     	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>RasPi Brew Temperature Controller</title>
         <link rel="stylesheet" type="text/css" href="/static/beaglebrew.css" />
-        
         <!--[if IE]><script type="text/javascript" src="excanvas.js"></script><![endif]-->
 		<script type="text/javascript" src="static/external/gauge.js">			
 		</script>
@@ -17,7 +16,6 @@
         <script type="text/javascript" src="static/beaglebrew.js">
         </script>
     </head>
-    
     <body>
     	<div class="ControlResponse" id="tempheatplots" style="float:right;">
 	    	<div class="tempdata"> 
@@ -41,14 +39,12 @@
 			<button id = "restart">Restart Capture  </button> 
 			<!-- <button id = "calcpid">Calculate PID</button> -->
 			<br><br>
-			
 			Dead Time (secs): 
 			<span id = "deadTime">
 			</span><br>
 			Normalized Slope (a): 
 			<span id = "normSlope">
 			</span>
-			
 			<table>
 	     		<tr>
 			        <td align=right>Kc: </td>
@@ -63,13 +59,11 @@
 			        <td id="D_tune" align=right>0</td>
 		        </tr>
 		    </table>
-			
 		    </div>
 	    </div>
 	    <div class="ControlResponse" style="float:left;">
 			<canvas id="tempGauge" width="300" height="300">
 			</canvas>
-		
 	    	<div class="tempControlResponse">
 	    	<p align=center style="font-size: large;text-decoration: underline;">Current Status</p> 
 	     	<table>
@@ -124,7 +118,6 @@
 		        {% else %}
 		        	<input class="modeclass" type="radio" name="mode" value="off"/> Off <br> <br>
 		    	{% endif %}
-		    	
 		    	<table>
 		    		<tr>
 		    			<td align=right>Set Point: </td>
@@ -167,7 +160,5 @@
 	    	</form>		
 	    </div>
 	    </div>
- 
     </body>
-    
 </html>
