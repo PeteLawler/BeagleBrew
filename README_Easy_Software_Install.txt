@@ -9,7 +9,12 @@ Simple Complete Beaglebone & BeagleBrew Software Installation from Windows
 6)  Use Putty to log onto the Beaglebone
 7)  Update tools 'git -C /opt/scripts pull'
 8)  Update kernel 'sudo /opt/scripts/tools/update_kernel.sh'
-9)  Add in Dallas 1W Overlay and enable it at boot time, soft load for now (instructions to follow - this can involve a bit of work and additional code)
+9)  Setup overlays, paying particular attention to the Dallas 1W overlay (BB-W1-P9.12-00A0).
+. 'mkdir  ~/Downloads/bb.org-overlays'
+. 'git clone https://github.com/beagleboard/bb.org-overlays ~/Downloads/bb.org-overlays
+. 'cd  ~/Downloads/bb.org-overlays'
+. './dtc-overlay.sh && ./install.sh'
+. 'sudo bash -c "echo 'cape_enable=bone_capemgr.enable_partno=BB-W1-P9.12-00A0 >> /boot/uEnv.txt"''
 10) Grab the BeagleBrew code. 'sudo git clone https://github.com/PeteLawler/BeagleBrew.git /var/www'
 11) Make the install script executable. 'sudo chmod +x /var/www/BeagleBrew/beaglebrew_setup.sh'
 12) Run the installer and follow the prompts. 'sudo /var/www/BeagleBrew/beaglebrew_setup.sh'
