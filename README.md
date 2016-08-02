@@ -2,13 +2,13 @@
 
 ## This is a fork in progress of Steven Smith's Raspberry Pi Temperature Controller
 
-This fork should still work with RPi, but no guarantees are currently made to fit for purpose on either platform. See issue <a href="https://github.com/PeteLawler/BeagleBrew/issues/19">#19</a> for pro/con discussion of hardware single/multi platform.
+This fork should still work with RPi, but no guarantees are currently made to fit for purpose on either platform. See issue []https://github.com/PeteLawler/BeagleBrew/issues/19"]()#19) for pro/con discussion of hardware single/multi platform.
 
-Use <a href="https://github.com/adafruit/adafruit-beaglebone-io-python">Adafruit's BBIO Python</a> library.
+Use ["https://github.com/adafruit/adafruit-beaglebone-io-python"](Adafruit's BBIO Python) library.
 
-The Adafruit Library seems to work 'best' by using the PIN NAME, as per the <a href="https://github.com/CircuitCo/BeagleBone-Black/raw/master/BBB_SRM.pdf">BeableBone Black System Reference Manual</a>
+The Adafruit Library seems to work 'best' by using the PIN NAME, as per the [https://github.com/CircuitCo/BeagleBone-Black/raw/master/BBB_SRM.pdf"](BeableBone Black System Reference Manual)
 
-Note: Software is <a href="http://directory.fsf.org/wiki/License:X11">"X11 Licensed</a> (aka MIT)
+Note: Software is [http://directory.fsf.org/wiki/License:X11]()X11 Licensed) (aka MIT)
 
 ----------
 
