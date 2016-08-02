@@ -45,7 +45,7 @@ class param:
     status = {
         "numTempSensors" : 0,
         "temp" : "0",
-        "tempUnits" : "F",
+        "tempUnits" : "C",
         "elapsed" : "0",
         "mode" : "off",
         "cycle_time" : 2.0,
