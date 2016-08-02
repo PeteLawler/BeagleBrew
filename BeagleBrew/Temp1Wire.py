@@ -39,13 +39,14 @@ class Temp1Wire:
 		print("Constructing 1W sensor %s"%(tempSensorId))
 
 	def readTempC(self):
-		#pipe = Popen(["cat","/sys/bus/w1/devices/" + tempSensorId + "/w1_slave"], stdout=PIPE)
-		pipe = Popen(["cat", self.oneWireDir + self.tempSensorId + "/w1_slave"], stdout=PIPE)
-		result = pipe.communicate()[0]
+		temp_C = -99 # default to assuming a bad temp reading
 
-		if (result.split('\n')[0].split(' ')[11] == "YES"):
-		  temp_C = float(result.split("=")[-1])/1000 # temp in Celcius
+		if os.path.exists(self.oneWireDir + self.tempSensorId + "/w1_slave"):
+			pipe = Popen(["cat", self.oneWireDir + self.tempSensorId + "/w1_slave"], stdout=PIPE)
+			result = pipe.communicate()[0]
+			if (result.split('\n')[0].split(' ')[11] == "YES"):
+			  temp_C = float(result.split("=")[-1])/1000 # temp in Celcius
 		else:
-		  temp_C = -99 #bad temp reading
-		  
+			print("Sensor missing %s"%(self.oneWireDir + self.tempSensorId + "/w1_slave"))
+
 		return temp_C
