@@ -19,17 +19,17 @@
 # WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR 
 # IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+import time, random, serial, os, sqlite3
+import xml.etree.ElementTree as ET
+import Temp1Wire
+
 from multiprocessing import Process, Pipe, Queue, current_process
 from Queue import Full
 from subprocess import Popen, PIPE, call
 from datetime import datetime
-import time, random, serial, os, sqlite3
 from smbus import SMBus
 from pid import pidpy as PIDController
-import xml.etree.ElementTree as ET
 from flask import Flask, render_template, request, jsonify
-
-import Temp1Wire
 
 global parent_conn, parent_connB, parent_connC, statusQ, statusQ_B, statusQ_C
 global xml_root, template_name, pinHeatList, pinGPIOList
