@@ -23,15 +23,13 @@ from multiprocessing import Process, Pipe, Queue, current_process
 from Queue import Full
 from subprocess import Popen, PIPE, call
 from datetime import datetime
-import time, random, serial, os
+import time, random, serial, os, sqlite3
 from smbus import SMBus
 from pid import pidpy as PIDController
 import xml.etree.ElementTree as ET
 from flask import Flask, render_template, request, jsonify
 
 import Temp1Wire
-#import Display
-import sqlite3
 
 global parent_conn, parent_connB, parent_connC, statusQ, statusQ_B, statusQ_C
 global xml_root, template_name, pinHeatList, pinGPIOList
