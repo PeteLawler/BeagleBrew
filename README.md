@@ -8,6 +8,8 @@ Use <a href="https://github.com/adafruit/adafruit-beaglebone-io-python">Adafruit
 
 The Adafruit Library seems to work 'best' by using the PIN NAME, as per the <a href="https://github.com/CircuitCo/BeagleBone-Black/raw/master/BBB_SRM.pdf">BeableBone Black System Reference Manual</a>
 
+Note: Software is <a href="http://directory.fsf.org/wiki/License:X11">"X11 Licensed</a> (aka MIT)
+
 ----------
 
 # Raspberry Pi Temperature Controller
