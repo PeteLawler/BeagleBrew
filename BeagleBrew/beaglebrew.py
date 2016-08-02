@@ -30,7 +30,7 @@ import xml.etree.ElementTree as ET
 from flask import Flask, render_template, request, jsonify
 
 import Temp1Wire
-import Display
+#import Display
 import sqlite3
 
 global parent_conn, parent_connB, parent_connC, statusQ, statusQ_B, statusQ_C
