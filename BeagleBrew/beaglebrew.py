@@ -22,7 +22,7 @@
 
 import time, random, serial, os, sqlite3
 import xml.etree.ElementTree as ET
-import Temp1Wire,import Display
+import Temp1Wire, Display
 
 from multiprocessing import Process, Pipe, Queue, current_process
 from Queue import Full
