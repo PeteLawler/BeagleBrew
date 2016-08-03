@@ -43,6 +43,8 @@ sed s/^Environment.*^/Environment=\\"INSTALL_LOCATION\=\/var\/www\/BeagleBrew\/"
 systemctl daemon-reload
 systemctl disable beaglebrew.service
 
+cp -pvrn BeagleBrew /var/www/.
+
 while true; do
 	read -p "Do you wish to automatically boot BeagleBrew?" yn
 	case $yn in
