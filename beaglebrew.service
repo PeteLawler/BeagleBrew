@@ -1,9 +1,9 @@
 [Unit]
 Description=BeagleBrew service
 After=network.service
-Environment="INSTALL_LOCATION=/var/www/BeagleBrew"
 
 [Service]
+Environment="INSTALL_LOCATION=/var/www/BeagleBrew"
 Type=simple
 ExecStart=/usr/bin/python -u ${INSTALL_LOCATION}/beaglebrew.py 2>&1
 WorkingDirectory=${INSTALL_LOCATION}/BeagleBrew
