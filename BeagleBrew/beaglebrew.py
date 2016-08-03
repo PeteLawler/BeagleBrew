@@ -480,7 +480,7 @@ if __name__ == '__main__':
 #        tempUnits = xml_root.find('Temp_Units').text.strip()
 #        display = Display.LCD(tempUnits)
 #    else:
-    display = Display.NoDisplay()
+#    display = Display.NoDisplay()
     gpioNumberingScheme = xml_root.find('GPIO_pin_numbering_scheme').text.strip()
     if gpioNumberingScheme == "BOARD":
         GPIO.setmode(GPIO.BOARD)
@@ -520,9 +520,9 @@ if __name__ == '__main__':
         else:
             pinNum = 0
             readOnly = True
-        if myTempSensor.sensorNum >= 1:
-            display = Display.NoDisplay()
-        if myTempSensor.sensorNum == 0:
+#        if myTempSensor.sensorNum >= 1:
+#            display = Display.NoDisplay()
+#        if myTempSensor.sensorNum == 0:
             statusQ = Queue(2) #blocking queue        
             parent_conn, child_conn = Pipe()
             p = Process(name = "tempControlProc", target=tempControlProc, args=(myTempSensor, display, pinNum, readOnly, \
