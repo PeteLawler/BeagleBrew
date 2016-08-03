@@ -12,7 +12,7 @@
 
         <!-- Log config -->
         <LogDir>/var/log/</LogDir>
-        <LogFile>maticomatic.log</LogFile>
+        <LogFile>BeagleBrew.log</LogFile>
 
 	<!-- SQLite3 config -->
 	<SQLite3Dir>/var/lib/beaglebrew/</SQLite3Dir>
