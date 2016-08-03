@@ -1,11 +1,12 @@
 [Unit]
 Description=BeagleBrew service
 After=network.service
+Environment="INSTALL_LOCATION=/var/www/BeagleBrew"
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/python -u /var/www/BeagleBrew/beaglebrew.py 2>&1
-WorkingDirectory=/var/www/BeagleBrew
+ExecStart=/usr/bin/python -u ${INSTALL_LOCATION}/beaglebrew.py 2>&1
+WorkingDirectory=${INSTALL_LOCATION}/BeagleBrew
 
 [Install]
 WantedBy=multi-user.target
