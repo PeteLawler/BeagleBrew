@@ -4,7 +4,7 @@ Simple Complete Beaglebone & BeagleBrew Software Installation from Windows
 1)  Google SDFormatter, Win32DiskImager and Putty and download them
 2)  Use SDFormatter to format SD card
 3)  Use Win32DiskImager to burn latest Beaglebone Debian Image from http://beagleboard.org/latest-images
-4)  When Beagle Bone boots up, use Pyrrt to log onto the Beaglebone and grow partition. Type: 'sudo /opt/tools/scripts/grow_partition.sh'
+4)  When Beagle Bone boots up, use Putty to log onto the Beaglebone and grow partition. Type: 'sudo /opt/tools/scripts/grow_partition.sh'
 5)  Reboot the Beaglebone 'sudo reboot'
 6)  Use Putty to log onto the Beaglebone
 7)  Update tools 'git -C /opt/scripts pull'
