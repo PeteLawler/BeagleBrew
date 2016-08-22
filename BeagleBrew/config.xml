@@ -37,7 +37,6 @@
 	<!-- Currently limited to 3 temp sensors but that can easily be expanded in raspibrew.py -->
 	<Temp_Sensor_Id>28-000000000000</Temp_Sensor_Id>
 	<Heat_Pin>TIMER7</Heat_Pin>
-	<Temp_Sensor_Id>28-000000000001</Temp_Sensor_Id>
 
 	<!-- Up to 2 GPIO pins are supported but can easily be expanded in code-->
 	<!-- Repeat <GPIO_Pin> element name -->
