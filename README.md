@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/PeteLawler/BeagleBrew.svg?branch=master)](https://travis-ci.org/PeteLawler/BeagleBrew)
+
 # Beaglebone Black Temperature Controller
 
 ## This is a fork in progress of Steven Smith's Raspberry Pi Temperature Controller
