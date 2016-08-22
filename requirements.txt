@@ -11,7 +11,6 @@ numpy==1.11.1rc1
 pyasn1==0.1.9
 pyOpenSSL==16.0.0
 pyserial==3.1
-python-apt==1.1.0b4
 python-gsmmodem==0.9
 six==1.10.0
 smbus==1.1
