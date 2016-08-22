@@ -9,7 +9,6 @@ Jinja2==2.8
 MarkupSafe==0.23
 numpy==1.11.1rc1
 pyasn1==0.1.9
-pygobject==3.20.1
 pyOpenSSL==16.0.0
 pyserial==3.1
 python-apt==1.1.0b4
