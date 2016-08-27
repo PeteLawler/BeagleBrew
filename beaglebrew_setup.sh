@@ -44,6 +44,7 @@ systemctl daemon-reload
 systemctl disable beaglebrew.service
 
 cp -pvrn BeagleBrew /opt/.
+mkdir -p /var/log/beaglebrew/
 
 while true; do
 	read -p "Do you wish to automatically boot BeagleBrew?" yn

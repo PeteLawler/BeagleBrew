@@ -11,8 +11,9 @@
 	<Use_LCD>no</Use_LCD>
 
         <!-- Log config -->
-        <LogDir>/var/log/</LogDir>
-        <LogFile>BeagleBrew.log</LogFile>
+        <LogDir>/var/log/beaglebrew/</LogDir>
+        <LogStatusFile>BeagleBrewStatus</LogStatusFile>
+        <LogDataFile>BeagleBrewData</LogDataFile>
 
 	<!-- SQLite3 config -->
 	<SQLite3Dir>/var/lib/beaglebrew/</SQLite3Dir>

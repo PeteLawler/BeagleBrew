@@ -434,9 +434,15 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
             time.sleep(.01)
 
 def logdata(tank, temp, set_point, heat):
-    f = open(LogDir + LogFile + str(tank) + ".csv", "ab")
+    f = open(LogDir + LogDataFile + str(tank) + ".csv", "ab")
     f.write("%3.1f,%3.3f,%3.3f,%3.3f\n" % (getbrewtime(), temp, set_point, heat))
     f.close()
+
+def logstatus(status_string):
+    f = open(LogDir + LogStatusFile + str(tank) + ".log", "ab")
+    f.write(status_string)
+    f.close()
+
 
 if __name__ == '__main__':
 
@@ -461,11 +467,15 @@ if __name__ == '__main__':
 
     LogDir = xml_root.find('LogDir').text.strip()
     if LogDir == "":
-        LogDir = "/var/log/"
+        LogDir = "/var/log/beaglebrew/"
 
-    LogFile = xml_root.find('LogFile').text.strip()
-    if LogDir == "":
-        LogDir = beaglebrew
+    LogDataFile = xml_root.find('LogDataFile').text.strip()
+    if LogDataFile == "":
+        LogDataFile = "BeagleBrewData"
+
+    LogStatusFile = xml_root.find('LogStatusFile').text.strip()
+    if LogStatusFile == "":
+        LogStatusFile = "BeagleBrewStatus"
 
     SQLite3Dir = xml_root.find('SQLite3Dir').text.strip()
     if SQLite3Dir == "":
