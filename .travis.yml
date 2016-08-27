@@ -9,6 +9,7 @@ cache:
 
 python:
   - "2.7"
+  - "3.2"
 
 # command to install dependencies
 addons:
