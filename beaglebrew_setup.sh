@@ -39,11 +39,11 @@ pip install Flask
 
 cp beaglebrew.service /etc/systemd/system/.
 chmod 755 /etc/systemd/system/beaglebrew.service
-sed -i s/INSTALL_LOCATION/\\/var\\/www\\/BeagleBrew/g /etc/systemd/system/beaglebrew.service
+sed -i s/INSTALL_LOCATION/\\/opt\\/BeagleBrew/g /etc/systemd/system/beaglebrew.service
 systemctl daemon-reload
 systemctl disable beaglebrew.service
 
-cp -pvrn BeagleBrew /var/www/.
+cp -pvrn BeagleBrew /opt/.
 
 while true; do
 	read -p "Do you wish to automatically boot BeagleBrew?" yn
