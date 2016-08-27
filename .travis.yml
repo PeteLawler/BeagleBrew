@@ -1,6 +1,15 @@
+sudo: false
+
 language: python
+
+cache:
+  directories:
+  - "$HOME/.cache/pip"
+  - "$HOME/.pyenv"
+
 python:
   - "2.7"
+
 # command to install dependencies
 addons:
   apt:
@@ -8,6 +17,11 @@ addons:
     - libpcre3-dev
     - python-smbus
     - python-dev
+
 install: "pip install -r requirements.txt"
+
 # command to run tests
 script: nosetests
+
+notifications:
+  email: false
