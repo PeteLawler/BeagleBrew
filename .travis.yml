@@ -19,12 +19,8 @@ addons:
     - python-smbus
     - python-dev
 
-before_install:
-  - pip install --user codecov
 install: "pip install -r requirements.txt"
 
-after_success:
-  - codecov --file coverage/lcov.info --disable search
 # command to run tests
 script: nosetests
 

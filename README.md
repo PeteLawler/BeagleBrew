@@ -1,5 +1,4 @@
 [![Build Status](https://travis-ci.org/PeteLawler/BeagleBrew.svg?branch=master)](https://travis-ci.org/PeteLawler/BeagleBrew)
-[![Coverage Status](https://coveralls.io/repos/github/PeteLawler/BeagleBrew/badge.svg?branch=master)](https://coveralls.io/github/PeteLawler/BeagleBrew?branch=master)
 
 # Beaglebone Black Temperature Controller
 
