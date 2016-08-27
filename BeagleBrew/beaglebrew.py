@@ -99,9 +99,11 @@ def postparams(sensorNum=None):
     #send to main temp control process 
     #if did not receive variable key value in POST, the param class default is used
     if sensorNum == "1":
+        logstatus("got post to temp sensor 1")
         print "got post to temp sensor 1"
         parent_conn.send(param.status)
     elif sensorNum == "2":
+        logstatus("got post to temp sensor 2")
         print "got post to temp sensor 2"
         if len(pinHeatList) >= 2:
             parent_connB.send(param.status)
@@ -110,8 +112,10 @@ def postparams(sensorNum=None):
             param.status["set_point"] = 0.0
             param.status["duty_cycle"] = 0.0 
             parent_connB.send(param.status)
+            logstatus("no heat GPIO pin assigned")
             print "no heat GPIO pin assigned"
     elif sensorNum == "3":
+        logstatus("got post to temp sensor 3")
         print "got post to temp sensor 3"
         if len(pinHeatList) >= 3:
             parent_connC.send(param.status)
@@ -120,8 +124,10 @@ def postparams(sensorNum=None):
             param.status["set_point"] = 0.0
             param.status["duty_cycle"] = 0.0 
             parent_connC.send(param.status)
+            logstatus("no heat GPIO pin assigned")
             print "no heat GPIO pin assigned"
     else:
+        logstatus("Sensor doesn't exist (POST)")
         print "Sensor doesn't exist (POST)"
     return 'OK'
 
@@ -133,9 +139,11 @@ def GPIO_Toggle(GPIO_Num=None, onoff=None):
         if onoff == "on":
             GPIO.output(pinGPIOList[int(GPIO_Num)-1], ON)
             out["status"] = "on"
+            logstatus("GPIO Pin #%s is toggled on" % pinGPIOList[int(GPIO_Num)-1] )
             print "GPIO Pin #%s is toggled on" % pinGPIOList[int(GPIO_Num)-1] 
         else: #off
             GPIO.output(pinGPIOList[int(GPIO_Num)-1], OFF)
+            logstatus("GPIO Pin #%s is toggled off" % pinGPIOList[int(GPIO_Num)-1] )
             print "GPIO Pin #%s is toggled off" % pinGPIOList[int(GPIO_Num)-1] 
     else:
         out = {"pin" : 0, "status" : "off"}
@@ -169,6 +177,7 @@ def getbrewtime():
 # Stand Alone Get Temperature Process               
 def gettempProc(conn, myTempSensor):
     p = current_process()
+    logstatus('Starting:', p.name, p.pid)
     print 'Starting:', p.name, p.pid
     while (True):
         t = time.time()
@@ -187,6 +196,7 @@ def getonofftime(cycle_time, duty_cycle):
 # Stand Alone Heat Process using I2C (optional)
 def heatProcI2C(cycle_time, duty_cycle, conn):
     p = current_process()
+    logstatus('Starting:', p.name, p.pid)
     print 'Starting:', p.name, p.pid
     bus = SMBus(0)
     bus.write_byte_data(0x26,0x00,0x00) #set I/0 to write
@@ -210,6 +220,7 @@ def heatProcI2C(cycle_time, duty_cycle, conn):
 # Stand Alone Heat Process using GPIO
 def heatProcGPIO(cycle_time, duty_cycle, pinNum, conn):
     p = current_process()
+    logstatus('Starting:', p.name, p.pid)
     print 'Starting:', p.name, p.pid
     if pinNum > 0:
         if gpioNumberingScheme == "BBB":
@@ -286,6 +297,7 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
         mode, cycle_time, duty_cycle, boil_duty_cycle, set_point, boil_manage_temp, num_pnts_smooth, \
         k_param, i_param, d_param = unPackParamInitAndPost(paramStatus)
         p = current_process()
+        logstatus('Starting:', p.name, p.pid)
         print 'Starting:', p.name, p.pid
         #Pipe to communicate with "Get Temperature Process"
         parent_conn_temp, child_conn_temp = Pipe()    
@@ -324,6 +336,7 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
                 temp_C, tempSensorNum, elapsed = parent_conn_temp.recv() #non blocking receive from Get Temperature Process
 
                 if temp_C == -99:
+                    logstatus("Bad Temp Reading - retry")
                     print "Bad Temp Reading - retry"
                     continue
 
@@ -409,12 +422,14 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
             if readyPOST == True:
                 if mode == "auto":
                     display.showAutoMode(set_point)
+                    logstatus("auto selected")
                     print "auto selected"
                     pid = PIDController.pidpy(cycle_time, k_param, i_param, d_param) #init pid
                     duty_cycle = pid.calcPID_reg4(temp_ma, set_point, True)
                     parent_conn_heat.send([cycle_time, duty_cycle])
                 if mode == "boil":
                     display.showBoilMode()
+                    logstatus("boil selected")
                     print "boil selected"
                     boil_duty_cycle = duty_cycle_temp
                     duty_cycle = 100 #full power to boil manage temperature
@@ -422,11 +437,13 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
                     parent_conn_heat.send([cycle_time, duty_cycle])
                 if mode == "manual":
                     display.showManualMode()
+                    logstastus("manual selected")
                     print "manual selected"
                     duty_cycle = duty_cycle_temp
                     parent_conn_heat.send([cycle_time, duty_cycle])
                 if mode == "off":
                     display.showOffMode()
+                    logstatus("off selected")
                     print "off selected"
                     duty_cycle = 0
                     parent_conn_heat.send([cycle_time, duty_cycle])
@@ -440,7 +457,7 @@ def logdata(tank, temp, set_point, heat):
 
 def logstatus(status_string):
     f = open(LogDir + LogStatusFile + str(tank) + ".log", "ab")
-    f.write(status_string)
+    f.write(getbrewtime(), ":", status_string)
     f.close()
 
 
@@ -463,6 +480,7 @@ if __name__ == '__main__':
     if root_dir_elem is not None:
         os.chdir(root_dir_elem.text.strip())
     else:
+        logstatus("No RootDir tag found in config.xml, running from current directory")
         print("No RootDir tag found in config.xml, running from current directory")
 
     LogDir = xml_root.find('LogDir').text.strip()
