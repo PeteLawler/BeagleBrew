@@ -22,19 +22,10 @@ while true; do
 	esac
 done
 
-#Install pip (package installer):
-apt-get -y install python-setuptools
+#Install pip (package installer) and other needed packages
+apt-get -y install python-setuptools python-dev python-smbus libpcre3-dev
 easy_install pip
 
-#Install PySerial
-pip install pyserial
-
-#Install Python i2c and smbus
-apt-get -y install python-smbus
-
-#Install Flask
-apt-get -y install python-dev
-apt-get -y install libpcre3-dev
 pip install Flask
 
 cp beaglebrew.service /etc/systemd/system/.
@@ -45,6 +36,7 @@ systemctl disable beaglebrew.service
 
 cp -pvrn BeagleBrew /opt/.
 mkdir -p /var/log/beaglebrew/
+ln -s /opt/BeagleBrew/beaglebrew_config.xml /etc/opt/
 
 while true; do
 	read -p "Do you wish to automatically boot BeagleBrew?" yn
