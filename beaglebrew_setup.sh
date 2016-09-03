@@ -30,7 +30,7 @@ easy_install pip
 pip install Flask
 
 cp beaglebrew.service /etc/systemd/system/.
-chmod 755 /etc/systemd/system/beaglebrew.service
+chmod 644 /etc/systemd/system/beaglebrew.service
 sed -i s/INSTALL_LOCATION/\\/opt\\/BeagleBrew/g /etc/systemd/system/beaglebrew.service
 systemctl daemon-reload
 systemctl disable beaglebrew.service
