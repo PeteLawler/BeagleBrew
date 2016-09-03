@@ -24,6 +24,7 @@ done
 
 #Install pip (package installer) and other needed packages
 apt-get -y install python-setuptools python-dev python-smbus libpcre3-dev
+
 easy_install pip
 
 pip install Flask
