@@ -12,6 +12,10 @@ DOWNLOAD_LOCATION=/var/tmp
 ADAFRUIT_PYTHON_GIT_LOCATION=https://github.com/adafruit/adafruit-beaglebone-io-python.git
 BBDOTORG_OVERLAYS_GIT_LOCATION=https://github.com/RobertCNelson/bb.org-overlays.git
 
+check_dpkg () {
+	LC_ALL=C dpkg --list | awk '{print $2}' | grep "^${pkg}" >/dev/null || deb_pkgs="${deb_pkgs}${pkg} "
+}
+
 if ! id | grep -q root; then
 	echo "must be run as root"
 	exit
@@ -35,7 +39,52 @@ while true; do
 done
 
 #Install pip (package installer) and other needed packages
-apt --assume-yes install python-setuptools python-dev python-smbus libpcre3-dev build-essential python-dev python-setuptools python-pip python-smbus python-serial
+echo "Checking for support tools"
+unset deb_pkgs
+pkg="python-setuptools"
+check_dpkg
+pkg=" python-dev"
+check_dpkg
+pkg=" python-smbus "
+check_dpkg
+pkg="libpcre3-dev "
+check_dpkg
+pkg="build-essential"
+check_dpkg
+pkg=" python-dev "
+check_dpkg
+pkg="python-setuptools"
+check_dpkg
+pkg=" python-pip "
+check_dpkg
+pkg="python-smbus"
+check_dpkg
+pkg=" python-serial"
+check_dpkg
+pkg="bash-completion"
+check_dpkg
+pkg="bison"
+check_dpkg
+pkg="build-essential"
+check_dpkg
+pkg="curl"
+check_dpkg
+pkg="flex"
+check_dpkg
+pkg="git"
+check_dpkg
+pkg="git-core"
+check_dpkg
+pkg="man"
+check_dpkg
+
+if [ "${deb_pkgs}" ] ; then
+	echo "Installing: ${deb_pkgs}"
+	sudo apt update
+	sudo apt --assume-yes install ${deb_pkgs}
+	sudo apt clean
+fi
+echo "-----------------------------------"
 
 easy_install pip
 
@@ -45,6 +94,7 @@ if [ ! -d ${DOWNLOAD_LOCATION} ]; then
 	mkdir -p ${DOWNLOAD_LOCATION}
 fi
 if [ -d ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python/.git ]; then
+	echo "Updating adafruit-beaglebone-io-python if necessary"
 	git -C ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python pull
 else
 	git -C ${DOWNLOAD_LOCATION} clone ${ADAFRUIT_PYTHON_GIT_LOCATION}
@@ -52,6 +102,7 @@ fi
 bash -c "cd ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python/ && python setup.py install"
 
 if [ -d ${DOWNLOAD_LOCATION}/bb.org-overlays/.git ]; then
+	echo "Updating bb.org-overlays if necessary"
 	git -C ${DOWNLOAD_LOCATION}/bb.org-overlays pull
 else
 	git -C ${DOWNLOAD_LOCATION} clone ${BBDOTORG_OVERLAYS_GIT_LOCATION}
