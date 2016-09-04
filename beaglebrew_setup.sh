@@ -6,7 +6,9 @@
 # chmod +x beaglebrew_setup.sh
 # sudo ./beaglebrew_setup.sh
 # sudo reboot
-#
+
+# Where to download misc things
+DOWNLOAD_LOCATION=/var/tmp
 
 if ! id | grep -q root; then
 	echo "must be run as root"
@@ -37,13 +39,17 @@ easy_install pip
 
 pip install Flask # See https://github.com/adafruit/adafruit-beaglebone-io-python/issues/107 why we can't install Adafruit's BBIO via pypi here...
 
-
-if [ -d /opt/adafruit-beaglebone-io-python/.git ]; then
-	git -C /opt/adafruit-beaglebone-io-python pull
-else
-	git -C /opt/ clone git://github.com/adafruit/adafruit-beaglebone-io-python.git
+if [ ! -d ${DOWNLOAD_LOCATION} ]; then
+	mkdir -p ${DOWNLOAD_LOCATION}
 fi
-bash -c "cd /opt/adafruit-beaglebone-io-python/ && python setup.py install"
+if [ -d ${DOWNLOAD_LOCATION}adafruit-beaglebone-io-python/.git ]; then
+	git -C ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python pull
+else
+	git -C ${DOWNLOAD_LOCATION} clone git://github.com/adafruit/adafruit-beaglebone-io-python.git
+fi
+bash -c "cd ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python/ && python setup.py install"
+
+
 
 cp beaglebrew.service /etc/systemd/system/.
 chmod 644 /etc/systemd/system/beaglebrew.service
