@@ -297,7 +297,7 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
         mode, cycle_time, duty_cycle, boil_duty_cycle, set_point, boil_manage_temp, num_pnts_smooth, \
         k_param, i_param, d_param = unPackParamInitAndPost(paramStatus)
         p = current_process()
-    logstatus('Starting: name(%s) pid(%s)' % p.name , p.pid)
+        logstatus('Starting: name(%s) pid(%s)' % p.name , p.pid)
         print 'Starting:', p.name, p.pid
         #Pipe to communicate with "Get Temperature Process"
         parent_conn_temp, child_conn_temp = Pipe()    
