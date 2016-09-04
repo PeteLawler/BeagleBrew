@@ -9,6 +9,8 @@
 
 # Where to download misc things
 DOWNLOAD_LOCATION=/var/tmp
+ADAFRUIT_PYTHON_GIT_LOCATION=https://github.com/adafruit/adafruit-beaglebone-io-python.git
+BBDOTORG_OVERLAYS_GIT_LOCATION=https://github.com/RobertCNelson/bb.org-overlays.git
 
 if ! id | grep -q root; then
 	echo "must be run as root"
@@ -42,13 +44,20 @@ pip install Flask # See https://github.com/adafruit/adafruit-beaglebone-io-pytho
 if [ ! -d ${DOWNLOAD_LOCATION} ]; then
 	mkdir -p ${DOWNLOAD_LOCATION}
 fi
-if [ -d ${DOWNLOAD_LOCATION}adafruit-beaglebone-io-python/.git ]; then
+if [ -d ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python/.git ]; then
 	git -C ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python pull
 else
-	git -C ${DOWNLOAD_LOCATION} clone git://github.com/adafruit/adafruit-beaglebone-io-python.git
+	git -C ${DOWNLOAD_LOCATION} clone ${ADAFRUIT_PYTHON_GIT_LOCATION}
 fi
 bash -c "cd ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python/ && python setup.py install"
 
+if [ -d ${DOWNLOAD_LOCATION}/bb.org-overlays/.git ]; then
+	git -C ${DOWNLOAD_LOCATION}/bb.org-overlays pull
+else
+	git -C ${DOWNLOAD_LOCATION} clone ${BBDOTORG_OVERLAYS_GIT_LOCATION}
+fi
+bash -c "cd ${DOWNLOAD_LOCATION}/bb.org-overlays && ./dtc-overlay.sh"
+bash -c "cd ${DOWNLOAD_LOCATION}/bb.org-overlays && ./install.sh"
 
 
 cp beaglebrew.service /etc/systemd/system/.
