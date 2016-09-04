@@ -31,7 +31,7 @@ while true; do
 done
 
 #Install pip (package installer) and other needed packages
-apt-get -y install python-setuptools python-dev python-smbus libpcre3-dev sudo apt-get install build-essential python-dev python-setuptools python-pip python-smbus 
+apt --assume-yes install python-setuptools python-dev python-smbus libpcre3-dev build-essential python-dev python-setuptools python-pip python-smbus 
 
 easy_install pip
 
