@@ -38,7 +38,7 @@ easy_install pip
 pip install Flask # See https://github.com/adafruit/adafruit-beaglebone-io-python/issues/107 why we can't install Adafruit's BBIO via pypi here...
 
 
-if [ ! -d /opt/adafruit-beaglebone-io-python/.git ]; then
+if [ -d /opt/adafruit-beaglebone-io-python/.git ]; then
 	git -C /opt/adafruit-beaglebone-io-python pull
 else
 	git -C /opt/ clone git://github.com/adafruit/adafruit-beaglebone-io-python.git
