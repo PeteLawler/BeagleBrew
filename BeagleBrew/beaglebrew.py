@@ -177,7 +177,7 @@ def getbrewtime():
 # Stand Alone Get Temperature Process               
 def gettempProc(conn, myTempSensor):
     p = current_process()
-    logstatus('Starting:', p.name, p.pid)
+    logstatus('Starting:'+p.name+" "+p.pid)
     print 'Starting:', p.name, p.pid
     while (True):
         t = time.time()
@@ -196,7 +196,7 @@ def getonofftime(cycle_time, duty_cycle):
 # Stand Alone Heat Process using I2C (optional)
 def heatProcI2C(cycle_time, duty_cycle, conn):
     p = current_process()
-    logstatus('Starting:', p.name, p.pid)
+    logstatus('Starting: '+p.name+" "+p.pid)
     print 'Starting:', p.name, p.pid
     bus = SMBus(0)
     bus.write_byte_data(0x26,0x00,0x00) #set I/0 to write
@@ -220,7 +220,7 @@ def heatProcI2C(cycle_time, duty_cycle, conn):
 # Stand Alone Heat Process using GPIO
 def heatProcGPIO(cycle_time, duty_cycle, pinNum, conn):
     p = current_process()
-    logstatus('Starting:', p.name, p.pid)
+    logstatus('Starting: '+p.name+" "+p.pid)
     print 'Starting:', p.name, p.pid
     if pinNum > 0:
         if gpioNumberingScheme == "BBB":
@@ -297,7 +297,7 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
         mode, cycle_time, duty_cycle, boil_duty_cycle, set_point, boil_manage_temp, num_pnts_smooth, \
         k_param, i_param, d_param = unPackParamInitAndPost(paramStatus)
         p = current_process()
-        logstatus('Starting:', p.name, p.pid)
+        logstatus('Starting: '+p.name+" "+p.pid)
         print 'Starting:', p.name, p.pid
         #Pipe to communicate with "Get Temperature Process"
         parent_conn_temp, child_conn_temp = Pipe()    
