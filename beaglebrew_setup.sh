@@ -59,15 +59,29 @@ fi
 bash -c "cd ${DOWNLOAD_LOCATION}/bb.org-overlays && ./dtc-overlay.sh"
 bash -c "cd ${DOWNLOAD_LOCATION}/bb.org-overlays && ./install.sh"
 
-
 cp beaglebrew.service /etc/systemd/system/.
 chmod 644 /etc/systemd/system/beaglebrew.service
 sed -i s/INSTALL_LOCATION/\\/opt\\/BeagleBrew/g /etc/systemd/system/beaglebrew.service
 systemctl daemon-reload
 systemctl disable beaglebrew.service
 
-cp -pvrn BeagleBrew /opt/.
-mkdir -p /var/log/beaglebrew/
+if [ -L /etc/opt/beaglebrew_config.xml ]; then
+	echo "Removing config"
+	rm /etc/opt/beaglebrew_config.xml
+fi
+if [ -d /opt/BeagleBrew ]; then
+	echo "Removing existing install"
+	rm -fr /opt/BeagleBrew
+fi
+if [ -d /var/log/beaglebrew/ ]; then
+	echo "Removing logfiles"
+	rm -fr /var/log/beaglebrew/
+fi
+echo "Installing..."
+cp -pvr BeagleBrew /opt/.
+if [ ! -d /var/log/beaglebrew/ ]; then
+	mkdir -p /var/log/beaglebrew/
+fi
 ln -s /opt/BeagleBrew/beaglebrew_config.xml /etc/opt/
 
 while true; do
