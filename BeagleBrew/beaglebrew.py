@@ -456,7 +456,7 @@ def logdata(tank, temp, set_point, heat):
     f.close()
 
 def logstatus(status_string):
-    f = open(LogDir + LogStatusFile + str(tank) + ".log", "ab")
+    f = open(LogDir + LogStatusFile + ".log", "ab")
     f.write(getbrewtime(), ":", status_string)
     f.close()
 
