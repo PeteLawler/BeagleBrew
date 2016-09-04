@@ -35,7 +35,11 @@ apt --assume-yes install python-setuptools python-dev python-smbus libpcre3-dev 
 
 easy_install pip
 
-pip install Flask Adafruit_BBIO
+pip install Flask # See https://github.com/adafruit/adafruit-beaglebone-io-python/issues/107 why we can't install Adafruit's BBIO via pypi here...
+
+git -C /opt clone git://github.com/adafruit/adafruit-beaglebone-io-python.git
+bash -c python /optadafruit-beaglebone-io-python/setup.py install
+
 
 cp beaglebrew.service /etc/systemd/system/.
 chmod 644 /etc/systemd/system/beaglebrew.service
