@@ -324,7 +324,7 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
         temp_ma = 0.0
 
 	#overwrite log file for new data log
-        ff = open(LogDir + LogFile + str(myTempSensor.sensorNum) + ".csv", "wb")
+        ff = open(LogDir + LogDataFile + str(myTempSensor.sensorNum) + ".csv", "wb")
         ff.write("elapsed time,temperature,target,heat output\n")
         ff.close()
 
@@ -457,7 +457,7 @@ def logdata(tank, temp, set_point, heat):
 
 def logstatus(status_string):
     f = open(LogDir + LogStatusFile + ".log", "ab")
-    f.write(getbrewtime() + ": " + status_string)
+    f.write(" %s : %s " % (getbrewtime(),status_string))
     f.close()
 
 
