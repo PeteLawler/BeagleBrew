@@ -13,7 +13,11 @@ if ! id | grep -q root; then
 	exit
 fi
 
-ntpdate pool.ntp.org
+if [ ! -f `which timedatectl` ]; then
+	ntpdate pool.ntp.org
+else
+	timedatectl set-ntp true
+done
 
 while true; do
 	read -p "Do you wish to run apt-get update & apt-get upgrade?" yn
