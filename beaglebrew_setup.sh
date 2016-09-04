@@ -14,8 +14,10 @@ if ! id | grep -q root; then
 fi
 
 if [ ! -f `which timedatectl` ]; then
+	echo "Setting time via ntpdate"
 	ntpdate pool.ntp.org
 else
+	echo "Setting time via timedatectl"
 	timedatectl set-ntp true
 fi
 
