@@ -20,8 +20,8 @@
 	<SQLite3File>beaglebrew.db</SQLite3File>
 
 	<!-- Time format -->
-	<!-- Absolute or relative -->
-	<TimeFormat>Relative</TimeFormat>
+	<!-- Clock (UTC) or Elapsed -->
+	<TimeFormat>Elapsed</TimeFormat>
 
 	<!-- GPIO pin numbering scheme - choose BOARD or BCM. -->
         <!-- If something else than these are given, BCM is chosen as default. -->
