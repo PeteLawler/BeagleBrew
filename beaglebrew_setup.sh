@@ -17,7 +17,7 @@ if [ ! -f `which timedatectl` ]; then
 	ntpdate pool.ntp.org
 else
 	timedatectl set-ntp true
-done
+fi
 
 while true; do
 	read -p "Do you wish to run apt-get update & apt-get upgrade?" yn
