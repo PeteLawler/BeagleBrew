@@ -324,7 +324,7 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
                 temp_C, tempSensorNum, elapsed = parent_conn_temp.recv() #non blocking receive from Get Temperature Process
 
                 if temp_C == -99:
-                    logstatus("Bad Temp Reading on sensor %s - retry", % (tempSensorNum))
+                    logstatus("Bad Temp Reading on sensor %s - retry" % (tempSensorNum))
                     continue
 
                 if (tempUnits == 'F'):
