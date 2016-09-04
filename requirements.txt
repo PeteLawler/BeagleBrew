@@ -1,2 +1,1 @@
-Adafruit-BBIO==0.0.30
 Flask==0.10.1
