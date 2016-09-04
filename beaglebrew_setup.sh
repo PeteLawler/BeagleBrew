@@ -43,23 +43,23 @@ echo "Checking for support tools"
 unset deb_pkgs
 pkg="python-setuptools"
 check_dpkg
-pkg=" python-dev"
+pkg="python-dev"
 check_dpkg
-pkg=" python-smbus "
+pkg="python-smbus "
 check_dpkg
 pkg="libpcre3-dev "
 check_dpkg
 pkg="build-essential"
 check_dpkg
-pkg=" python-dev "
+pkg="python-dev "
 check_dpkg
 pkg="python-setuptools"
 check_dpkg
-pkg=" python-pip "
+pkg="python-pip "
 check_dpkg
 pkg="python-smbus"
 check_dpkg
-pkg=" python-serial"
+pkg="python-serial"
 check_dpkg
 pkg="bash-completion"
 check_dpkg
