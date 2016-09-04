@@ -22,7 +22,7 @@ else
 fi
 
 while true; do
-	read -p "Do you wish to run apt-get update & apt-get upgrade?" yn
+	read -p "Do you wish to run apt-get update & apt-get upgrade? " yn
 	case $yn in
 		[Yy]* ) apt-get -y update; apt-get -y upgrade; break;;
 		[Nn]* ) break;;
@@ -48,7 +48,7 @@ mkdir -p /var/log/beaglebrew/
 ln -s /opt/BeagleBrew/beaglebrew_config.xml /etc/opt/
 
 while true; do
-	read -p "Do you wish to automatically boot BeagleBrew?" yn
+	read -p "Do you wish to automatically boot BeagleBrew? " yn
 	case $yn in
 		[Yy]* ) systemctl enable beaglebrew.service;
 		break;;
@@ -58,7 +58,7 @@ while true; do
 done
 
 while true; do
-	read -p "Reboot to complete installation?" yn
+	read -p "Reboot to complete installation? " yn
 	case $yn in
 		[Yy]* ) systemctl reboot; break;;
 		[Nn]* ) break;;
