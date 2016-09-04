@@ -31,15 +31,19 @@ while true; do
 done
 
 #Install pip (package installer) and other needed packages
-apt --assume-yes install python-setuptools python-dev python-smbus libpcre3-dev build-essential python-dev python-setuptools python-pip python-smbus 
+apt --assume-yes install python-setuptools python-dev python-smbus libpcre3-dev build-essential python-dev python-setuptools python-pip python-smbus python-serial
 
 easy_install pip
 
 pip install Flask # See https://github.com/adafruit/adafruit-beaglebone-io-python/issues/107 why we can't install Adafruit's BBIO via pypi here...
 
-git -C /opt clone git://github.com/adafruit/adafruit-beaglebone-io-python.git
-bash -c "cd /opt/adafruit-beaglebone-io-python/ && python setup.py install"
 
+if [ ! -d /opt/adafruit-beaglebone-io-python/.git ]; then
+	git -C /opt/adafruit-beaglebone-io-python pull
+else
+	git -C /opt/ clone git://github.com/adafruit/adafruit-beaglebone-io-python.git
+fi
+bash -c "cd /opt/adafruit-beaglebone-io-python/ && python setup.py install"
 
 cp beaglebrew.service /etc/systemd/system/.
 chmod 644 /etc/systemd/system/beaglebrew.service
