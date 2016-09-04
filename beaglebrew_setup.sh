@@ -13,6 +13,8 @@ if ! id | grep -q root; then
 	exit
 fi
 
+ntpdate pool.ntp.org
+
 while true; do
 	read -p "Do you wish to run apt-get update & apt-get upgrade?" yn
 	case $yn in
@@ -23,11 +25,11 @@ while true; do
 done
 
 #Install pip (package installer) and other needed packages
-apt-get -y install python-setuptools python-dev python-smbus libpcre3-dev
+apt-get -y install python-setuptools python-dev python-smbus libpcre3-dev sudo apt-get install build-essential python-dev python-setuptools python-pip python-smbus 
 
 easy_install pip
 
-pip install Flask
+pip install Flask Adafruit_BBIO
 
 cp beaglebrew.service /etc/systemd/system/.
 chmod 644 /etc/systemd/system/beaglebrew.service
