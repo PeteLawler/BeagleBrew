@@ -31,9 +31,9 @@ else
 fi
 
 while true; do
-	read -p "Do you wish to run apt-get update & apt-get upgrade? " yn
+	read -p "Do you wish to check for system updates? " yn
 	case $yn in
-		[Yy]* ) apt-get -y update; apt-get -y upgrade; break;;
+		[Yy]* ) apt --assume-yes update && apt --assume-yes upgrade; break;;
 		[Nn]* ) break;;
 		* ) echo "Please answer yes or no.";;
 	esac
