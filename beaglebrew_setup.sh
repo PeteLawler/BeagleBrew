@@ -108,7 +108,7 @@ if [ -d ${DOWNLOAD_LOCATION}/bb.org-overlays/.git ]; then
 else
 	git -C ${DOWNLOAD_LOCATION} clone ${BBDOTORG_OVERLAYS_GIT_LOCATION}
 fi
-if [ ! -l /usr/bin/dtc-v4.1.x ]; then
+if [ ! -L /usr/bin/dtc-v4.1.x ]; then
 	bash -c "cd ${DOWNLOAD_LOCATION}/bb.org-overlays && ./dtc-overlay.sh"
 fi
 bash -c "cd ${DOWNLOAD_LOCATION}/bb.org-overlays && ./install.sh"
