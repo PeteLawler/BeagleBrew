@@ -9,7 +9,6 @@
 
 # Where to download misc things
 DOWNLOAD_LOCATION=/var/tmp
-INSTALL_LOCATION=/opt/BeagleBrew
 ADAFRUIT_PYTHON_GIT_LOCATION=https://github.com/adafruit/adafruit-beaglebone-io-python.git
 BBDOTORG_OVERLAYS_GIT_LOCATION=https://github.com/RobertCNelson/bb.org-overlays.git
 
@@ -31,9 +30,9 @@ else
 fi
 
 while true; do
-	read -p "Do you wish to check for system updates? " yn
+	read -p "Do you wish to run apt-get update & apt-get upgrade? " yn
 	case $yn in
-		[Yy]* ) apt --assume-yes update && apt --assume-yes upgrade; break;;
+		[Yy]* ) apt-get -y update; apt-get -y upgrade; break;;
 		[Nn]* ) break;;
 		* ) echo "Please answer yes or no.";;
 	esac
@@ -115,7 +114,7 @@ bash -c "cd ${DOWNLOAD_LOCATION}/bb.org-overlays && ./install.sh"
 
 cp beaglebrew.service /etc/systemd/system/.
 chmod 644 /etc/systemd/system/beaglebrew.service
-sed -i s/INSTALL_LOCATION/"${INSTALL_LOCATION}"/g /etc/systemd/system/beaglebrew.service
+sed -i s/INSTALL_LOCATION/\\/opt\\/BeagleBrew/g /etc/systemd/system/beaglebrew.service
 systemctl daemon-reload
 systemctl disable beaglebrew.service
 
@@ -132,7 +131,7 @@ if [ -d /var/log/beaglebrew/ ]; then
 	rm -fr /var/log/beaglebrew/
 fi
 echo "Installing..."
-cp -pvr BeagleBrew ${INSTALL_LOCATION}
+cp -pvr BeagleBrew /opt/.
 if [ ! -d /var/log/beaglebrew/ ]; then
 	mkdir -p /var/log/beaglebrew/
 fi
