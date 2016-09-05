@@ -115,7 +115,8 @@ bash -c "cd ${DOWNLOAD_LOCATION}/bb.org-overlays && ./install.sh"
 
 cp beaglebrew.service /etc/systemd/system/.
 chmod 644 /etc/systemd/system/beaglebrew.service
-sed -i s/INSTALL_LOCATION/"${INSTALL_LOCATION}"/g /etc/systemd/system/beaglebrew.service
+# use @ as a delimiter as INSTALL_LOCATION may contain the sed delimiter
+sed -i 's@INSTALL_LOCATION@'"$INSTALL_LOCATION"'@'g /etc/systemd/system/beaglebrew.service
 systemctl daemon-reload
 systemctl disable beaglebrew.service
 
