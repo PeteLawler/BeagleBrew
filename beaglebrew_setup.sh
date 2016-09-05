@@ -9,6 +9,7 @@
 
 # Where to download misc things
 DOWNLOAD_LOCATION=/var/tmp
+INSTALL_LOCATION=/opt/BeagleBrew
 ADAFRUIT_PYTHON_GIT_LOCATION=https://github.com/adafruit/adafruit-beaglebone-io-python.git
 BBDOTORG_OVERLAYS_GIT_LOCATION=https://github.com/RobertCNelson/bb.org-overlays.git
 
@@ -114,7 +115,7 @@ bash -c "cd ${DOWNLOAD_LOCATION}/bb.org-overlays && ./install.sh"
 
 cp beaglebrew.service /etc/systemd/system/.
 chmod 644 /etc/systemd/system/beaglebrew.service
-sed -i s/INSTALL_LOCATION/\\/opt\\/BeagleBrew/g /etc/systemd/system/beaglebrew.service
+sed -i s/INSTALL_LOCATION/"${INSTALL_LOCATION}"/g /etc/systemd/system/beaglebrew.service
 systemctl daemon-reload
 systemctl disable beaglebrew.service
 
@@ -131,7 +132,7 @@ if [ -d /var/log/beaglebrew/ ]; then
 	rm -fr /var/log/beaglebrew/
 fi
 echo "Installing..."
-cp -pvr BeagleBrew /opt/.
+cp -pvr BeagleBrew ${INSTALL_LOCATION}
 if [ ! -d /var/log/beaglebrew/ ]; then
 	mkdir -p /var/log/beaglebrew/
 fi
