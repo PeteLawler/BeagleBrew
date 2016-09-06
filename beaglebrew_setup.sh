@@ -88,13 +88,15 @@ fi
 echo "-----------------------------------"
 
 echo "Checking for pip"
-if [ ! -x $(which pip) ]; then
+if [ ! -x $( which pip ) ]; then
+	echo "Installing pip"
 	sudo easy_install pip
 fi
 echo "-----------------------------------"
 
 echo "Checking for Flask"
-if [ ! $(pip show Flask) ]; then
+if [ ! -z $( pip list | cut -d \  -f 1 | grep ^Flask$ ) ]; then
+	echo "Installing Flask"
 	sudo pip install Flask # See https://github.com/adafruit/adafruit-beaglebone-io-python/issues/107 why we can't install Adafruit's BBIO via pypi here...
 fi
 echo "-----------------------------------"
