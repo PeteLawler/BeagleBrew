@@ -91,7 +91,9 @@ if [ ! $(which pip) ]; then
 	sudo easy_install pip
 fi
 
-sudo pip install Flask # See https://github.com/adafruit/adafruit-beaglebone-io-python/issues/107 why we can't install Adafruit's BBIO via pypi here...
+if [ ! $(pip show Flask) ]; then
+	sudo pip install Flask # See https://github.com/adafruit/adafruit-beaglebone-io-python/issues/107 why we can't install Adafruit's BBIO via pypi here...
+fi
 
 if [ ! -d ${DOWNLOAD_LOCATION} ]; then
 	mkdir -p ${DOWNLOAD_LOCATION}
