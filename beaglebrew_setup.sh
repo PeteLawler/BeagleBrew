@@ -91,6 +91,8 @@ echo "Checking for pip"
 if [ ! -x $( which pip ) ]; then
 	echo "Installing pip"
 	sudo easy_install pip
+else
+	echo "pip already installed"
 fi
 echo "-----------------------------------"
 
@@ -98,7 +100,8 @@ echo "Checking for Flask"
 if [ ! $( pip list | cut -d \  -f 1 | grep ^Flask$ ) ]; then
 	echo "Installing Flask"
 	sudo pip install Flask # See https://github.com/adafruit/adafruit-beaglebone-io-python/issues/107 why we can't install Adafruit's BBIO via pypi here...
-fi
+else
+	echo "Flask already installed"
 echo "-----------------------------------"
 
 echo "Testing for ${DOWNLOAD_LOCATION}"
@@ -144,6 +147,7 @@ sudo sed -i 's@INSTALL_LOCATION@'"$INSTALL_LOCATION"'@'g /etc/systemd/system/bea
 sudo systemctl daemon-reload
 sudo systemctl disable beaglebrew.service
 
+echo "Checking for old install"
 if [ -L /etc/opt/beaglebrew_config.xml ]; then
 	echo "Removing config"
 	sudo rm /etc/opt/beaglebrew_config.xml
@@ -156,13 +160,17 @@ if [ -d /var/log/beaglebrew/ ]; then
 	echo "Removing logfiles"
 	sudo rm -fr /var/log/beaglebrew/
 fi
-echo "Installing..."
+printf "Installing"
 sudo cp -pvr BeagleBrew ${INSTALL_LOCATION}
+printf "."
 if [ ! -d /var/log/beaglebrew/ ]; then
+	printf "."
 	sudo mkdir -p /var/log/beaglebrew/
 fi
+printf "."
 sudo ln -s /opt/BeagleBrew/beaglebrew_config.xml /etc/opt/
-
+printf ". done.\n
+"
 while true; do
 	read -p "Do you wish to automatically boot BeagleBrew? " yn
 	case $yn in
