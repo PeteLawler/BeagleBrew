@@ -33,7 +33,7 @@ fi
 while true; do
 	read -p "Do you wish to check for system updates? " yn
 	case $yn in
-		[Yy]* ) apt --assume-yes update && apt --assume-yes upgrade; break;;
+		[Yy]* ) sudo apt --assume-yes update && sudo apt --assume-yes upgrade; break;;
 		[Nn]* ) break;;
 		* ) echo "Please answer yes or no.";;
 	esac
