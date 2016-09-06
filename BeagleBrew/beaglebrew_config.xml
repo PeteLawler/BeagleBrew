@@ -28,7 +28,7 @@
         <!-- BBB Pins use Head_pin or NAME nomenclature as per BBB SRM -->
         <GPIO_pin_numbering_scheme>BBB</GPIO_pin_numbering_scheme>
 
-	<!-- If your relay board work inverted mode set to 1 -->
+	<!-- If your relay board works inverted (ie, GPIO value 1 = relay off), set to 1 -->
 	<GPIO_Inverted>1</GPIO_Inverted>
 
 	<!-- Temperature Sensor Id -->
