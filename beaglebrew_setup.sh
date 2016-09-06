@@ -24,10 +24,10 @@ fi
 
 if [ ! -f `which timedatectl` ]; then
 	echo "Setting time via ntpdate"
-	ntpdate pool.ntp.org
+	sudo ntpdate pool.ntp.org
 else
 	echo "Setting time via timedatectl"
-	timedatectl set-ntp true
+	sudo timedatectl set-ntp true
 fi
 
 while true; do
@@ -87,9 +87,9 @@ if [ "${deb_pkgs}" ] ; then
 fi
 echo "-----------------------------------"
 
-easy_install pip
+sudo easy_install pip
 
-pip install Flask # See https://github.com/adafruit/adafruit-beaglebone-io-python/issues/107 why we can't install Adafruit's BBIO via pypi here...
+sudo pip install Flask # See https://github.com/adafruit/adafruit-beaglebone-io-python/issues/107 why we can't install Adafruit's BBIO via pypi here...
 
 if [ ! -d ${DOWNLOAD_LOCATION} ]; then
 	mkdir -p ${DOWNLOAD_LOCATION}
@@ -113,36 +113,36 @@ if [ ! -L /usr/bin/dtc-v4.1.x ]; then
 fi
 bash -c "cd ${DOWNLOAD_LOCATION}/bb.org-overlays && ./install.sh"
 
-cp beaglebrew.service /etc/systemd/system/.
-chmod 644 /etc/systemd/system/beaglebrew.service
+sudo cp beaglebrew.service /etc/systemd/system/.
+sudo chmod 644 /etc/systemd/system/beaglebrew.service
 # use @ as a delimiter as INSTALL_LOCATION may contain the sed delimiter
-sed -i 's@INSTALL_LOCATION@'"$INSTALL_LOCATION"'@'g /etc/systemd/system/beaglebrew.service
-systemctl daemon-reload
-systemctl disable beaglebrew.service
+sudo sed -i 's@INSTALL_LOCATION@'"$INSTALL_LOCATION"'@'g /etc/systemd/system/beaglebrew.service
+sudo systemctl daemon-reload
+sudo systemctl disable beaglebrew.service
 
 if [ -L /etc/opt/beaglebrew_config.xml ]; then
 	echo "Removing config"
-	rm /etc/opt/beaglebrew_config.xml
+	sudo rm /etc/opt/beaglebrew_config.xml
 fi
 if [ -d /opt/BeagleBrew ]; then
 	echo "Removing existing install"
-	rm -fr /opt/BeagleBrew
+	sudo rm -fr /opt/BeagleBrew
 fi
 if [ -d /var/log/beaglebrew/ ]; then
 	echo "Removing logfiles"
-	rm -fr /var/log/beaglebrew/
+	sudo rm -fr /var/log/beaglebrew/
 fi
 echo "Installing..."
-cp -pvr BeagleBrew ${INSTALL_LOCATION}
+sudo cp -pvr BeagleBrew ${INSTALL_LOCATION}
 if [ ! -d /var/log/beaglebrew/ ]; then
-	mkdir -p /var/log/beaglebrew/
+	sudo mkdir -p /var/log/beaglebrew/
 fi
-ln -s /opt/BeagleBrew/beaglebrew_config.xml /etc/opt/
+sudo ln -s /opt/BeagleBrew/beaglebrew_config.xml /etc/opt/
 
 while true; do
 	read -p "Do you wish to automatically boot BeagleBrew? " yn
 	case $yn in
-		[Yy]* ) systemctl enable beaglebrew.service;
+		[Yy]* ) sudo systemctl enable beaglebrew.service;
 		break;;
 		[Nn]* ) break;;
 		* ) echo "Please answer yes or no.";;
@@ -152,7 +152,7 @@ done
 while true; do
 	read -p "Reboot to complete installation? " yn
 	case $yn in
-		[Yy]* ) systemctl reboot; break;;
+		[Yy]* ) sudo systemctl reboot; break;;
 		[Nn]* ) break;;
 		* ) echo "Please answer yes or no.";;
 	esac
