@@ -100,7 +100,7 @@ if [ -d ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python/.git ]; then
 else
 	git -C ${DOWNLOAD_LOCATION} clone ${ADAFRUIT_PYTHON_GIT_LOCATION}
 fi
-bash -c "cd ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python/ && python setup.py install"
+bash -c "cd ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python/ && sudo python setup.py install"
 
 if [ -d ${DOWNLOAD_LOCATION}/bb.org-overlays/.git ]; then
 	echo "Updating bb.org-overlays if necessary"
