@@ -23,6 +23,7 @@
 import time, random, serial, os, sqlite3
 import xml.etree.ElementTree as ET
 import Temp1Wire, Display
+import logging
 
 from multiprocessing import Process, Pipe, Queue, current_process
 from Queue import Full
@@ -38,6 +39,9 @@ global brewtime, oneWireDir
 
 app = Flask(__name__, template_folder='templates')
 #url_for('static', filename='raspibrew.css')
+
+werkzeuglog = logging.getLogger('werkzeug')
+werkzeuglog.setLevel(logging.ERROR)
 
 #Parameters that are used in the temperature control process
 class param:
