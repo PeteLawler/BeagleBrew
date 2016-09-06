@@ -87,13 +87,17 @@ if [ "${deb_pkgs}" ] ; then
 fi
 echo "-----------------------------------"
 
-if [ ! $(which pip) ]; then
+echo "Checking for pip"
+if [ ! -x $(which pip) ]; then
 	sudo easy_install pip
 fi
+echo "-----------------------------------"
 
+echo "Checking for Flask"
 if [ ! $(pip show Flask) ]; then
 	sudo pip install Flask # See https://github.com/adafruit/adafruit-beaglebone-io-python/issues/107 why we can't install Adafruit's BBIO via pypi here...
 fi
+echo "-----------------------------------"
 
 if [ ! -d ${DOWNLOAD_LOCATION} ]; then
 	mkdir -p ${DOWNLOAD_LOCATION}
