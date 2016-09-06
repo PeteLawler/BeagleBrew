@@ -95,7 +95,7 @@ fi
 echo "-----------------------------------"
 
 echo "Checking for Flask"
-if [ ! -z $( pip list | cut -d \  -f 1 | grep ^Flask$ ) ]; then
+if [ ! $( pip list | cut -d \  -f 1 | grep ^Flask$ ) ]; then
 	echo "Installing Flask"
 	sudo pip install Flask # See https://github.com/adafruit/adafruit-beaglebone-io-python/issues/107 why we can't install Adafruit's BBIO via pypi here...
 fi
