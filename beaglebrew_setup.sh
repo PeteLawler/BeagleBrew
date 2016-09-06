@@ -17,8 +17,8 @@ check_dpkg () {
 	LC_ALL=C dpkg --list | awk '{print $2}' | grep "^${pkg}" >/dev/null || deb_pkgs="${deb_pkgs}${pkg} "
 }
 
-if ! id | grep -q root; then
-	echo "must be run as root"
+if ! sudo -v; then
+	echo "sudo privileges needed, exiting"
 	exit
 fi
 
