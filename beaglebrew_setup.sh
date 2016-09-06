@@ -87,7 +87,7 @@ if [ "${deb_pkgs}" ] ; then
 fi
 echo "-----------------------------------"
 
-if [ $(which pip) ]; then
+if [ ! $(which pip) ]; then
 	sudo easy_install pip
 fi
 
