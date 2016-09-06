@@ -159,7 +159,7 @@ def getstatus(sensorNum=None):
     elif sensorNum == "3":
         param.status = statusQ_C.get()
     else:
-        print "Sensor doesn't exist (GET)"
+        logstatus ("Sensor doesn't exist (GET)")
         param.status["temp"] = "-999"
     return jsonify(**param.status)
 
