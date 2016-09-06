@@ -101,28 +101,42 @@ if [ ! -z $( pip list | cut -d \  -f 1 | grep ^Flask$ ) ]; then
 fi
 echo "-----------------------------------"
 
+echo "Testing for ${DOWNLOAD_LOCATION}"
 if [ ! -d ${DOWNLOAD_LOCATION} ]; then
+	echo "Creating ${DOWNLOAD_LOCATION}"
 	mkdir -p ${DOWNLOAD_LOCATION}
 fi
+echo "-----------------------------------"
+
+echo "Testing for ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python/.git"
 if [ -d ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python/.git ]; then
 	echo "Updating adafruit-beaglebone-io-python if necessary"
 	git -C ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python pull
 else
+	echo "Cloning adafruit-beaglebone-io-python"
 	git -C ${DOWNLOAD_LOCATION} clone ${ADAFRUIT_PYTHON_GIT_LOCATION}
 fi
+echo "Installing adafruit-beaglebone-io-python"
 bash -c "cd ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python/ && sudo python setup.py install"
+echo "-----------------------------------"
 
+echo "Testing for ${DOWNLOAD_LOCATION}/bb.org-overlays/.git"
 if [ -d ${DOWNLOAD_LOCATION}/bb.org-overlays/.git ]; then
 	echo "Updating bb.org-overlays if necessary"
 	git -C ${DOWNLOAD_LOCATION}/bb.org-overlays pull
 else
+	echo "Cloning bb.org-overlays"
 	git -C ${DOWNLOAD_LOCATION} clone ${BBDOTORG_OVERLAYS_GIT_LOCATION}
 fi
+echo "Testing for patched dtc"
 if [ ! -L /usr/bin/dtc-v4.1.x ]; then
+	echo "Installing patched dtc"
 	bash -c "cd ${DOWNLOAD_LOCATION}/bb.org-overlays && ./dtc-overlay.sh"
 fi
+echo "Installing overlays"
 bash -c "cd ${DOWNLOAD_LOCATION}/bb.org-overlays && ./install.sh"
 
+echo "Installing systemd service"
 sudo cp beaglebrew.service /etc/systemd/system/.
 sudo chmod 644 /etc/systemd/system/beaglebrew.service
 # use @ as a delimiter as INSTALL_LOCATION may contain the sed delimiter
