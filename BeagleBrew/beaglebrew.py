@@ -387,8 +387,6 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
                 while (statusQ.qsize() >= 2):
                     statusQ.get() #remove old status
 
-                logstatus("Current Temp: %3.2f deg %s, Heat Output: %3.1f%%" \
-                                                        % (temp, tempUnits, duty_cycle))
                 logdata(myTempSensor.sensorNum, temp, set_point, duty_cycle)
 
                 readytemp == False
