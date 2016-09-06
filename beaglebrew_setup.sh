@@ -102,6 +102,7 @@ if [ ! $( pip list | cut -d \  -f 1 | grep ^Flask$ ) ]; then
 	sudo pip install Flask # See https://github.com/adafruit/adafruit-beaglebone-io-python/issues/107 why we can't install Adafruit's BBIO via pypi here...
 else
 	echo "Flask already installed"
+fi
 echo "-----------------------------------"
 
 echo "Testing for ${DOWNLOAD_LOCATION}"
