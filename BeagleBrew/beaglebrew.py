@@ -38,7 +38,6 @@ global xml_root, template_name, pinHeatList, pinGPIOList
 global brewtime, oneWireDir
 
 app = Flask(__name__, template_folder='templates')
-#url_for('static', filename='raspibrew.css')
 
 werkzeuglog = logging.getLogger('werkzeug')
 werkzeuglog.setLevel(logging.ERROR)
@@ -145,14 +144,14 @@ def GPIO_Toggle(GPIO_Num=None, onoff=None):
         out = {"pin" : 0, "status" : "off"}
     return jsonify(**out)
 
-#get status from RasPiBrew using firefox web browser (first temp sensor / backwards compatibility)
+#get status from BeagleBrew using firefox web browser (first temp sensor / backwards compatibility)
 @app.route('/getstatus') #only GET
 def getstatusB():
     #blocking receive - current status
     param.status = statusQ.get()
     return jsonify(**param.status)
 
-#get status from RasPiBrew using firefox web browser (selectable temp sensor)
+#get status from BeagleBrew using firefox web browser (selectable temp sensor)
 @app.route('/getstatus/<sensorNum>') #only GET
 def getstatus(sensorNum=None):
     #blocking receive - current status
