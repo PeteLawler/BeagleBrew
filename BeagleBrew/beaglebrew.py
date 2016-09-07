@@ -513,7 +513,7 @@ if __name__ == '__main__':
         logstatus("GPIO Inversion set: On = %s Off = %s" % (ON, OFF))
     pinHeatList=[]
     for pin in xml_root.iter('Heat_Pin'):
-        logstatus("Setting up GPIO Pin %s for heat output" % pinNum)
+        logstatus("Setting up GPIO Pin %s for heat output" % pin)
         if gpioNumberingScheme == "BBB":
             pinHeatList.append(pin.text.strip())
         else:
