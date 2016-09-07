@@ -137,10 +137,10 @@ def GPIO_Toggle(GPIO_Num=None, onoff=None):
         if onoff == "on":
             GPIO.output(pinGPIOList[int(GPIO_Num)-1], ON)
             out["status"] = "on"
-            logstatus("GPIO Pin #%s is toggled on" % pinGPIOList[int(GPIO_Num)-1] )
+            logstatus("GPIO Pin %s is toggled on" % pinGPIOList[int(GPIO_Num)-1] )
         else: #off
             GPIO.output(pinGPIOList[int(GPIO_Num)-1], OFF)
-            logstatus("GPIO Pin #%s is toggled off" % pinGPIOList[int(GPIO_Num)-1] )
+            logstatus("GPIO Pin %s is toggled off" % pinGPIOList[int(GPIO_Num)-1] )
     else:
         out = {"pin" : 0, "status" : "off"}
     return jsonify(**out)
