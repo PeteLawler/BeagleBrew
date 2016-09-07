@@ -525,9 +525,9 @@ if __name__ == '__main__':
             pinGPIOList.append(int(pin.text.strip()))
     for pinNum in pinGPIOList:
         if gpioNumberingScheme == "BBB":
-            GPIO.setup(str(pinNum), OFF)
+            GPIO.setup(str(pinNum), GPIO.OUT)
         else:
-            GPIO.setup(pinNum, OFF)
+            GPIO.setup(pinNum, GPIO.OUT)
     for tempSensorId in xml_root.iter('Temp_Sensor_Id'):
         myTempSensor = Temp1Wire.Temp1Wire(tempSensorId.text.strip())
         if len(pinHeatList) >= myTempSensor.sensorNum + 1:
