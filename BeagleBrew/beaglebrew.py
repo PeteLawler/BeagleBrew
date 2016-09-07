@@ -504,15 +504,16 @@ if __name__ == '__main__':
         import RPi.GPIO as GPIO
 
     gpioInverted = xml_root.find('GPIO_Inverted').text.strip()
-    if gpioInverted == "0":
+    if gpioInverted == "0":)
 	ON = 1
 	OFF = 0
     else:
 	ON = 0
 	OFF = 1
-
+        logstatus("GPIO Inversion set. On = %s Off = %s" % (ON, OFF))
     pinHeatList=[]
     for pin in xml_root.iter('Heat_Pin'):
+        logstatus("Setting up GPIO Pin %s for heat output" % pinNum)
         if gpioNumberingScheme == "BBB":
             pinHeatList.append(pin.text.strip())
         else:
@@ -524,6 +525,7 @@ if __name__ == '__main__':
         else:
             pinGPIOList.append(int(pin.text.strip()))
     for pinNum in pinGPIOList:
+        logstatus("Setting up GPIO Pin %s for manual output" % pinNum)
         if gpioNumberingScheme == "BBB":
             GPIO.setup(str(pinNum), GPIO.OUT)
         else:
