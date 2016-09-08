@@ -20,7 +20,7 @@
 	<SQLite3File>beaglebrew.db</SQLite3File>
 
 	<!-- Time format -->
-	<!-- Clock (UTC) or Elapsed -->
+	<!-- Clock (measured in UTC) or Elapsed -->
 	<TimeFormat>Elapsed</TimeFormat>
 
 	<!-- GPIO pin numbering scheme - choose BOARD or BCM. -->
