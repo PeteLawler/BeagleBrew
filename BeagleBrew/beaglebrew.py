@@ -560,4 +560,4 @@ if __name__ == '__main__':
             p.start()
 
     app.debug = True
-    app.run(use_reloader=False, host='0.0.0.0')
+    app.run(use_reloader=False, host='0.0.0.0', threaded=True)
