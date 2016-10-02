@@ -174,15 +174,14 @@ if [ -d /var/log/beaglebrew/ ]; then
 	sudo rm -fr /var/log/beaglebrew/
 fi
 
-if [ -f /etc/logrotate.d/beaglebrew/* ]; then
+if [ -f /etc/logrotate.d/beaglebrew/ ]; then
 	echo "Installing logrotation"
-	sudo bash -c "echo '/var/log/beaglebrew/
-	{
-	        rotate 5
-	        weekly
-	        notifempty
-	        compress
-	}
+	sudo bash -c "echo '/var/log/beaglebrew/* {
+        rotate 5
+        weekly
+        notifempty
+        compress
+}
 ' > /etc/logrotate.d/beaglebrew "
 fi
 
