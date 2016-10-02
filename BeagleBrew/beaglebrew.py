@@ -255,7 +255,7 @@ def heatProcGPIO(cycle_time, duty_cycle, pinNum, conn):
                     logstatus("Setting %s OFF" % str(pinNum))
                     GPIO.output(str(pinNum), OFF)
                 else:
-                    logstatus("Setting %s OF" % pinNum)
+                    logstatus("Setting %s OFF" % pinNum)
                     GPIO.output(pinNum, OFF)
                 logstatus("Sleeping off_time(%s)" % off_time)
                 time.sleep(off_time)
