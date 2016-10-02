@@ -274,7 +274,7 @@ def unPackParamInitAndPost(paramStatus):
     k_param = paramStatus["k_param"]
     i_param = paramStatus["i_param"]
     d_param = paramStatus["d_param"]
-    logstatus("Initialising paramaters:: mode: %s, cycle_time: %s,duty_cycle: %s, boil_duty_cycle: %s,set_point: %s, boil_manage_temp: %s, num_pnts_smooth: %s, k_param: %s, i_param: %s, d_param: %s" \
+    logstatus("Initialising paramaters:: mode: %s, cycle_time: %s, duty_cycle: %s, boil_duty_cycle: %s,set_point: %s, boil_manage_temp: %s, num_pnts_smooth: %s, k_param: %s, i_param: %s, d_param: %s" \
            % (mode, cycle_time, duty_cycle, boil_duty_cycle, set_point, boil_manage_temp, num_pnts_smooth, k_param, i_param, d_param))
     return mode, cycle_time, duty_cycle, boil_duty_cycle, set_point, boil_manage_temp, num_pnts_smooth, \
            k_param, i_param, d_param
@@ -296,7 +296,7 @@ def packParamGet(numTempSensors, myTempSensorNum, temp, tempUnits, elapsed, mode
     param.status["k_param"] = k_param
     param.status["i_param"] = i_param
     param.status["d_param"] = d_param
-    logstatus("New paramaters:: mode: %s, cycle_time: %s,duty_cycle: %s, boil_duty_cycle: %s,set_point: %s, boil_manage_temp: %s, num_pnts_smooth: %s, k_param: %s, i_param: %s, d_param: %s" \
+    logstatus("New paramaters:: mode: %s, cycle_time: %s, duty_cycle: %s, boil_duty_cycle: %s,set_point: %s, boil_manage_temp: %s, num_pnts_smooth: %s, k_param: %s, i_param: %s, d_param: %s" \
         % (mode, cycle_time, duty_cycle, boil_duty_cycle, set_point, boil_manage_temp, num_pnts_smooth, k_param, i_param, d_param))
     return param.status
 
@@ -305,7 +305,7 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
         mode, cycle_time, duty_cycle, boil_duty_cycle, set_point, boil_manage_temp, num_pnts_smooth, \
         k_param, i_param, d_param = unPackParamInitAndPost(paramStatus)
         p = current_process()
-        logstatus("Starting: name(%s) pid(%s)"  % (p.name,p.pid))
+        logstatus("Starting: name(%s) pid(%s)" % (p.name,p.pid))
         #Pipe to communicate with "Get Temperature Process"
         parent_conn_temp, child_conn_temp = Pipe()
         #Start Get Temperature Process
