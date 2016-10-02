@@ -274,6 +274,17 @@ def unPackParamInitAndPost(paramStatus):
     k_param = paramStatus["k_param"]
     i_param = paramStatus["i_param"]
     d_param = paramStatus["d_param"]
+    logstatus("Initialising paramaters")
+    logstatus("mode: %s" % mode)
+    logstatus("cycle_time: %s" % cycle_time)
+    logstatus("duty_cycle: %s" % duty_cycle)
+    logstatus("boil_duty_cycle: %s" % boild_duty_cycle)
+    logstatus("set_point: %s" % set_point)
+    logstatus("boil_manage_temp: %s" % boil_manage_temp)
+    logstatus("num_pnts_smooth: %s" % num_pnts_smooth)
+    logstatus("k_param: %s" % k_param)
+    logstatus("i_param: %s" % i_param)
+    logstatus("d_param: %s" % d_param)
     return mode, cycle_time, duty_cycle, boil_duty_cycle, set_point, boil_manage_temp, num_pnts_smooth, \
            k_param, i_param, d_param
 
@@ -294,6 +305,17 @@ def packParamGet(numTempSensors, myTempSensorNum, temp, tempUnits, elapsed, mode
     param.status["k_param"] = k_param
     param.status["i_param"] = i_param
     param.status["d_param"] = d_param
+    logstatus("New paramaters")
+    logstatus("mode: %s" % mode)
+    logstatus("cycle_time: %s" % cycle_time)
+    logstatus("duty_cycle: %s" % duty_cycle)
+    logstatus("boil_duty_cycle: %s" % boild_duty_cycle)
+    logstatus("set_point: %s" % set_point)
+    logstatus("boil_manage_temp: %s" % boil_manage_temp)
+    logstatus("num_pnts_smooth: %s" % num_pnts_smooth)
+    logstatus("k_param: %s" % k_param)
+    logstatus("i_param: %s" % i_param)
+    logstatus("d_param: %s" % d_param)
     return param.status
 
 # Main Temperature Control Process
