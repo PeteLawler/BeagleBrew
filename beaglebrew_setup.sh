@@ -158,18 +158,34 @@ sudo systemctl daemon-reload
 sudo systemctl disable beaglebrew.service
 
 echo "Checking for old install"
+
 if [ -L /etc/opt/beaglebrew_config.xml ]; then
 	echo "Removing config"
 	sudo rm /etc/opt/beaglebrew_config.xml
 fi
+
 if [ -d /opt/BeagleBrew ]; then
 	echo "Removing existing install"
 	sudo rm -fr /opt/BeagleBrew
 fi
+
 if [ -d /var/log/beaglebrew/ ]; then
 	echo "Removing logfiles"
 	sudo rm -fr /var/log/beaglebrew/
 fi
+
+if [ -f /etc/logrotate.d/beaglebrew/* ]; then
+	echo "Installing logrotation"
+	sudo bash -c "echo '/var/log/beaglebrew/
+	{
+	        rotate 5
+	        weekly
+	        notifempty
+	        compress
+	}
+' > /etc/logrotate.d/beaglebrew "
+fi
+
 printf "Installing"
 sudo cp -pvr BeagleBrew ${INSTALL_LOCATION}
 printf "."
@@ -181,6 +197,8 @@ printf "."
 sudo ln -s /opt/BeagleBrew/beaglebrew_config.xml /etc/opt/
 printf ". done.\n
 "
+
+
 while true; do
 	read -p "Do you wish to automatically boot BeagleBrew? " yn
 	case $yn in
