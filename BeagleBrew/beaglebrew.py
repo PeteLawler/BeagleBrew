@@ -498,9 +498,12 @@ if __name__ == '__main__':
     elif gpioNumberingScheme == "BCM":
  	GPIO.setmode(GPIO.BCM)
     if gpioNumberingScheme == "BBB":
+	logstatus("Loading Adafruit_BBIO");
         import Adafruit_BBIO.GPIO as GPIO
     else:
+	logstatus("Loading i2c-bcm2708");
         call(["modprobe", "i2c-bcm2708"])
+	logstatus("Loading RPi.GPIO");
         import RPi.GPIO as GPIO
 
     gpioInverted = xml_root.find('GPIO_Inverted').text.strip()
