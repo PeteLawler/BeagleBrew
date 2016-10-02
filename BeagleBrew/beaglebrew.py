@@ -510,9 +510,11 @@ if __name__ == '__main__':
     display = Display.NoDisplay()
     gpioNumberingScheme = xml_root.find('GPIO_pin_numbering_scheme').text.strip()
     if gpioNumberingScheme == "BOARD":
++       logstatus("Settings as GPIO.BOARD");
         GPIO.setmode(GPIO.BOARD)
     elif gpioNumberingScheme == "BCM":
-         GPIO.setmode(GPIO.BCM)
++       logstatus("Settings as GPIO.BCM");
+        GPIO.setmode(GPIO.BCM)
     if gpioNumberingScheme == "BBB":
         logstatus("Loading Adafruit_BBIO");
         import Adafruit_BBIO.GPIO as GPIO
