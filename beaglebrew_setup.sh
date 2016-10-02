@@ -115,8 +115,8 @@ echo "-----------------------------------"
 
 
 echo "Installing Adafruit BBIO"
-if [${OS_ID} = "debian"]; then
-	easy_install -U distribute  #debian only
+if [ ${OS_ID} = "debian" ]; then
+	sudo easy_install -U distribute  #debian only
 else
 	sudo pip install Adafruit_BBIO
 fi
