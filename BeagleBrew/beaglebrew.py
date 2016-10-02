@@ -510,15 +510,17 @@ if __name__ == '__main__':
     display = Display.NoDisplay()
     gpioNumberingScheme = xml_root.find('GPIO_pin_numbering_scheme').text.strip()
     if gpioNumberingScheme == "BOARD":
-        logstatus("Settings as GPIO.BOARD");
+        logstatus("gpioNumberingScheme == GPIO.BOARD");
         GPIO.setmode(GPIO.BOARD)
     elif gpioNumberingScheme == "BCM":
-        logstatus("Settings as GPIO.BCM");
+        logstatus("gpioNumberingScheme == GPIO.BCM");
         GPIO.setmode(GPIO.BCM)
     if gpioNumberingScheme == "BBB":
+        logstatus("gpioNumberingScheme == BBB");
         logstatus("Loading Adafruit_BBIO");
         import Adafruit_BBIO.GPIO as GPIO
     else:
+        logstatus("gpioNumberingScheme catchall (RPi)");
         logstatus("Loading i2c-bcm2708");
         call(["modprobe", "i2c-bcm2708"])
         logstatus("Loading RPi.GPIO");
