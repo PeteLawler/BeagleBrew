@@ -12,6 +12,7 @@ DOWNLOAD_LOCATION=/var/tmp
 INSTALL_LOCATION=/opt/BeagleBrew
 ADAFRUIT_PYTHON_GIT_LOCATION=https://github.com/adafruit/adafruit-beaglebone-io-python.git
 BBDOTORG_OVERLAYS_GIT_LOCATION=https://github.com/RobertCNelson/bb.org-overlays.git
+OS_ID=$(grep ID /etc/os-release |cut -f 2 -d =)
 
 check_dpkg () {
 	LC_ALL=C dpkg --list | awk '{print $2}' | grep "^${pkg}" >/dev/null || deb_pkgs="${deb_pkgs}${pkg} "
@@ -112,16 +113,24 @@ if [ ! -d ${DOWNLOAD_LOCATION} ]; then
 fi
 echo "-----------------------------------"
 
-echo "Testing for ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python/.git"
-if [ -d ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python/.git ]; then
-	echo "Updating adafruit-beaglebone-io-python if necessary"
-	git -C ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python pull
+
+echo "Installing Adafruit BBIO"
+if [${OS_ID} = "debian"]; then
+	easy_install -U distribute  #debian only
 else
-	echo "Cloning adafruit-beaglebone-io-python"
-	git -C ${DOWNLOAD_LOCATION} clone ${ADAFRUIT_PYTHON_GIT_LOCATION}
+	sudo pip install Adafruit_BBIO
 fi
-echo "Installing adafruit-beaglebone-io-python"
-bash -c "cd ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python/ && sudo python setup.py install"
+#	echo "Testing for ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python/.git"
+#	if [ -d ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python/.git ]; then
+#		echo "Updating adafruit-beaglebone-io-python if necessary"
+#		git -C ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python pull
+#	else
+#		echo "Cloning adafruit-beaglebone-io-python"
+#		git -C ${DOWNLOAD_LOCATION} clone ${ADAFRUIT_PYTHON_GIT_LOCATION}
+#	fi
+#	echo "Installing adafruit-beaglebone-io-python"
+#	bash -c "cd ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python/ && sudo python setup.py install"
+
 echo "-----------------------------------"
 
 echo "Testing for ${DOWNLOAD_LOCATION}/bb.org-overlays/.git"
