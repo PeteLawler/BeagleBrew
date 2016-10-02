@@ -213,11 +213,13 @@ def heatProcI2C(cycle_time, duty_cycle, conn):
 # Stand Alone Heat Process using GPIO
 def heatProcGPIO(cycle_time, duty_cycle, pinNum, conn):
     p = current_process()
-    logstatus("Starting: name(%s) pid(%s)"  % (p.name,p.pid))
+    logstatus("Starting: name(%s) pid(%s)" % (p.name,p.pid))
     if pinNum > 0:
         if gpioNumberingScheme == "BBB":
+            logstatus("Setting %s as GPIO.OUT" % str(pinNum))
             GPIO.setup(str(pinNum), GPIO.OUT)
         else:
+            logstatus("Setting %s as GPIO.OUT" % pinNum)
             GPIO.setup(pinNum, GPIO.OUT)
         while (True):
             while (conn.poll()): #get last
@@ -225,27 +227,37 @@ def heatProcGPIO(cycle_time, duty_cycle, pinNum, conn):
             conn.send([cycle_time, duty_cycle])
             if duty_cycle == 0:
                 if gpioNumberingScheme == "BBB":
+                    logstatus("Setting %s OFF" % str(pinNum))
                     GPIO.output(str(pinNum), OFF)
                 else:
+                    logstatus("Setting %s OFF" % pinNum)
                     GPIO.output(pinNum, OFF)
                 time.sleep(cycle_time)
             elif duty_cycle == 100:
                 if gpioNumberingScheme == "BBB":
+                    logstatus("Setting %s ON" % str(pinNum))
                     GPIO.output(str(pinNum), ON)
                 else:
+                    logstatus("Setting %s OFF" % pinNum)
                     GPIO.output(pinNum, ON)
+                logstatus("Sleeping cycle_time(%s)" % cycle_time)
                 time.sleep(cycle_time)
             else:
                 on_time, off_time = getonofftime(cycle_time, duty_cycle)
                 if gpioNumberingScheme == "BBB":
+                    logstatus("Setting %s ON" % str(pinNum))
                     GPIO.output(str(pinNum), ON)
                 else:
+                    logstatus("Setting %s ON" % pinNum)
                     GPIO.output(pinNum, ON)
                 time.sleep(on_time)
                 if gpioNumberingScheme == "BBB":
+                    logstatus("Setting %s OFF" % str(pinNum))
                     GPIO.output(str(pinNum), OFF)
                 else:
+                    logstatus("Setting %s OF" % pinNum)
                     GPIO.output(pinNum, OFF)
+                logstatus("Sleeping off_time(%s)" % off_time)
                 time.sleep(off_time)
 
 def unPackParamInitAndPost(paramStatus):
