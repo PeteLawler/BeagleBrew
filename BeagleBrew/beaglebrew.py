@@ -514,6 +514,9 @@ if __name__ == '__main__':
 	ON = 0
 	OFF = 1
     logstatus("GPIO Inversion set: On = %s Off = %s" % (ON, OFF))
+    vesselList=[]
+    for vessel in xml_root.iter('Vessel'):
+        vesselList.append(vessel.text.strip())
     pinHeatList=[]
     for pin in xml_root.iter('Heat_Pin'):
         logstatus("Setting up GPIO Pin %s for heat output" % pin)
