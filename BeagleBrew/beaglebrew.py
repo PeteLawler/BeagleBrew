@@ -480,7 +480,6 @@ if __name__ == '__main__':
         os.chdir(root_dir_elem.text.strip())
     else:
         logstatus("No RootDir tag found in config.xml, running from current directory")
-        print("No RootDir tag found in config.xml, running from current directory")
 
     LogDir = xml_root.find('LogDir').text.strip()
     if LogDir == "":
