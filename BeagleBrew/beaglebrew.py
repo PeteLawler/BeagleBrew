@@ -102,10 +102,10 @@ def postparams(sensorNum=None):
     #send to main temp control process
     #if did not receive variable key value in POST, the param class default is used
     if sensorNum == "1":
-        logstatus("got post to temp sensor 1")
+        logstatus("INFO","got post to temp sensor 1")
         parent_conn.send(param.status)
     elif sensorNum == "2":
-        logstatus("got post to temp sensor 2")
+        logstatus("INFO","got post to temp sensor 2")
         if len(pinHeatList) >= 2:
             parent_connB.send(param.status)
         else:
@@ -113,9 +113,9 @@ def postparams(sensorNum=None):
             param.status["set_point"] = 0.0
             param.status["duty_cycle"] = 0.0
             parent_connB.send(param.status)
-            logstatus("no heat GPIO pin assigned")
+            logstatus("INFO","no heat GPIO pin assigned")
     elif sensorNum == "3":
-        logstatus("got post to temp sensor 3")
+        logstatus("INFO","got post to temp sensor 3")
         if len(pinHeatList) >= 3:
             parent_connC.send(param.status)
         else:
@@ -123,9 +123,9 @@ def postparams(sensorNum=None):
             param.status["set_point"] = 0.0
             param.status["duty_cycle"] = 0.0
             parent_connC.send(param.status)
-            logstatus("no heat GPIO pin assigned")
+            logstatus("INFO","no heat GPIO pin assigned")
     else:
-        logstatus("Sensor doesn't exist (POST)")
+        logstatus("INFO","Sensor doesn't exist (POST)")
     return 'OK'
 
 #post GPIO
@@ -136,10 +136,10 @@ def GPIO_Toggle(GPIO_Num=None, onoff=None):
         if onoff == "on":
             GPIO.output(pinGPIOList[int(GPIO_Num)-1], ON)
             out["status"] = "on"
-            logstatus("GPIO Pin %s is toggled on" % pinGPIOList[int(GPIO_Num)-1] )
+            logstatus("INFO","GPIO Pin %s is toggled on" % pinGPIOList[int(GPIO_Num)-1] )
         else: #off
             GPIO.output(pinGPIOList[int(GPIO_Num)-1], OFF)
-            logstatus("GPIO Pin %s is toggled off" % pinGPIOList[int(GPIO_Num)-1] )
+            logstatus("INFO","GPIO Pin %s is toggled off" % pinGPIOList[int(GPIO_Num)-1] )
     else:
         out = {"pin" : 0, "status" : "off"}
     return jsonify(**out)
@@ -172,7 +172,7 @@ def getbrewtime():
 # Stand Alone Get Temperature Process
 def gettempProc(conn, myTempSensor):
     p = current_process()
-    logstatus("Starting: name(%s) pid(%s)"  % (p.name,p.pid))
+    logstatus("INFO","Starting: name(%s) pid(%s)"  % (p.name,p.pid))
     while (True):
         t = time.time()
         time.sleep(.5) #.1+~.83 = ~1.33 seconds
@@ -190,7 +190,7 @@ def getonofftime(cycle_time, duty_cycle):
 # Stand Alone Heat Process using I2C (optional)
 def heatProcI2C(cycle_time, duty_cycle, conn):
     p = current_process()
-    logstatus("Starting: name(%s) pid(%s)"  % (p.name,p.pid))
+    logstatus("INFO","Starting: name(%s) pid(%s)"  % (p.name,p.pid))
     bus = SMBus(0)
     bus.write_byte_data(0x26,0x00,0x00) #set I/0 to write
     while (True):
@@ -213,13 +213,13 @@ def heatProcI2C(cycle_time, duty_cycle, conn):
 # Stand Alone Heat Process using GPIO
 def heatProcGPIO(cycle_time, duty_cycle, pinNum, conn):
     p = current_process()
-    logstatus("Starting: name(%s) pid(%s)" % (p.name,p.pid))
+    logstatus("INFO","Starting: name(%s) pid(%s)" % (p.name,p.pid))
     if pinNum > 0:
         if gpioNumberingScheme == "BBB":
-            logstatus("Setting %s as GPIO.OUT" % str(pinNum))
+            logstatus("INFO","Setting %s as GPIO.OUT" % str(pinNum))
             GPIO.setup(str(pinNum), GPIO.OUT)
         else:
-            logstatus("Setting %s as GPIO.OUT" % pinNum)
+            logstatus("INFO","Setting %s as GPIO.OUT" % pinNum)
             GPIO.setup(pinNum, GPIO.OUT)
         while (True):
             while (conn.poll()): #get last
@@ -227,37 +227,37 @@ def heatProcGPIO(cycle_time, duty_cycle, pinNum, conn):
             conn.send([cycle_time, duty_cycle])
             if duty_cycle == 0:
                 if gpioNumberingScheme == "BBB":
-                    logstatus("Setting %s OFF" % str(pinNum))
+                    logstatus("INFO","Setting %s OFF" % str(pinNum))
                     GPIO.output(str(pinNum), OFF)
                 else:
-                    logstatus("Setting %s OFF" % pinNum)
+                    logstatus("INFO","Setting %s OFF" % pinNum)
                     GPIO.output(pinNum, OFF)
                 time.sleep(cycle_time)
             elif duty_cycle == 100:
                 if gpioNumberingScheme == "BBB":
-                    logstatus("Setting %s ON" % str(pinNum))
+                    logstatus("INFO","Setting %s ON" % str(pinNum))
                     GPIO.output(str(pinNum), ON)
                 else:
-                    logstatus("Setting %s OFF" % pinNum)
+                    logstatus("INFO","Setting %s OFF" % pinNum)
                     GPIO.output(pinNum, ON)
-                logstatus("Sleeping cycle_time(%s)" % cycle_time)
+                logstatus("INFO","Sleeping cycle_time(%s)" % cycle_time)
                 time.sleep(cycle_time)
             else:
                 on_time, off_time = getonofftime(cycle_time, duty_cycle)
                 if gpioNumberingScheme == "BBB":
-                    logstatus("Setting %s ON" % str(pinNum))
+                    logstatus("INFO","Setting %s ON" % str(pinNum))
                     GPIO.output(str(pinNum), ON)
                 else:
-                    logstatus("Setting %s ON" % pinNum)
+                    logstatus("INFO","Setting %s ON" % pinNum)
                     GPIO.output(pinNum, ON)
                 time.sleep(on_time)
                 if gpioNumberingScheme == "BBB":
-                    logstatus("Setting %s OFF" % str(pinNum))
+                    logstatus("INFO","Setting %s OFF" % str(pinNum))
                     GPIO.output(str(pinNum), OFF)
                 else:
-                    logstatus("Setting %s OFF" % pinNum)
+                    logstatus("INFO","Setting %s OFF" % pinNum)
                     GPIO.output(pinNum, OFF)
-                logstatus("Sleeping off_time(%s)" % off_time)
+                logstatus("INFO","Sleeping off_time(%s)" % off_time)
                 time.sleep(off_time)
 
 def unPackParamInitAndPost(paramStatus):
@@ -274,7 +274,7 @@ def unPackParamInitAndPost(paramStatus):
     k_param = paramStatus["k_param"]
     i_param = paramStatus["i_param"]
     d_param = paramStatus["d_param"]
-    logstatus("Initialising paramaters:: mode: %s, cycle_time: %s, duty_cycle: %s, boil_duty_cycle: %s,set_point: %s, boil_manage_temp: %s, num_pnts_smooth: %s, k_param: %s, i_param: %s, d_param: %s" \
+    logstatus("DEBUG","Initialising paramaters:: mode: %s, cycle_time: %s, duty_cycle: %s, boil_duty_cycle: %s,set_point: %s, boil_manage_temp: %s, num_pnts_smooth: %s, k_param: %s, i_param: %s, d_param: %s" \
            % (mode, cycle_time, duty_cycle, boil_duty_cycle, set_point, boil_manage_temp, num_pnts_smooth, k_param, i_param, d_param))
     return mode, cycle_time, duty_cycle, boil_duty_cycle, set_point, boil_manage_temp, num_pnts_smooth, \
            k_param, i_param, d_param
@@ -296,7 +296,7 @@ def packParamGet(numTempSensors, myTempSensorNum, temp, tempUnits, elapsed, mode
     param.status["k_param"] = k_param
     param.status["i_param"] = i_param
     param.status["d_param"] = d_param
-    logstatus("New paramaters:: mode: %s, cycle_time: %s, duty_cycle: %s, boil_duty_cycle: %s,set_point: %s, boil_manage_temp: %s, num_pnts_smooth: %s, k_param: %s, i_param: %s, d_param: %s" \
+    logstatus("DEBUG","New paramaters:: mode: %s, cycle_time: %s, duty_cycle: %s, boil_duty_cycle: %s,set_point: %s, boil_manage_temp: %s, num_pnts_smooth: %s, k_param: %s, i_param: %s, d_param: %s" \
         % (mode, cycle_time, duty_cycle, boil_duty_cycle, set_point, boil_manage_temp, num_pnts_smooth, k_param, i_param, d_param))
     return param.status
 
@@ -305,7 +305,7 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
         mode, cycle_time, duty_cycle, boil_duty_cycle, set_point, boil_manage_temp, num_pnts_smooth, \
         k_param, i_param, d_param = unPackParamInitAndPost(paramStatus)
         p = current_process()
-        logstatus("Starting: name(%s) pid(%s)" % (p.name,p.pid))
+        logstatus("INFO","Starting: name(%s) pid(%s)" % (p.name,p.pid))
         #Pipe to communicate with "Get Temperature Process"
         parent_conn_temp, child_conn_temp = Pipe()
         #Start Get Temperature Process
@@ -343,7 +343,7 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
                 temp_C, tempSensorNum, elapsed = parent_conn_temp.recv() #non blocking receive from Get Temperature Process
 
                 if temp_C == -99:
-                    logstatus("Bad Temp Reading on sensor %s - retry" % (tempSensorNum))
+                    logstatus("ERROR","Bad Temp Reading on sensor %s - retry" % (tempSensorNum))
                     continue
 
                 if (tempUnits == 'F'):
@@ -425,25 +425,25 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
             if readyPOST == True:
                 if mode == "auto":
                     display.showAutoMode(set_point)
-                    logstatus("auto selected")
+                    logstatus("INFO","auto selected")
                     pid = PIDController.pidpy(cycle_time, k_param, i_param, d_param) #init pid
                     duty_cycle = pid.calcPID_reg4(temp_ma, set_point, True)
                     parent_conn_heat.send([cycle_time, duty_cycle])
                 if mode == "boil":
                     display.showBoilMode()
-                    logstatus("boil selected")
+                    logstatus("INFO","boil selected")
                     boil_duty_cycle = duty_cycle_temp
                     duty_cycle = 100 #full power to boil manage temperature
                     manage_boil_trigger = True
                     parent_conn_heat.send([cycle_time, duty_cycle])
                 if mode == "manual":
                     display.showManualMode()
-                    logstatus("manual selected")
+                    logstatus("INFO","manual selected")
                     duty_cycle = duty_cycle_temp
                     parent_conn_heat.send([cycle_time, duty_cycle])
                 if mode == "off":
                     display.showOffMode()
-                    logstatus("off selected")
+                    logstatus("INFO","off selected")
                     duty_cycle = 0
                     parent_conn_heat.send([cycle_time, duty_cycle])
                 readyPOST = False
@@ -454,9 +454,9 @@ def logdata(tank, temp, set_point, heat):
     f.write("%s,%3.1f,%3.3f,%3.3f,%3.3f\n" % (datetime.utcnow(), getbrewtime(), temp, set_point, heat))
     f.close()
 
-def logstatus(status_string):
+def logstatus(log_status_level,status_string):
     f = open(LogDir + LogStatusFile + ".log", "ab")
-    f.write("%s : %s : %s\n" % (datetime.utcnow(), getbrewtime(),status_string))
+    f.write("%s : %s : %s : %s\n" % (log_status_level, datetime.utcnow(), getbrewtime(),status_string))
     f.close()
 
 
@@ -479,7 +479,7 @@ if __name__ == '__main__':
     if root_dir_elem is not None:
         os.chdir(root_dir_elem.text.strip())
     else:
-        logstatus("No RootDir tag found in config.xml, running from current directory")
+        logstatus("INFO","No RootDir tag found in config.xml, running from current directory")
 
     LogDir = xml_root.find('LogDir').text.strip()
     if LogDir == "":
@@ -509,20 +509,20 @@ if __name__ == '__main__':
     display = Display.NoDisplay()
     gpioNumberingScheme = xml_root.find('GPIO_pin_numbering_scheme').text.strip()
     if gpioNumberingScheme == "BOARD":
-        logstatus("gpioNumberingScheme == GPIO.BOARD");
+        logstatus("INFO","gpioNumberingScheme == GPIO.BOARD");
         GPIO.setmode(GPIO.BOARD)
     elif gpioNumberingScheme == "BCM":
-        logstatus("gpioNumberingScheme == GPIO.BCM");
+        logstatus("INFO","gpioNumberingScheme == GPIO.BCM");
         GPIO.setmode(GPIO.BCM)
     if gpioNumberingScheme == "BBB":
-        logstatus("gpioNumberingScheme == BBB");
-        logstatus("Loading Adafruit_BBIO");
+        logstatus("INFO","gpioNumberingScheme == BBB");
+        logstatus("INFO","Loading Adafruit_BBIO");
         import Adafruit_BBIO.GPIO as GPIO
     else:
-        logstatus("gpioNumberingScheme catchall (RPi)");
-        logstatus("Loading i2c-bcm2708");
+        logstatus("INFO","gpioNumberingScheme catchall (RPi)");
+        logstatus("INFO","Loading i2c-bcm2708");
         call(["modprobe", "i2c-bcm2708"])
-        logstatus("Loading RPi.GPIO");
+        logstatus("INFO","Loading RPi.GPIO");
         import RPi.GPIO as GPIO
 
     gpioInverted = xml_root.find('GPIO_Inverted').text.strip()
@@ -532,13 +532,13 @@ if __name__ == '__main__':
     else:
         ON = 0
         OFF = 1
-    logstatus("GPIO Inversion set: On = %s Off = %s" % (ON, OFF))
+    logstatus("INFO","GPIO Inversion set: On = %s Off = %s" % (ON, OFF))
     vesselList=[]
     for vessel in xml_root.iter('Vessel'):
         vesselList.append(vessel.text.strip())
     pinHeatList=[]
     for pin in xml_root.iter('Heat_Pin'):
-        logstatus("Setting up GPIO Pin %s for heat output" % pin)
+        logstatus("INFO","Setting up GPIO Pin %s for heat output" % pin)
         if gpioNumberingScheme == "BBB":
             pinHeatList.append(pin.text.strip())
         else:
@@ -550,7 +550,7 @@ if __name__ == '__main__':
         else:
             pinGPIOList.append(int(pin.text.strip()))
     for pinNum in pinGPIOList:
-        logstatus("Setting up GPIO Pin %s for manual output" % pinNum)
+        logstatus("INFO","Setting up GPIO Pin %s for manual output" % pinNum)
         if gpioNumberingScheme == "BBB":
             GPIO.setup(str(pinNum), GPIO.OUT)
         else:
