@@ -435,12 +435,12 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
 
 def logdata(tank, temp, set_point, heat):
     f = open(LogDir + LogDataFile + str(tank) + ".csv", "ab")
-    f.write("%s,%3.1f,%3.3f,%3.3f,%3.3f\n" % (datetime.utc(), getbrewtime(), temp, set_point, heat))
+    f.write("%s,%3.1f,%3.3f,%3.3f,%3.3f\n" % (datetime.utcnow(), getbrewtime(), temp, set_point, heat))
     f.close()
 
 def logstatus(status_string):
     f = open(LogDir + LogStatusFile + ".log", "ab")
-    f.write("%s : %s : %s\n" % (datetime.utc(), getbrewtime(),status_string))
+    f.write("%s : %s : %s\n" % (datetime.utcnow(), getbrewtime(),status_string))
     f.close()
 
 
