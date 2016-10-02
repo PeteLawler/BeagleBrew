@@ -226,25 +226,25 @@ def heatProcGPIO(cycle_time, duty_cycle, pinNum, conn):
             if duty_cycle == 0:
                 if gpioNumberingScheme == "BBB":
                     GPIO.output(str(pinNum), OFF)
-		else:
+                else:
                     GPIO.output(pinNum, OFF)
                 time.sleep(cycle_time)
             elif duty_cycle == 100:
                 if gpioNumberingScheme == "BBB":
                     GPIO.output(str(pinNum), ON)
-		else:
+                else:
                     GPIO.output(pinNum, ON)
                 time.sleep(cycle_time)
             else:
                 on_time, off_time = getonofftime(cycle_time, duty_cycle)
                 if gpioNumberingScheme == "BBB":
                     GPIO.output(str(pinNum), ON)
-		else:
+                else:
                     GPIO.output(pinNum, ON)
                 time.sleep(on_time)
                 if gpioNumberingScheme == "BBB":
                     GPIO.output(str(pinNum), OFF)
-		else:
+                else:
                     GPIO.output(pinNum, OFF)
                 time.sleep(off_time)
 
@@ -314,7 +314,7 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
 
         temp_ma = 0.0
 
-	#overwrite log file for new data log
+        #overwrite log file for new data log
         ff = open(LogDir + LogDataFile + str(myTempSensor.sensorNum) + ".csv", "wb")
         ff.write("elapsed time,temperature,target,heat output\n")
         ff.close()
@@ -496,23 +496,23 @@ if __name__ == '__main__':
     if gpioNumberingScheme == "BOARD":
         GPIO.setmode(GPIO.BOARD)
     elif gpioNumberingScheme == "BCM":
- 	GPIO.setmode(GPIO.BCM)
+         GPIO.setmode(GPIO.BCM)
     if gpioNumberingScheme == "BBB":
-	logstatus("Loading Adafruit_BBIO");
+        logstatus("Loading Adafruit_BBIO");
         import Adafruit_BBIO.GPIO as GPIO
     else:
-	logstatus("Loading i2c-bcm2708");
+        logstatus("Loading i2c-bcm2708");
         call(["modprobe", "i2c-bcm2708"])
-	logstatus("Loading RPi.GPIO");
+        logstatus("Loading RPi.GPIO");
         import RPi.GPIO as GPIO
 
     gpioInverted = xml_root.find('GPIO_Inverted').text.strip()
     if gpioInverted == "0":
-	ON = 1
-	OFF = 0
+        ON = 1
+        OFF = 0
     else:
-	ON = 0
-	OFF = 1
+        ON = 0
+        OFF = 1
     logstatus("GPIO Inversion set: On = %s Off = %s" % (ON, OFF))
     vesselList=[]
     for vessel in xml_root.iter('Vessel'):
