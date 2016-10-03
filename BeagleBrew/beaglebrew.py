@@ -225,39 +225,27 @@ def heatProcGPIO(cycle_time, duty_cycle, pinNum, conn):
             while (conn.poll()): #get last
                 cycle_time, duty_cycle = conn.recv()
             conn.send([cycle_time, duty_cycle])
+            if gpioNumberingScheme == "BBB":
+                 pinString = str(pinNum)
+             else
+                pinString = pinNum
             if duty_cycle == 0:
-                if gpioNumberingScheme == "BBB":
-                    logstatus("INFO","%s OFF" % str(pinNum))
-                    GPIO.output(str(pinNum), OFF)
-                else:
-                    logstatus("INFO","%s OFF" % pinNum)
-                    GPIO.output(pinNum, OFF)
-                time.sleep(cycle_time)
+                 logstatus("INFO","%s OFF" % pinString)
+                 GPIO.output(pinString, OFF)
+                 time.sleep(cycle_time)
             elif duty_cycle == 100:
-                if gpioNumberingScheme == "BBB":
-                    logstatus("INFO","%s ON" % str(pinNum))
-                    GPIO.output(str(pinNum), ON)
-                else:
-                    logstatus("INFO","%s OFF" % pinNum)
-                    GPIO.output(pinNum, ON)
-                logstatus("INFO","Sleeping cycle_time(%s)" % cycle_time)
+                logstatus("INFO","%s OFF" % pinString)
+                GPIO.output(pinString, ON)
+                logstatus("INFO","Sleeping pin %s for %s" % (pinString, cycle_time))
                 time.sleep(cycle_time)
             else:
                 on_time, off_time = getonofftime(cycle_time, duty_cycle)
-                if gpioNumberingScheme == "BBB":
-                    logstatus("INFO","%s ON" % str(pinNum))
-                    GPIO.output(str(pinNum), ON)
-                else:
-                    logstatus("INFO","%s ON" % pinNum)
-                    GPIO.output(pinNum, ON)
+                logstatus("INFO","%s ON" % pinString)
+                GPIO.output(pinString, ON)
                 time.sleep(on_time)
-                if gpioNumberingScheme == "BBB":
-                    logstatus("INFO","%s OFF" % str(pinNum))
-                    GPIO.output(str(pinNum), OFF)
-                else:
-                    logstatus("INFO","%s OFF" % pinNum)
-                    GPIO.output(pinNum, OFF)
-                logstatus("INFO","Sleeping off_time(%s)" % off_time)
+                logstatus("INFO","%s OFF" % pinString)
+                GPIO.output(pinNum, OFF)
+                logstatus("INFO","Sleeping pin %s for %s" % (pinString, off_time))
                 time.sleep(off_time)
 
 def unPackParamInitAndPost(paramStatus):
