@@ -236,7 +236,7 @@ def heatProcGPIO(cycle_time, duty_cycle, pinNum, conn):
             elif duty_cycle == 100:
                 logstatus("INFO","%s OFF" % pinString)
                 GPIO.output(pinString, ON)
-                logstatus("INFO","Sleeping pin %s for %s" % (pinString, cycle_time))
+                logstatus("INFO","Sleeping %s for %s" % (pinString, cycle_time))
                 time.sleep(cycle_time)
             else:
                 on_time, off_time = getonofftime(cycle_time, duty_cycle)
@@ -245,7 +245,7 @@ def heatProcGPIO(cycle_time, duty_cycle, pinNum, conn):
                 time.sleep(on_time)
                 logstatus("INFO","%s OFF" % pinString)
                 GPIO.output(pinNum, OFF)
-                logstatus("INFO","Sleeping pin %s for %s" % (pinString, off_time))
+                logstatus("INFO","Sleeping %s for %s" % (pinString, off_time))
                 time.sleep(off_time)
 
 def unPackParamInitAndPost(paramStatus):
