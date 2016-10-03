@@ -216,10 +216,10 @@ def heatProcGPIO(cycle_time, duty_cycle, pinNum, conn):
     logstatus("INFO","Starting: name(%s) pid(%s)" % (p.name,p.pid))
     if pinNum > 0:
         if gpioNumberingScheme == "BBB":
-            logstatus("INFO","Setting %s as GPIO.OUT" % str(pinNum))
+            logstatus("INFO","%s GPIO.OUT" % str(pinNum))
             GPIO.setup(str(pinNum), GPIO.OUT)
         else:
-            logstatus("INFO","Setting %s as GPIO.OUT" % pinNum)
+            logstatus("INFO","%s GPIO.OUT" % pinNum)
             GPIO.setup(pinNum, GPIO.OUT)
         while (True):
             while (conn.poll()): #get last
@@ -227,35 +227,35 @@ def heatProcGPIO(cycle_time, duty_cycle, pinNum, conn):
             conn.send([cycle_time, duty_cycle])
             if duty_cycle == 0:
                 if gpioNumberingScheme == "BBB":
-                    logstatus("INFO","Setting %s OFF" % str(pinNum))
+                    logstatus("INFO","%s OFF" % str(pinNum))
                     GPIO.output(str(pinNum), OFF)
                 else:
-                    logstatus("INFO","Setting %s OFF" % pinNum)
+                    logstatus("INFO","%s OFF" % pinNum)
                     GPIO.output(pinNum, OFF)
                 time.sleep(cycle_time)
             elif duty_cycle == 100:
                 if gpioNumberingScheme == "BBB":
-                    logstatus("INFO","Setting %s ON" % str(pinNum))
+                    logstatus("INFO","%s ON" % str(pinNum))
                     GPIO.output(str(pinNum), ON)
                 else:
-                    logstatus("INFO","Setting %s OFF" % pinNum)
+                    logstatus("INFO","%s OFF" % pinNum)
                     GPIO.output(pinNum, ON)
                 logstatus("INFO","Sleeping cycle_time(%s)" % cycle_time)
                 time.sleep(cycle_time)
             else:
                 on_time, off_time = getonofftime(cycle_time, duty_cycle)
                 if gpioNumberingScheme == "BBB":
-                    logstatus("INFO","Setting %s ON" % str(pinNum))
+                    logstatus("INFO","%s ON" % str(pinNum))
                     GPIO.output(str(pinNum), ON)
                 else:
-                    logstatus("INFO","Setting %s ON" % pinNum)
+                    logstatus("INFO","%s ON" % pinNum)
                     GPIO.output(pinNum, ON)
                 time.sleep(on_time)
                 if gpioNumberingScheme == "BBB":
-                    logstatus("INFO","Setting %s OFF" % str(pinNum))
+                    logstatus("INFO","%s OFF" % str(pinNum))
                     GPIO.output(str(pinNum), OFF)
                 else:
-                    logstatus("INFO","Setting %s OFF" % pinNum)
+                    logstatus("INFO","%s OFF" % pinNum)
                     GPIO.output(pinNum, OFF)
                 logstatus("INFO","Sleeping off_time(%s)" % off_time)
                 time.sleep(off_time)
@@ -274,7 +274,7 @@ def unPackParamInitAndPost(paramStatus):
     k_param = paramStatus["k_param"]
     i_param = paramStatus["i_param"]
     d_param = paramStatus["d_param"]
-    logstatus("DEBUG","Initialising paramaters:: mode: %s, cycle_time: %s, duty_cycle: %s, boil_duty_cycle: %s,set_point: %s, boil_manage_temp: %s, num_pnts_smooth: %s, k_param: %s, i_param: %s, d_param: %s" \
+    logstatus("DEBUG","Initialising paramaters: mode: %s, cycle_time: %s, duty_cycle: %s, boil_duty_cycle: %s,set_point: %s, boil_manage_temp: %s, num_pnts_smooth: %s, k_param: %s, i_param: %s, d_param: %s" \
            % (mode, cycle_time, duty_cycle, boil_duty_cycle, set_point, boil_manage_temp, num_pnts_smooth, k_param, i_param, d_param))
     return mode, cycle_time, duty_cycle, boil_duty_cycle, set_point, boil_manage_temp, num_pnts_smooth, \
            k_param, i_param, d_param
@@ -296,7 +296,7 @@ def packParamGet(numTempSensors, myTempSensorNum, temp, tempUnits, elapsed, mode
     param.status["k_param"] = k_param
     param.status["i_param"] = i_param
     param.status["d_param"] = d_param
-    logstatus("DEBUG","New paramaters:: mode: %s, cycle_time: %s, duty_cycle: %s, boil_duty_cycle: %s,set_point: %s, boil_manage_temp: %s, num_pnts_smooth: %s, k_param: %s, i_param: %s, d_param: %s" \
+    logstatus("DEBUG","New paramaters: mode: %s, cycle_time: %s, duty_cycle: %s, boil_duty_cycle: %s,set_point: %s, boil_manage_temp: %s, num_pnts_smooth: %s, k_param: %s, i_param: %s, d_param: %s" \
         % (mode, cycle_time, duty_cycle, boil_duty_cycle, set_point, boil_manage_temp, num_pnts_smooth, k_param, i_param, d_param))
     return param.status
 
