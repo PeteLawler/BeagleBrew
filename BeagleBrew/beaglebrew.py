@@ -33,7 +33,8 @@ from smbus import SMBus
 from pid import pidpy as PIDController
 from flask import Flask, render_template, request, jsonify
 
-global parent_conn, parent_connB, parent_connC, statusQ, statusQ_B, statusQ_C
+global parent_connA, parent_connB, parent_connC
+global statusQ_A, statusQ_B, statusQ_C
 global xml_root, template_name, pinHeatList, pinGPIOList
 global brewtime, oneWireDir
 
@@ -84,7 +85,7 @@ def index():
         param.status["d_param"] = float(request.form["d"])
         #send to main temp control process
         #if did not receive variable key value in POST, the param class default is used
-        parent_conn.send(param.status)
+        parent_connA.send(param.status)
         return 'OK'
 
 #post params (selectable temp sensor number)
@@ -103,7 +104,7 @@ def postparams(sensorNum=None):
     #if did not receive variable key value in POST, the param class default is used
     if sensorNum == "1":
         logstatus("INFO","got post to temp sensor 1")
-        parent_conn.send(param.status)
+        parent_connA.send(param.status)
     elif sensorNum == "2":
         logstatus("INFO","got post to temp sensor 2")
         if len(pinHeatList) >= 2:
@@ -552,10 +553,10 @@ if __name__ == '__main__':
         if myTempSensor.sensorNum >= 1:
             display = Display.NoDisplay()
         if myTempSensor.sensorNum == 0:
-            statusQ = Queue(2) #blocking queue
-            parent_conn, child_conn = Pipe()
+            statusQ_A = Queue(2) #blocking queue
+            parent_connA, child_conn = Pipe()
             p = Process(name = "tempControlProc", target=tempControlProc, args=(myTempSensor, display, pinNum, readOnly, \
-                                                              param.status, statusQ, child_conn))
+                                                              param.status, statusQ_A, child_conn))
             p.start()
         if myTempSensor.sensorNum == 1:
             statusQ_B = Queue(2) #blocking queue
