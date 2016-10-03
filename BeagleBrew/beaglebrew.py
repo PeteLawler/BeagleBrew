@@ -227,7 +227,7 @@ def heatProcGPIO(cycle_time, duty_cycle, pinNum, conn):
             conn.send([cycle_time, duty_cycle])
             if gpioNumberingScheme == "BBB":
                  pinString = str(pinNum)
-             else
+            else
                 pinString = pinNum
             if duty_cycle == 0:
                  logstatus("INFO","%s OFF" % pinString)
