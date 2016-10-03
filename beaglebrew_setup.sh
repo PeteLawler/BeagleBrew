@@ -117,9 +117,8 @@ echo "-----------------------------------"
 echo "Installing Adafruit BBIO"
 if [ ${OS_ID} = "debian" ]; then
 	sudo easy_install -U distribute  #debian only
-else
-	sudo pip install Adafruit_BBIO
 fi
+	sudo pip install Adafruit_BBIO
 #	echo "Testing for ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python/.git"
 #	if [ -d ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python/.git ]; then
 #		echo "Updating adafruit-beaglebone-io-python if necessary"
