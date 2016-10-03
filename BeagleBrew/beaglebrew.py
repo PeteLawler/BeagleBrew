@@ -290,10 +290,10 @@ def packParamGet(numTempSensors, myTempSensorNum, temp, tempUnits, elapsed, mode
 
 # Main Temperature Control Process
 def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, statusQ, conn):
-        logstatus("DEBUG","tempControlProc: myTempSensor %s, display %s, pinNum %s, readOnly %s, paramStatus %s, statusQ %s, conn %s", % (myTempSensor, display, pinNum, readOnly, paramStatus, statusQ, conn)
+        logstatus("DEBUG","tempControlProc: myTempSensor %s, display %s, pinNum %s, readOnly %s, paramStatus %s, statusQ %s, conn %s", % (myTempSensor, display, pinNum, readOnly, paramStatus, statusQ, conn))
         mode, cycle_time, duty_cycle, boil_duty_cycle, set_point, boil_manage_temp, num_pnts_smooth, \
         k_param, i_param, d_param = unPackParamInitAndPost(paramStatus)
-        logstatus("DEBUG","tempControlProc: mode %s, cycle_time %s, duty_cycle %s, boil_duty_cycle %s, set_point %s, boil_manage_temp %s, num_pnts_smooth %s, k_param %s, i_param %s, d_param %s", % (mode, cycle_time, duty_cycle, boil_duty_cycle, set_point, boil_manage_temp, num_pnts_smooth, k_param, i_param, d_param)
+        logstatus("DEBUG","tempControlProc: mode %s, cycle_time %s, duty_cycle %s, boil_duty_cycle %s, set_point %s, boil_manage_temp %s, num_pnts_smooth %s, k_param %s, i_param %s, d_param %s", % (mode, cycle_time, duty_cycle, boil_duty_cycle, set_point, boil_manage_temp, num_pnts_smooth, k_param, i_param, d_param))
         p = current_process()
         logstatus("INFO","Starting: name(%s) pid(%s)" % (p.name,p.pid))
         #Pipe to communicate with "Get Temperature Process"
