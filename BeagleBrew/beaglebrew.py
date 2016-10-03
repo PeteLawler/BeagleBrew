@@ -234,7 +234,7 @@ def heatProcGPIO(cycle_time, duty_cycle, pinNum, conn):
                 GPIO.output(pinString, OFF)
                 time.sleep(cycle_time)
             elif duty_cycle == 100:
-                logstatus("INFO","%s OFF" % pinString)
+                logstatus("INFO","%s ON" % pinString)
                 GPIO.output(pinString, ON)
                 logstatus("INFO","Sleeping %s for %s" % (pinString, cycle_time))
                 time.sleep(cycle_time)
