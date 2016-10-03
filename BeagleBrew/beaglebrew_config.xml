@@ -36,6 +36,7 @@
 	<!-- for heat, otherwise the temperature sensor is only for temp readout -->
 	<!-- Repeat same element names (Temp_Sensor_Id and optional Heat_Pin) for additional temp sensors -->
 	<!-- Currently limited to 3 temp sensors but that can easily be expanded in raspibrew.py -->
+	<Vessel>My Big Vessel</Vessel>
 	<Temp_Sensor_Id>28-000000000000</Temp_Sensor_Id>
 	<Heat_Pin>TIMER7</Heat_Pin>
 
