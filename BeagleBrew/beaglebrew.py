@@ -216,19 +216,15 @@ def heatProcGPIO(cycle_time, duty_cycle, pinNum, conn):
     logstatus("INFO","Starting: name(%s) pid(%s)" % (p.name,p.pid))
     if pinNum > 0:
         if gpioNumberingScheme == "BBB":
-            logstatus("INFO","%s GPIO.OUT" % str(pinNum))
-            GPIO.setup(str(pinNum), GPIO.OUT)
+            pinString = str(pinNum)
         else:
-            logstatus("INFO","%s GPIO.OUT" % pinNum)
-            GPIO.setup(pinNum, GPIO.OUT)
+            pinString = pinNum
+        logstatus("INFO","%s GPIO.OUT" % pinString)
+        GPIO.setup(pinNum, GPIO.OUT)
         while (True):
             while (conn.poll()): #get last
                 cycle_time, duty_cycle = conn.recv()
             conn.send([cycle_time, duty_cycle])
-            if gpioNumberingScheme == "BBB":
-                 pinString = str(pinNum)
-            else:
-                pinString = pinNum
             if duty_cycle == 0:
                 logstatus("INFO","%s OFF" % pinString)
                 GPIO.output(pinString, OFF)
