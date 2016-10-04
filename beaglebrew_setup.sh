@@ -115,6 +115,28 @@ else
 fi
 
 echo "-----------------------------------"
+echo "Testing for ${DOWNLOAD_LOCATION}"
+if [ ! -d ${DOWNLOAD_LOCATION} ]; then
+	echo "Creating ${DOWNLOAD_LOCATION}"
+	mkdir -p ${DOWNLOAD_LOCATION}
+fi
+echo "-----------------------------------"
+
+echo "Testing for ${DOWNLOAD_LOCATION}/bb.org-overlays/.git"
+if [ -d ${DOWNLOAD_LOCATION}/bb.org-overlays/.git ]; then
+	echo "Updating bb.org-overlays if necessary"
+	git -C ${DOWNLOAD_LOCATION}/bb.org-overlays pull
+else
+	echo "Cloning bb.org-overlays"
+	git -C ${DOWNLOAD_LOCATION} clone ${BBDOTORG_OVERLAYS_GIT_LOCATION}
+fi
+echo "Testing for patched dtc"
+if [ ! -L /usr/bin/dtc-v4.1.x ]; then
+	echo "Installing patched dtc"
+	bash -c "cd ${DOWNLOAD_LOCATION}/bb.org-overlays && ./dtc-overlay.sh"
+fi
+echo "Installing overlays"
+bash -c "cd ${DOWNLOAD_LOCATION}/bb.org-overlays && ./install.sh"
 
 echo "Installing systemd service"
 sudo cp beaglebrew.service /etc/systemd/system/.
