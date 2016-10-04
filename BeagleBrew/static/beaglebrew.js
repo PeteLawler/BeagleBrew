@@ -267,25 +267,25 @@ function waitForMsg() {
 
 			numTempSensors = parseInt(data.numTempSensors);
 
-			jQuery('#dutyCycleUnits').html("%");
+			jQuery('#dutyCycleUnits1').html("%");
 			if (data.tempUnits == "F") {
-				jQuery('#tempResponseUnits').html("&#176F");
-				jQuery('#setpointResponseUnits').html("&#176F");
-				jQuery('#setpointInputUnits').html("&#176F");
+				jQuery('#tempResponseUnits1').html("&#176F");
+				jQuery('#setpointResponseUnits1').html("&#176F");
+				jQuery('#setpointInputUnits1').html("&#176F");
 			} else {
-				jQuery('#tempResponseUnits').html("&#176C");
-				jQuery('#setpointResponseUnits').html("&#176C");
-				jQuery('#setpointInputUnits').html("&#176C");
+				jQuery('#tempResponseUnits1').html("&#176C");
+				jQuery('#setpointResponseUnits1').html("&#176C");
+				jQuery('#setpointInputUnits1').html("&#176C");
 			}
 
-			jQuery('#tempResponse').html(data.temp);
-			jQuery('#modeResponse').html(data.mode);
-			jQuery('#setpointResponse').html(data.set_point);
-			jQuery('#dutycycleResponse').html(data.duty_cycle.toFixed(2));
-			jQuery('#cycletimeResponse').html(data.cycle_time);
-			jQuery('#k_paramResponse').html(data.k_param);
-			jQuery('#i_paramResponse').html(data.i_param);
-			jQuery('#d_paramResponse').html(data.d_param);
+			jQuery('#tempResponse1').html(data.temp);
+			jQuery('#modeResponse'1).html(data.mode);
+			jQuery('#setpointResponse1').html(data.set_point);
+			jQuery('#dutycycleResponse1').html(data.duty_cycle.toFixed(2));
+			jQuery('#cycletimeResponse1').html(data.cycle_time);
+			jQuery('#k_paramResponse1').html(data.k_param);
+			jQuery('#i_paramResponse1').html(data.i_param);
+			jQuery('#d_paramResponse1').html(data.d_param);
 
 			//gaugeDisplay.setValue(parseFloat(data.temp));
 
