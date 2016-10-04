@@ -173,7 +173,7 @@ fi
 echo "-----------------------------------"
 
 echo "Checking for missing logrotate configuration"
-if [ -f /etc/logrotate.d/beaglebrew/ ]; then
+if [ -f /etc/logrotate.d/beaglebrew ]; then
 	echo "Installing logrotation"
 	sudo bash -c "echo '/var/log/beaglebrew/* {
         rotate 5
