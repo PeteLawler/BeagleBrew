@@ -318,7 +318,7 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
         temp_ma = 0.0
 
         #overwrite log file for new data log
-        ff = open(LogDir + LogDataFile + str(myTempSensor.sensorNum) + ".csv", "wb")
+        ff = open(LogDir + LogDataFile + str(myTempSensor.sensorNum) + ".csv", LogFileMode)
         ff.write("elapsed time,temperature,target,heat output\n")
         ff.close()
 
@@ -437,12 +437,12 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
             time.sleep(.01)
 
 def logdata(tank, temp, set_point, heat):
-    f = open(LogDir + LogDataFile + str(tank) + ".csv", "ab")
+    f = open(LogDir + LogDataFile + str(tank) + ".csv", LogFileMode)
     f.write("%s,%3.1f,%3.3f,%3.3f,%3.3f\n" % (datetime.utcnow(), getbrewtime(), temp, set_point, heat))
     f.close()
 
 def logstatus(log_status_level,status_string):
-    f = open(LogDir + LogStatusFile + ".log", "ab")
+    f = open(LogDir + LogStatusFile + ".log", LogFileMode)
     f.write("%s, %s, %s, %s\n" % (datetime.utcnow(), getbrewtime(), log_status_level, status_string))
     f.close()
 
@@ -479,6 +479,13 @@ if __name__ == '__main__':
     LogStatusFile = xml_root.find('LogStatusFile').text.strip()
     if LogStatusFile == "":
         LogStatusFile = "BeagleBrewStatus"
+
+    LogFileMode = xml_root.find('LogFileMode').text.strip()
+    if LogFileMode == "Overwrite":
+# See https://docs.python.org/2/library/functions.html#open
+        LogFileMode = "wb"
+    else:
+        LogFileMode = "ab"
 
     SQLite3Dir = xml_root.find('SQLite3Dir').text.strip()
     if SQLite3Dir == "":
