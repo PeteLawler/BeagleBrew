@@ -157,7 +157,7 @@ def getstatusB():
 def getstatus(sensorNum=None):
     #blocking receive - current status
     if sensorNum == "1":
-        param.status = statusQ.get()
+        param.status = statusQ_A.get()
     elif sensorNum == "2":
         param.status = statusQ_B.get()
     elif sensorNum == "3":
