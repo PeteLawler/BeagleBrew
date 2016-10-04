@@ -100,36 +100,26 @@ echo "-----------------------------------"
 echo "Checking for Flask"
 if [ ! $( pip list | cut -d \  -f 1 | grep ^Flask$ ) ]; then
 	echo "Installing Flask"
-	sudo pip install Flask # See https://github.com/adafruit/adafruit-beaglebone-io-python/issues/107 why we can't install Adafruit's BBIO via pypi here...
+	sudo pip install Flask
 else
 	echo "Flask already installed"
 fi
 echo "-----------------------------------"
 
+echo "Checking for Adafruit_BBIO"
+if [ ! $( pip list | cut -d \  -f 1 | grep ^Adafruit_BBIO$ ) ]; then
+	echo "Installing Adafruit BBIO"
+	sudo pip install Adafruit_BBIO
+else
+	echo "Adafruit_BBIO already installed"
+fi
+
+echo "-----------------------------------"
 echo "Testing for ${DOWNLOAD_LOCATION}"
 if [ ! -d ${DOWNLOAD_LOCATION} ]; then
 	echo "Creating ${DOWNLOAD_LOCATION}"
 	mkdir -p ${DOWNLOAD_LOCATION}
 fi
-echo "-----------------------------------"
-
-
-echo "Installing Adafruit BBIO"
-if [ ${OS_ID} = "debian" ]; then
-	sudo easy_install -U distribute  #debian only
-fi
-	sudo pip install Adafruit_BBIO
-#	echo "Testing for ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python/.git"
-#	if [ -d ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python/.git ]; then
-#		echo "Updating adafruit-beaglebone-io-python if necessary"
-#		git -C ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python pull
-#	else
-#		echo "Cloning adafruit-beaglebone-io-python"
-#		git -C ${DOWNLOAD_LOCATION} clone ${ADAFRUIT_PYTHON_GIT_LOCATION}
-#	fi
-#	echo "Installing adafruit-beaglebone-io-python"
-#	bash -c "cd ${DOWNLOAD_LOCATION}/adafruit-beaglebone-io-python/ && sudo python setup.py install"
-
 echo "-----------------------------------"
 
 echo "Testing for ${DOWNLOAD_LOCATION}/bb.org-overlays/.git"
