@@ -113,8 +113,8 @@ if [ ! $( pip list | cut -d \  -f 1 | grep ^Adafruit_BBIO$ ) ]; then
 else
 	echo "Adafruit_BBIO already installed"
 fi
-
 echo "-----------------------------------"
+
 echo "Testing for ${DOWNLOAD_LOCATION}"
 if [ ! -d ${DOWNLOAD_LOCATION} ]; then
 	echo "Creating ${DOWNLOAD_LOCATION}"
@@ -130,13 +130,18 @@ else
 	echo "Cloning bb.org-overlays"
 	git -C ${DOWNLOAD_LOCATION} clone ${BBDOTORG_OVERLAYS_GIT_LOCATION}
 fi
+echo "-----------------------------------"
+
 echo "Testing for patched dtc"
 if [ ! -L /usr/bin/dtc-v4.1.x ]; then
 	echo "Installing patched dtc"
 	bash -c "cd ${DOWNLOAD_LOCATION}/bb.org-overlays && ./dtc-overlay.sh"
 fi
+echo "-----------------------------------"
+
 echo "Installing overlays"
 bash -c "cd ${DOWNLOAD_LOCATION}/bb.org-overlays && ./install.sh"
+echo "-----------------------------------"
 
 echo "Installing systemd service"
 sudo cp beaglebrew.service /etc/systemd/system/.
@@ -145,24 +150,29 @@ sudo chmod 644 /etc/systemd/system/beaglebrew.service
 sudo sed -i 's@INSTALL_LOCATION@'"$INSTALL_LOCATION"'@'g /etc/systemd/system/beaglebrew.service
 sudo systemctl daemon-reload
 sudo systemctl disable beaglebrew.service
+echo "-----------------------------------"
 
-echo "Checking for old install"
-
+echo "Checking for old config"
 if [ -L /etc/opt/beaglebrew_config.xml ]; then
 	echo "Removing config"
 	sudo rm /etc/opt/beaglebrew_config.xml
 fi
 
+echo "Checking for old install"
 if [ -d /opt/BeagleBrew ]; then
 	echo "Removing existing install"
 	sudo rm -fr /opt/BeagleBrew
 fi
+echo "-----------------------------------"
 
+echo "Checking for old logfiles"
 if [ -d /var/log/beaglebrew/ ]; then
 	echo "Removing logfiles"
 	sudo rm -fr /var/log/beaglebrew/
 fi
+echo "-----------------------------------"
 
+echo "Checking for missing logrotate configuration"
 if [ -f /etc/logrotate.d/beaglebrew/ ]; then
 	echo "Installing logrotation"
 	sudo bash -c "echo '/var/log/beaglebrew/* {
@@ -173,6 +183,7 @@ if [ -f /etc/logrotate.d/beaglebrew/ ]; then
 }
 ' > /etc/logrotate.d/beaglebrew "
 fi
+echo "-----------------------------------"
 
 printf "Installing"
 sudo cp -pvr BeagleBrew ${INSTALL_LOCATION}
@@ -185,7 +196,7 @@ printf "."
 sudo ln -s /opt/BeagleBrew/beaglebrew_config.xml /etc/opt/
 printf ". done.\n
 "
-
+echo "-----------------------------------"
 
 while true; do
 	read -p "Do you wish to automatically boot BeagleBrew? " yn
@@ -196,6 +207,7 @@ while true; do
 		* ) echo "Please answer yes or no.";;
 	esac
 done
+echo "-----------------------------------"
 
 while true; do
 	read -p "Reboot to complete installation? " yn
