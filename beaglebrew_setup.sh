@@ -110,9 +110,9 @@ fi
 echo "-----------------------------------"
 
 echo "Checking for Adafruit_BBIO"
-if [ ! $( pip list | cut -d \  -f 1 | grep ^Adafruit_BBIO$ ) ]; then
+if [ ! $( pip list | cut -d \  -f 1 | grep ^Adafruit-BBIO$ ) ]; then
 	echo "Installing Adafruit BBIO"
-	sudo pip install Adafruit_BBIO
+	sudo pip install Adafruit-BBIO
 else
 	echo "Adafruit_BBIO already installed"
 fi
