@@ -155,16 +155,10 @@ sudo systemctl daemon-reload
 sudo systemctl disable beaglebrew.service
 echo "-----------------------------------"
 
-echo "Checking for old config"
-if [ -L /etc/opt/beaglebrew_config.xml ]; then
-	echo "Backing up old config"
-	sudo mv /etc/opt/beaglebrew_config.xml /etc/opt/beaglebrew_config.xml.${NOW}
-fi
-
 echo "Checking for old install"
 if [ -d /opt/BeagleBrew ]; then
 	echo "Backing up old install"
-	sudo mv /opt/BeagleBrew /opt/BeagleBrew.${NOW}
+	sudo mv -v /opt/BeagleBrew /opt/BeagleBrew.${NOW}
 fi
 echo "-----------------------------------"
 
