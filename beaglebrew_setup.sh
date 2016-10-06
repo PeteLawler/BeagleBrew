@@ -10,7 +10,9 @@
 # Where to download misc things
 DOWNLOAD_LOCATION=/var/tmp
 INSTALL_LOCATION=/opt/BeagleBrew
-BBDOTORG_OVERLAYS_GIT_LOCATION=https://github.com/RobertCNelson/bb.org-overlays.git
+#during development, use my own clone of the official board repo
+BBDOTORG_OVERLAYS_GIT_LOCATION=https://github.com/PeteLawler/bb.org-overlays.git
+
 OS_ID=$(grep ID /etc/os-release |cut -f 2 -d =)
 NOW=$(date +"%Y-%m-%d-%H-%M-%S")
 
