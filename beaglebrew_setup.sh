@@ -12,6 +12,8 @@ DOWNLOAD_LOCATION=/var/tmp
 INSTALL_LOCATION=/opt/BeagleBrew
 BBDOTORG_OVERLAYS_GIT_LOCATION=https://github.com/RobertCNelson/bb.org-overlays.git
 OS_ID=$(grep ID /etc/os-release |cut -f 2 -d =)
+NOW=$(date +"%Y-%m-%d-%H-%M-%S")
+
 
 check_dpkg () {
 	LC_ALL=C dpkg --list | awk '{print $2}' | grep "^${pkg}" >/dev/null || deb_pkgs="${deb_pkgs}${pkg} "
@@ -153,21 +155,21 @@ echo "-----------------------------------"
 
 echo "Checking for old config"
 if [ -L /etc/opt/beaglebrew_config.xml ]; then
-	echo "Removing config"
-	sudo rm /etc/opt/beaglebrew_config.xml
+	echo "Backing up old config"
+	sudo mv /etc/opt/beaglebrew_config.xml /etc/opt/beaglebrew_config.xml.${NOW}
 fi
 
 echo "Checking for old install"
 if [ -d /opt/BeagleBrew ]; then
-	echo "Removing existing install"
-	sudo rm -fr /opt/BeagleBrew
+	echo "Backing up old install"
+	sudo mv /opt/BeagleBrew /opt/BeagleBrew.${NOW}
 fi
 echo "-----------------------------------"
 
 echo "Checking for old logfiles"
 if [ -d /var/log/beaglebrew/ ]; then
-	echo "Removing logfiles"
-	sudo rm -fr /var/log/beaglebrew/
+	echo "Backing up old logfiles"
+	sudo mv /var/log/beaglebrew/ /var/log/beaglebrew.${NOW}
 fi
 echo "-----------------------------------"
 
