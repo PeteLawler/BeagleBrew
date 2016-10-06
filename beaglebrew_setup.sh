@@ -10,7 +10,6 @@
 # Where to download misc things
 DOWNLOAD_LOCATION=/var/tmp
 INSTALL_LOCATION=/opt/BeagleBrew
-ADAFRUIT_PYTHON_GIT_LOCATION=https://github.com/adafruit/adafruit-beaglebone-io-python.git
 BBDOTORG_OVERLAYS_GIT_LOCATION=https://github.com/RobertCNelson/bb.org-overlays.git
 OS_ID=$(grep ID /etc/os-release |cut -f 2 -d =)
 
