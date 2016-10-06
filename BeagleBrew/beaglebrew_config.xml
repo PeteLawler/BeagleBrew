@@ -14,7 +14,7 @@
 	<LogDir>/var/log/beaglebrew/</LogDir>
 	<LogStatusFile>BeagleBrewStatus</LogStatusFile>
 	<LogDataFile>BeagleBrewData</LogDataFile>
-	<LogFileMode>Overwrite</LogFileMode> <!-- Setting this to anything else (or removing) will Append -->
+	<LogFileMode>Append</LogFileMode> <!-- Setting this to anything else (or removing) will Append -->
 
 	<!-- SQLite3 config -->
 	<SQLite3Dir>/var/lib/beaglebrew/</SQLite3Dir>
