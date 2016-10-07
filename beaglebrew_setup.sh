@@ -190,9 +190,11 @@ if [ ! -d /var/log/beaglebrew/ ]; then
 	sudo mkdir -p /var/log/beaglebrew/
 fi
 printf "."
-sudo ln -s /opt/BeagleBrew/beaglebrew_config.xml /etc/opt/
-printf ". done.\n
-"
+
+if [ ! "/etc/opt/beaglebrew_config.xml" -ef "/opt/BeagleBrew/beaglebrew_config.xml" ]; then
+	sudo ln --symbolic --verbose /opt/BeagleBrew/beaglebrew_config.xml /etc/opt/
+fi
+printf ". done.\n"
 echo "-----------------------------------"
 
 while true; do
