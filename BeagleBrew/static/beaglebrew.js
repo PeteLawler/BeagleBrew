@@ -279,7 +279,7 @@ function waitForMsg() {
 			}
 
 			jQuery('#tempResponse1').html(data.temp);
-			jQuery('#modeResponse'1).html(data.mode);
+			jQuery('#modeResponse1').html(data.mode);
 			jQuery('#setpointResponse1').html(data.set_point);
 			jQuery('#dutycycleResponse1').html(data.duty_cycle.toFixed(2));
 			jQuery('#cycletimeResponse1').html(data.cycle_time);
