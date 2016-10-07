@@ -3,7 +3,7 @@ reset
 
 set datafile separator ","
 set key outside right box
-set yrange [12:*] # really need to programatically remove values outside given ranges, eg below 12 and above 40
+set yrange [12:*] # really need to use conditional logic only plot values inside given ranges, eg between 12 and 40
 #set autoscale fix
 set border linewidth 2
 set style line 1 linecolor rgb '#0060ad' linetype 1 linewidth 5
