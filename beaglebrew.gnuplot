@@ -1,9 +1,9 @@
 # file:///usr/share/doc/gnuplot-doc/htmldocs/node525.html
 reset
 
-logfile="/var/log/beaglebrew/BeagleBrewStatus0.csv" # need to get this passed to awk at some stage
-pngfile="/home/debian/Documents/Graphs/BeagleBrewStatus0.png"
-svgfile="/home/debian/Documents/Graphs/BeagleBrewStatus0.svg"
+logfile="/var/log/beaglebrew/BeagleBrewData0.csv" # need to get this passed to awk at some stage
+pngfile="/home/debian/Documents/Graphs/BeagleBrewData0.png"
+svgfile="/home/debian/Documents/Graphs/BeagleBrewData0.svg"
 
 set datafile separator ","
 set key outside right box
@@ -18,7 +18,7 @@ set ylabel "'C" # Need to find consistent degree symbol for SVG and PNG formats
 set terminal svg size 640,480 dynamic background '#ffffff' enhanced font "LiberationSans-Regular,12" name "BeagleBrew" butt dashlength 1.0 mousing
 set term svg
 set output svgfile
-plot "<awk -F\, '{ if( $2 > 15 ) { print $0 } }' /var/log/beaglebrew/BeagleBrewStatus0.csv " using 2 title "Measured Temp" with lines, "<awk -F\, '{ if( $3 > 15 ) { print $0 } }' /var/log/beaglebrew/BeagleBrewStatus0.csv " using 3 title "Target Temp" with lines
+plot "<awk -F\, '{ if( $2 > 15 ) { print $0 } }' /var/log/beaglebrew/BeagleBrewData0.csv " using 2 title "Measured Temp" with lines, "<awk -F\, '{ if( $3 > 15 ) { print $0 } }' /var/log/beaglebrew/BeagleBrewData0.csv " using 3 title "Target Temp" with lines
 unset output # close svg tag
 
 set terminal png size 640,480 background '#ffffff' enhanced font "LiberationSans-Regular,12" butt dashlength 1.0 
