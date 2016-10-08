@@ -2,8 +2,8 @@
 reset
 
 logfile="/var/log/beaglebrew/BeagleBrewStatus0.csv" # need to get this passed to awk at some stage
-pngfile="/home/debian/BeagleBrewStatus0.png"
-svgfile="/home/debian/BeagleBrewStatus0.svg"
+pngfile="/home/debian/Documents/Graphs/BeagleBrewStatus0.png"
+svgfile="/home/debian/Documents/Graphs/BeagleBrewStatus0.svg"
 
 set datafile separator ","
 set key outside right box
