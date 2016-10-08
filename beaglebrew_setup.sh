@@ -191,6 +191,7 @@ echo "-----------------------------------"
 printf "Installing"
 sudo cp -pvr BeagleBrew ${INSTALL_LOCATION}
 printf "."
+sudo bash -c "git log |head -1 > ${INSTALL_LOCATION}/beaglebrew-version.txt"
 if [ ! -d /var/log/beaglebrew/ ]; then
 	printf "."
 	sudo mkdir -p /var/log/beaglebrew/
