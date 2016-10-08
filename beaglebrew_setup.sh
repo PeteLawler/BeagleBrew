@@ -26,6 +26,12 @@ if ! sudo -v; then
 	exit
 fi
 
+echo "Testing for existing operations"
+if [ "`systemctl is-active beaglebrew`" = "active" ]; then
+	echo "Stopping existing operations"
+	sudo systemctl stop beaglebrew;
+fi
+
 if [ ! -f `which timedatectl` ]; then
 	echo "Setting time via ntpdate"
 	sudo ntpdate pool.ntp.org
