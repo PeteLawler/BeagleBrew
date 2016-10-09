@@ -21,7 +21,7 @@ set xtics rotate by 90 offset 0,-7.5
 set bmargin 10
 
 set title "BeagleBrew Vessel 1 (Data 0)"
-set xlabel "Time"
+set xlabel "Time" offset 0,1.5
 set ylabel "'C" # Need to find consistent degree symbol for SVG and PNG formats
 
 set terminal svg size 1280,960 dynamic background '#ffffff' enhanced font "LiberationSans-Regular,12" \
