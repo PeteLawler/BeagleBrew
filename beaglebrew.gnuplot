@@ -2,7 +2,6 @@
 reset
 
 logfile="/var/log/beaglebrew/BeagleBrewData0.csv" # need to get this passed to awk at some stage
-pngfile="/home/debian/Documents/Graphs/BeagleBrewData0.png"
 svgfile="/home/debian/Documents/Graphs/BeagleBrewData0.svg"
 
 set autoscale
