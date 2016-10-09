@@ -12,7 +12,7 @@ set border linewidth 2
 set grid
 set style line 1 linecolor rgb '#0060ad' linetype 1 linewidth 5
 set style line 2 linecolor rgb '#00181f' linetype 1 linewidth 5
-
+set tics out
 
 set title "BeagleBrew Vessel 1 (Data 0)"
 set ylabel "'C" # Need to find consistent degree symbol for SVG and PNG formats
