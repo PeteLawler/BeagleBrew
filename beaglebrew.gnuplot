@@ -5,11 +5,11 @@ logfile="/var/log/beaglebrew/BeagleBrewData0.csv" # need to get this passed to a
 pngfile="/home/debian/Documents/Graphs/BeagleBrewData0.png"
 svgfile="/home/debian/Documents/Graphs/BeagleBrewData0.svg"
 
-set datafile separator ","
-set key outside right box
 set autoscale
 set border linewidth 2
+set datafile separator ","
 set grid
+set key outside right box
 set style line 1 linecolor rgb '#0060ad' linetype 1 linewidth 5
 set style line 2 linecolor rgb '#00181f' linetype 1 linewidth 5
 set tics out
