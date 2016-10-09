@@ -15,6 +15,7 @@ set style line 2 linecolor rgb '#00181f' linetype 1 linewidth 5
 set tics out
 
 set title "BeagleBrew Vessel 1 (Data 0)"
+set xlabel "Time"
 set ylabel "'C" # Need to find consistent degree symbol for SVG and PNG formats
 
 set terminal svg size 640,480 dynamic background '#ffffff' enhanced font "LiberationSans-Regular,12" name "BeagleBrew" butt dashlength 1.0 mousing
