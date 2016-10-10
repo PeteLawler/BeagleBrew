@@ -28,9 +28,9 @@ set terminal svg size 1280,960 dynamic background '#ffffff' enhanced font "Liber
  name "BeagleBrew" butt dashlength 1.0 mousing
 set term svg
 set output tempfile
-plot "<awk -F\, '{ if( $3 > 15 ) { print $0 } }' /var/log/beaglebrew/BeagleBrewData0.csv " \
+plot "<awk -F\, '{ if( $3 > 15 ) { print $0 } }' /var/log/beaglebrew/BeagleBrewData0.csv" \
    using 1:3 title "Measured Temp" with lines smooth bezier, \
- "<awk -F\, '{ if( $4 > 15 ) { print $0 } }' /var/log/beaglebrew/BeagleBrewData0.csv " \
+ "<awk -F\, '{ if( $4 > 15 ) { print $0 } }' /var/log/beaglebrew/BeagleBrewData0.csv" \
    using 1:4 title "Target Temp" with lines
 unset output # close svg tag
 
