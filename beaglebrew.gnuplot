@@ -32,7 +32,7 @@ plot "<awk -F\, '{ if( $3 > 15 ) { print $0 } }' /var/log/beaglebrew/BeagleBrewD
  "<awk -F\, '{ if( $4 > 15 ) { print $0 } }' /var/log/beaglebrew/BeagleBrewData0.csv" \
    using 1:4 title "Target Temp" with lines
 
-set title "BeagleBrew Vessel 1 (Data 0)"
+set title " "
 set bmargin 10
 set xlabel "Time" offset 0,1.5
 set format x "%Y-%m-%d %H:%M:%S"
