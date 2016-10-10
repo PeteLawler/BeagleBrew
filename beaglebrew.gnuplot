@@ -9,7 +9,7 @@ set autoscale
 set border linewidth 2
 set datafile separator ","
 set grid
-set key inside right box
+set key outside vert right box
 set style line 1 linecolor rgb '#0060ad' linetype 1 linewidth 5
 set style line 2 linecolor rgb '#00181f' linetype 1 linewidth 5
 set tics out
