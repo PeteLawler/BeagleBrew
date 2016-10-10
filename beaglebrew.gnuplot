@@ -21,7 +21,6 @@ set bmargin 10
 
 set terminal svg size 1280,960 dynamic background '#ffffff' enhanced font "LiberationSans-Regular,12" \
  name "BeagleBrew" butt dashlength 1.0 mousing
-set term svg
 set output outfile
 set multiplot layout 2,1
 
