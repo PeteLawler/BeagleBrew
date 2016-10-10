@@ -15,9 +15,7 @@ set tics out
 
 set xdata time
 set timefmt "%Y-%m-%d %H:%M:%S" 
-set format x "%Y-%m-%d %H:%M:%S"
 set xtics rotate by 90 offset 0,-7.5
-set bmargin 10
 
 set terminal svg size 1280,960 dynamic background '#ffffff' enhanced font "LiberationSans-Regular,12" \
  name "BeagleBrew" butt dashlength 1.0 mousing
@@ -26,6 +24,7 @@ set multiplot layout 2,1
 
 set title "BeagleBrew Vessel 1 (Data 0)"
 set xlabel "Time" offset 0,1.5
+set format x " "
 set ylabel "'C" # Need to find consistent degree symbol for SVG and PNG formats
 
 plot "<awk -F\, '{ if( $3 > 15 ) { print $0 } }' /var/log/beaglebrew/BeagleBrewData0.csv" \
@@ -34,7 +33,9 @@ plot "<awk -F\, '{ if( $3 > 15 ) { print $0 } }' /var/log/beaglebrew/BeagleBrewD
    using 1:4 title "Target Temp" with lines
 
 set title "BeagleBrew Vessel 1 (Data 0)"
+set bmargin 10
 set xlabel "Time" offset 0,1.5
+set format x "%Y-%m-%d %H:%M:%S"
 set ylabel "Power"
 
 plot "/var/log/beaglebrew/BeagleBrewData0.csv" using 1:5 title "Target Temp" with lines
