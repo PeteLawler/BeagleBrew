@@ -188,10 +188,10 @@ echo "Checking for missing logrotate configuration"
 if [ -f /etc/logrotate.d/beaglebrew ]; then
 	echo "Installing logrotation"
 	sudo bash -c "echo '/var/log/beaglebrew/* {
-        rotate 5
-        weekly
-        notifempty
-        compress
+    rotate 5
+    weekly
+    notifempty
+    compress
 }
 ' > /etc/logrotate.d/beaglebrew "
 fi
