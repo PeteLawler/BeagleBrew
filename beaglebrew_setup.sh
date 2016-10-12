@@ -11,7 +11,7 @@
 DOWNLOAD_LOCATION=/var/tmp
 INSTALL_LOCATION=/opt/BeagleBrew
 #during development, use my own clone of the official board repo
-BBDOTORG_OVERLAYS_GIT_LOCATION=https://github.com/PeteLawler/bb.org-overlays.git
+BBDOTORG_OVERLAYS_GIT_LOCATION=https://github.com/BeagleBoard/bb.org-overlays.git
 
 OS_ID=$(grep ID /etc/os-release |cut -f 2 -d =)
 NOW=$(date +"%Y-%m-%d-%H-%M-%S")
@@ -134,11 +134,20 @@ echo "-----------------------------------"
 echo "Testing for ${DOWNLOAD_LOCATION}/bb.org-overlays/.git"
 if [ -d ${DOWNLOAD_LOCATION}/bb.org-overlays/.git ]; then
 	echo "Updating bb.org-overlays if necessary"
+	git -C ${DOWNLOAD_LOCATION}/bb.org-overlays reset --hard HEAD
 	git -C ${DOWNLOAD_LOCATION}/bb.org-overlays pull
 else
 	echo "Cloning bb.org-overlays"
 	git -C ${DOWNLOAD_LOCATION} clone ${BBDOTORG_OVERLAYS_GIT_LOCATION}
 fi
+echo "-----------------------------------"
+
+echo "Installing custom Dallas 1W overlay"
+wget --continue --output-document ${BBDOTORG_OVERLAYS_GIT_LOCATION}/src/arm \
+  https://raw.githubusercontent.com/PeteLawler/bb.org-overlays/master/src/arm/PL-W1-P9.27-00A0.dts
+echo "Installing custom UART4 overlay"
+wget --continue --output-document ${BBDOTORG_OVERLAYS_GIT_LOCATION}/src/arm \
+  https://raw.githubusercontent.com/PeteLawler/bb.org-overlays/master/src/arm/PL-UART4-00A0.dts
 echo "-----------------------------------"
 
 echo "Testing for patched dtc"
