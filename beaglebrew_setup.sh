@@ -1,16 +1,31 @@
 #!/bin/bash
+
+##########################################################################
+# A script to install the BeagleBrew system
+# Copyright (C) 1994-2016 Peter Lawler
+# Snail mail: PO Box 195
+#             Lindisfarne, Tasmania
+#             AUSTRALIA 7015
+# email:      relwalretep@gmail.com
 #
-# BeagleBrew Setup Script
-# 
-# type the following commands:
-# chmod +x beaglebrew_setup.sh
-# sudo ./beaglebrew_setup.sh
-# sudo reboot
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+##########################################################################
 
 # Where to download misc things
 DOWNLOAD_LOCATION=/var/tmp
 INSTALL_LOCATION=/opt/BeagleBrew
-#during development, use my own clone of the official board repo
 BBDOTORG_OVERLAYS_GIT_LOCATION=https://github.com/BeagleBoard/bb.org-overlays.git
 
 OS_ID=$(grep ID /etc/os-release |cut -f 2 -d =)
