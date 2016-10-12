@@ -25,12 +25,12 @@ set multiplot layout 2,1
 set title "BeagleBrew Vessel 1 (Data 0)"
 set xlabel "Time" offset 0,1.5
 set format x " "
-set ylabel "'C" # Need to find consistent degree symbol for SVG and PNG formats
+set ylabel "°C"
 
 plot "<awk -F\, '{ if( $3 > 15 ) { print $0 } }' /var/log/beaglebrew/BeagleBrewData0.csv" \
-   using 1:3 title "Measured Temp" with lines smooth bezier, \
+   using 1:3 title "Measured °" with lines smooth bezier, \
  "<awk -F\, '{ if( $4 > 15 ) { print $0 } }' /var/log/beaglebrew/BeagleBrewData0.csv" \
-   using 1:4 title "Target Temp" with lines
+   using 1:4 title "Target °" with lines
 
 set title " "
 set bmargin 10
