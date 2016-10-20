@@ -27,9 +27,9 @@ set xlabel "Time" offset 0,1.5
 set format x " "
 set ylabel "°C"
 
-plot "<awk -F\, '{ if( $3 > 15 ) { print $0 } }' /var/log/beaglebrew/BeagleBrewData0.csv|tr -d '\000'" \
+plot "<awk -F\, '{ if( $3 > 15 ) { print $0 } }' /var/log/beaglebrew/BeagleBrewData0.csv| tr -d \\'\000\\'" \
    using 1:3 title "Measured °" with lines smooth bezier, \
- "<awk -F\, '{ if( $4 > 15 ) { print $0 } }' /var/log/beaglebrew/BeagleBrewData0.csv|tr -d '\000'" \
+ "<awk -F\, '{ if( $4 > 15 ) { print $0 } }' /var/log/beaglebrew/BeagleBrewData0.csv| tr -d \\'\000'" \
    using 1:4 title "Target °" with lines
 
 set title " "
@@ -38,5 +38,5 @@ set xlabel "Time" offset 0,1.5
 set format x "%Y-%m-%d %H:%M:%S"
 set ylabel "Power"
 
-plot "/var/log/beaglebrew/BeagleBrewData0.csv|tr -d '\000'" using 1:5 title "Heat %" with lines
+plot "/var/log/beaglebrew/BeagleBrewData0.csv | tr -d \\'\000\\'" using 1:5 title "Heat %" with lines
 
