@@ -159,10 +159,10 @@ echo "-----------------------------------"
 
 echo "Installing custom Dallas 1W overlay"
 wget --continue --output-document ${DOWNLOAD_LOCATION}/bb.org-overlays/src/arm/PL-W1-P9.27-00A0.dts \
-  https://raw.githubusercontent.com/PeteLawler/PL-BB-overlays/master/src/arm/PL-W1-P9.27-00A0.dts
+  https://raw.githubusercontent.com/PeteLawler/PL-BB-overlays/master/PL-W1-P9.27-00A0.dts
 echo "Installing custom UART4 overlay"
 wget --continue --output-document ${DOWNLOAD_LOCATION}/bb.org-overlays/src/arm/PL-UART4-00A0.dts \
-  https://raw.githubusercontent.com/PeteLawler/PL-BB-overlays/master/src/arm/PL-UART4-00A0.dts
+  https://raw.githubusercontent.com/PeteLawler/PL-BB-overlays/master/PL-UART4-00A0.dts
 echo "-----------------------------------"
 
 echo "Testing for patched dtc"
