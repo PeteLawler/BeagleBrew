@@ -12,6 +12,9 @@ The Adafruit Library seems to work 'best' by using the PIN NAME, as per the [Bea
 
 Note: Software is [X11 Licensed](http://directory.fsf.org/wiki/License:X11) (aka MIT)
 
+WARNING: This software uses an unsafe threaded web server. It is highly recommended in production to place it behind a proper WSGI compliant web server such as nginx, lighttpd or Apache. Once this is done, remove the 'threaded=true' call from app.run.
+
+
 ----------
 
 # Raspberry Pi Temperature Controller
