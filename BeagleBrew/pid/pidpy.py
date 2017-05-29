@@ -1,6 +1,6 @@
 #
 # Copyright (c) 2012-2015 Stephen P. Smith
-# Copyright (c) 2016 Peter Lawler <relwalretep@gmail.com>
+# Copyright (c) 2016-2017 Peter Lawler <relwalretep@gmail.com>
 #
 # Permission is hereby granted, free of charge, to any person obtaining 
 # a copy of this software and associated documentation files 

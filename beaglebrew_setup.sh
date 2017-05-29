@@ -2,7 +2,7 @@
 
 ##########################################################################
 # A script to install the BeagleBrew system
-# Copyright (C) 1994-2016 Peter Lawler
+# Copyright (C) 1994-2017 Peter Lawler
 # Snail mail: PO Box 195
 #             Lindisfarne, Tasmania
 #             AUSTRALIA 7015
