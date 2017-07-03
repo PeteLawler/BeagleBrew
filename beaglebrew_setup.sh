@@ -168,7 +168,7 @@ fi
 echo "-----------------------------------"
 
 echo "Removing all device tree files"
-rm -fr "${DOWNLOAD_LOCATION}/bb.org-overlays/src/arm/*"
+rm -vfr "${DOWNLOAD_LOCATION}"/bb.org-overlays/src/arm/*
 
 echo "Installing custom Dallas 1W overlay"
 wget --continue --output-document ${DOWNLOAD_LOCATION}/bb.org-overlays/src/arm/PL-W1-P9.27-00A0.dts \
