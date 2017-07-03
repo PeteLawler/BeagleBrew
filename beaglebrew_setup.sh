@@ -28,8 +28,8 @@ DOWNLOAD_LOCATION=/var/tmp
 INSTALL_LOCATION=/opt/BeagleBrew
 BBDOTORG_OVERLAYS_GIT_LOCATION=https://github.com/BeagleBoard/bb.org-overlays.git
 
-OS_ID=$(grep ID /etc/os-release |cut -f 2 -d =)
-NOW=$(date +"%Y-%m-%d-%H-%M-%S")
+OS_ID="$(grep ID /etc/os-release |cut -f 2 -d =)"
+NOW="$(date +'%Y-%m-%d-%H-%M-%S')"
 UID="$(id -u)"
 GID="$(id -g)"
 
@@ -88,11 +88,9 @@ pkg="python3-dev"
 check_dpkg
 pkg="python3-smbus"
 check_dpkg
-pkg="libpcre3-dev"
+pkg="python3-flask"
 check_dpkg
-pkg="build-essential"
-check_dpkg
-pkg="python3-dev"
+pkg="python3-serial"
 check_dpkg
 pkg="python3-setuptools"
 check_dpkg
@@ -102,17 +100,13 @@ pkg="python3-virtualenv"
 check_dpkg
 pkg="virtualenv"
 check_dpkg
-pkg="python3-flask"
-check_dpkg
-pkg="python3-smbus"
-check_dpkg
-pkg="python3-serial"
+pkg="build-essential"
 check_dpkg
 pkg="bash-completion"
 check_dpkg
 pkg="bison"
 check_dpkg
-pkg="build-essential"
+pkg="libpcre3-dev"
 check_dpkg
 pkg="curl"
 check_dpkg
@@ -142,7 +136,6 @@ else
     echo "Error activating virtual environment"
 exit 1
 fi
-
 
 echo "Checking for Adafruit-BBIO"
 if [ ! "$( pip3 list | cut -d \  -f 1 | grep ^Adafruit-BBIO$ )" ]; then
@@ -179,12 +172,12 @@ wget --continue --output-document ${DOWNLOAD_LOCATION}/bb.org-overlays/src/arm/P
   https://raw.githubusercontent.com/PeteLawler/PL-BB-overlays/master/PL-UART4-00A0.dts
 echo "-----------------------------------"
 
-echo "Testing for patched dtc"
-if [ ! -L /usr/bin/dtc-v4.1.x ]; then
-	echo "Installing patched dtc"
-	bash -c "cd ${DOWNLOAD_LOCATION}/bb.org-overlays && ./dtc-overlay.sh"
-fi
-echo "-----------------------------------"
+#echo "Testing for patched dtc"
+#if [ ! -L /usr/bin/dtc-v4.1.x ]; then
+#	echo "Installing patched dtc"
+#	bash -c "cd ${DOWNLOAD_LOCATION}/bb.org-overlays && ./dtc-overlay.sh"
+#fi
+#echo "-----------------------------------"
 
 echo "Installing overlays"
 bash -c "cd ${DOWNLOAD_LOCATION}/bb.org-overlays && ./install.sh"
