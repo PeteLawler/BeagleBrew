@@ -90,8 +90,6 @@ pkg="python3-smbus"
 check_dpkg
 pkg="python3-flask"
 check_dpkg
-pkg="python3-serial"
-check_dpkg
 pkg="python3-setuptools"
 check_dpkg
 pkg="python3-pip"
