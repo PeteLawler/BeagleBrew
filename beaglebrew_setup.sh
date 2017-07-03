@@ -118,6 +118,8 @@ pkg="git-core"
 check_dpkg
 pkg="man"
 check_dpkg
+pkg="bb-cape-overlays"
+check_dpkg
 
 if [ "${deb_pkgs}" ] ; then
 	echo "Installing: ${deb_pkgs}"
@@ -164,6 +166,9 @@ else
 	git -C ${DOWNLOAD_LOCATION} clone ${BBDOTORG_OVERLAYS_GIT_LOCATION}
 fi
 echo "-----------------------------------"
+
+echo "Removing all device tree files"
+rm -fr "${DOWNLOAD_LOCATION}/bb.org-overlays/src/arm/*"
 
 echo "Installing custom Dallas 1W overlay"
 wget --continue --output-document ${DOWNLOAD_LOCATION}/bb.org-overlays/src/arm/PL-W1-P9.27-00A0.dts \
