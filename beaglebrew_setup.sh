@@ -61,7 +61,7 @@ if [ -d "${INSTALL_LOCATION}" ]; then
 	sudo mv -v "${INSTALL_LOCATION}" "${INSTALL_LOCATION}.${NOW}"
 fi
 mkdir "${INSTALL_LOCATION}"
-if [ -d "${INSTALL_LOCATION}" ]; then
+if [ ! -d "${INSTALL_LOCATION}" ]; then
     echo "Creating ${INSTALL_LOCATION} failed"
     exit
 fi
