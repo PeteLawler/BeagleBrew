@@ -62,7 +62,7 @@ if [ -d "${INSTALL_LOCATION}" ]; then
 	echo "Backing up old install"
 	sudo mv -v "${INSTALL_LOCATION}" "${INSTALL_LOCATION}.${NOW}"
 fi
-mkdir "${INSTALL_LOCATION}"
+sudo mkdir "${INSTALL_LOCATION}"
 if [ ! -d "${INSTALL_LOCATION}" ]; then
     echo "Creating ${INSTALL_LOCATION} failed"
     exit
