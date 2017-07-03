@@ -158,7 +158,7 @@ def GPIO_Toggle(GPIO_Num=None, onoff=None):
 
 
 # get status from BeagleBrew using firefox web browser (first temp sensor / backwards compatibility)
-@app.route('/getstatus')  #only GET
+@app.route('/getstatus')  # only GET
 def getstatusB():
     # blocking receive - current status
     param.status = statusQ.get()
@@ -166,9 +166,9 @@ def getstatusB():
 
 
 # get status from BeagleBrew using firefox web browser (selectable temp sensor)
-@app.route('/getstatus/<sensorNum>')  #only GET
+@app.route('/getstatus/<sensorNum>')  # only GET
 def getstatus(sensorNum=None):
-    #blocking receive - current status
+    # blocking receive - current status
     if sensorNum == "1":
         param.status = statusQ_A.get()
     elif sensorNum == "2":
@@ -311,7 +311,7 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
         mode, cycle_time, duty_cycle, boil_duty_cycle, set_point, boil_manage_temp, num_pnts_smooth, k_param, i_param, d_param = unPackParamInitAndPost(paramStatus)
         logstatus("DEBUG", "tempControlProc: mode %s, cycle_time %s, duty_cycle %s, boil_duty_cycle %s, set_point %s, boil_manage_temp %s, num_pnts_smooth %s, k_param %s, i_param %s, d_param %s" % (mode, cycle_time, duty_cycle, boil_duty_cycle, set_point, boil_manage_temp, num_pnts_smooth, k_param, i_param, d_param))
         p = current_process()
-        logstatus("INFO","Starting: name(%s) pid(%s)" % (p.name, p.pid))
+        logstatus("INFO", "Starting: name(%s) pid(%s)" % (p.name, p.pid))
         # Pipe to communicate with "Get Temperature Process"
         parent_conn_temp, child_conn_temp = Pipe()
         # Start Get Temperature Process
@@ -392,7 +392,7 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
                         parent_conn_heat.send([cycle_time, duty_cycle])
                         readyPIDcalc = False
                 if mode == "boil":
-                    if (temp > boil_manage_temp) and (manage_boil_trigger == True): #do once
+                    if (temp > boil_manage_temp) and (manage_boil_trigger == True):  # do once
                         manage_boil_trigger = False
                         duty_cycle = boil_duty_cycle
                         parent_conn_heat.send([cycle_time, duty_cycle])
@@ -506,7 +506,7 @@ if __name__ == '__main__':
 
     LogFileMode = xml_root.find('LogFileMode').text.strip()
     if LogFileMode == "Overwrite":
-    # See https://docs.python.org/2/library/functions.html#open
+        # See https://docs.python.org/2/library/functions.html#open
         LogFileMode = "wb"
     else:
         LogFileMode = "ab"
@@ -527,20 +527,20 @@ if __name__ == '__main__':
     display = Display.NoDisplay()
     gpioNumberingScheme = xml_root.find('GPIO_pin_numbering_scheme').text.strip()
     if gpioNumberingScheme == "BOARD":
-        logstatus("INFO","gpioNumberingScheme == GPIO.BOARD");
+        logstatus("INFO", "gpioNumberingScheme == GPIO.BOARD");
         GPIO.setmode(GPIO.BOARD)
     elif gpioNumberingScheme == "BCM":
-        logstatus("INFO","gpioNumberingScheme == GPIO.BCM");
+        logstatus("INFO", "gpioNumberingScheme == GPIO.BCM");
         GPIO.setmode(GPIO.BCM)
     if gpioNumberingScheme == "BBB":
-        logstatus("INFO","gpioNumberingScheme == BBB");
-        logstatus("INFO","Loading Adafruit_BBIO");
+        logstatus("INFO", "gpioNumberingScheme == BBB");
+        logstatus("INFO", "Loading Adafruit_BBIO");
         import Adafruit_BBIO.GPIO as GPIO
     else:
-        logstatus("INFO","gpioNumberingScheme catchall (RPi)");
-        logstatus("INFO","Loading i2c-bcm2708");
+        logstatus("INFO", "gpioNumberingScheme catchall (RPi)");
+        logstatus("INFO", "Loading i2c-bcm2708");
         call(["modprobe", "i2c-bcm2708"])
-        logstatus("INFO","Loading RPi.GPIO");
+        logstatus("INFO", "Loading RPi.GPIO");
         import RPi.GPIO as GPIO
 
     gpioInverted = xml_root.find('GPIO_Inverted').text.strip()
