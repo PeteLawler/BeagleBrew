@@ -64,28 +64,32 @@ while true; do
 	esac
 done
 
-#Install pip (package installer) and other needed packages
+#Install pip3 (package installer) and other needed packages
 echo "Checking for support tools"
 unset deb_pkgs
-pkg="python-setuptools"
+pkg="python3-setuptools"
 check_dpkg
-pkg="python-dev"
+pkg="python3-dev"
 check_dpkg
-pkg="python-smbus"
+pkg="python3-smbus"
 check_dpkg
 pkg="libpcre3-dev"
 check_dpkg
 pkg="build-essential"
 check_dpkg
-pkg="python-dev"
+pkg="python3-dev"
 check_dpkg
-pkg="python-setuptools"
+pkg="python3-setuptools"
 check_dpkg
-pkg="python-pip"
+pkg="python3-pip"
 check_dpkg
-pkg="python-smbus"
+pkg="python3-virtualenv"
 check_dpkg
-pkg="python-serial"
+pkg="python3-flask"
+check_dpkg
+pkg="python3-smbus"
+check_dpkg
+pkg="python3-serial"
 check_dpkg
 pkg="bash-completion"
 check_dpkg
@@ -112,28 +116,11 @@ if [ "${deb_pkgs}" ] ; then
 fi
 echo "-----------------------------------"
 
-echo "Checking for pip"
-if [ ! -x $( which pip ) ]; then
-	echo "Installing pip"
-	sudo easy_install pip
-else
-	echo "pip already installed"
-fi
-echo "-----------------------------------"
-
-echo "Checking for Flask"
-if [ ! $( pip list | cut -d \  -f 1 | grep ^Flask$ ) ]; then
-	echo "Installing Flask"
-	sudo pip install Flask
-else
-	echo "Flask already installed"
-fi
-echo "-----------------------------------"
 
 echo "Checking for Adafruit-BBIO"
-if [ ! $( pip list | cut -d \  -f 1 | grep ^Adafruit-BBIO$ ) ]; then
+if [ ! $( pip3 list | cut -d \  -f 1 | grep ^Adafruit-BBIO$ ) ]; then
 	echo "Installing Adafruit BBIO"
-	sudo pip install Adafruit-BBIO
+	sudo pip3 install Adafruit-BBIO
 else
 	echo "Adafruit-BBIO already installed"
 fi
