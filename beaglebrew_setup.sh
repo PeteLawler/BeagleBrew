@@ -122,7 +122,8 @@ check_dpkg
 if [ "${deb_pkgs}" ] ; then
 	echo "Installing: ${deb_pkgs}"
 	sudo apt update
-	sudo apt --assume-yes install "${deb_pkgs}"
+    # shellshock disable=SC2086
+	sudo apt --assume-yes install ${deb_pkgs}
 	sudo apt clean
 fi
 echo "-----------------------------------"
