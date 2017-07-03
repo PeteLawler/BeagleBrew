@@ -65,6 +65,7 @@ if [ ! -d "${INSTALL_LOCATION}" ]; then
     echo "Creating ${INSTALL_LOCATION} failed"
     exit
 fi
+chown --verbose "$(id -u)":"$(id -g)" "${INSTALL_LOCATION}"
 echo "-----------------------------------"
 
 while true; do
