@@ -30,6 +30,8 @@ BBDOTORG_OVERLAYS_GIT_LOCATION=https://github.com/BeagleBoard/bb.org-overlays.gi
 
 OS_ID=$(grep ID /etc/os-release |cut -f 2 -d =)
 NOW=$(date +"%Y-%m-%d-%H-%M-%S")
+UID="$(id -u)"
+GID="$(id -g)"
 
 
 check_dpkg () {
@@ -65,7 +67,7 @@ if [ ! -d "${INSTALL_LOCATION}" ]; then
     echo "Creating ${INSTALL_LOCATION} failed"
     exit
 fi
-chown --verbose "$(id -u)":"$(id -g)" "${INSTALL_LOCATION}"
+sudo chown --verbose "${UID}":"${GID}" "${INSTALL_LOCATION}"
 echo "-----------------------------------"
 
 while true; do
