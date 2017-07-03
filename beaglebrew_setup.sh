@@ -224,7 +224,7 @@ if [ ! -d /var/log/beaglebrew/ ]; then
 fi
 printf "."
 
-if [ -f "/etc/opt/beaglebrew_config.xml" ]; then
+if [ -L "/etc/opt/beaglebrew_config.xml" ]; then
     sudo mv "/etc/opt/beaglebrew_config.xml" "/etc/opt/beaglebrew_config.xml.${NOW}"
 fi
 if [ ! "/etc/opt/beaglebrew_config.xml" -ef "/opt/BeagleBrew/beaglebrew_config.xml" ]; then
