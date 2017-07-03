@@ -21,14 +21,18 @@
 # WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 # IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-import time, random, serial, os, sqlite3
+import os
+import random
+import serial
+import sqlite3
+import time
 import xml.etree.ElementTree as ET
 import Temp1Wire
 import Display
 import logging
 
 from multiprocessing import Process, Pipe, Queue, current_process
-from Queue import Full
+from queue import Full
 from subprocess import Popen, PIPE, call
 from datetime import datetime
 from smbus import SMBus

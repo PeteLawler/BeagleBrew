@@ -149,6 +149,25 @@ else
 fi
 echo "-----------------------------------"
 
+echo "Checking for pyserial"
+if [ ! "$( pip3 list | cut -d \  -f 1 | grep ^pyserial$ )" ]; then
+	echo "Installing pyserial"
+	pip3 install pyserial
+else
+	echo "pyserial already installed"
+fi
+echo "-----------------------------------"
+
+echo "Checking for queuelib"
+if [ ! "$( pip3 list | cut -d \  -f 1 | grep ^queuelib$ )" ]; then
+	echo "Installing queuelib"
+	pip3 install queuelib
+else
+	echo "queuelibalready installed"
+fi
+echo "-----------------------------------"
+
+
 echo "Testing for ${DOWNLOAD_LOCATION}"
 if [ ! -d ${DOWNLOAD_LOCATION} ]; then
 	echo "Creating ${DOWNLOAD_LOCATION}"
