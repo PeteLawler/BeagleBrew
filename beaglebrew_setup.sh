@@ -130,7 +130,7 @@ if [ "${deb_pkgs}" ] ; then
 fi
 echo "-----------------------------------"
 
-echo "Establishing virtual environment"
+echo "Establishing virtual environment in ${INSTALL_LOCATION}"
 virtualenv -p python3 "${INSTALL_LOCATION}"
 if [ -f "${INSTALL_LOCATION}/bin/activate" ]; then
     # shellcheck source=/dev/null
