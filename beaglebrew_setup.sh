@@ -42,18 +42,30 @@ if ! sudo -v; then
 fi
 
 echo "Testing for existing operations"
-if [ "`systemctl is-active beaglebrew`" = "active" ]; then
+if [ "$(systemctl is-active beaglebrew)" = "active" ]; then
 	echo "Stopping existing operations"
 	sudo systemctl stop beaglebrew;
 fi
 
-if [ ! -f `which timedatectl` ]; then
+if [ ! -f "$(which timedatectl)" ]; then
 	echo "Setting time via ntpdate"
 	sudo ntpdate pool.ntp.org
 else
 	echo "Setting time via timedatectl"
 	sudo timedatectl set-ntp true
 fi
+
+echo "Checking for old install"
+if [ -d "${INSTALL_LOCATION}" ]; then
+	echo "Backing up old install"
+	sudo mv -v "${INSTALL_LOCATION}" "${INSTALL_LOCATION}.${NOW}"
+fi
+mkdir "${INSTALL_LOCATION}"
+if [ -d "${INSTALL_LOCATION}" ]; then
+    echo "Creating ${INSTALL_LOCATION} failed"
+    exit
+fi
+echo "-----------------------------------"
 
 while true; do
 	read -p "Do you wish to check for system updates? " yn
@@ -64,7 +76,7 @@ while true; do
 	esac
 done
 
-#Install pip3 (package installer) and other needed packages
+# Install pip3 (package installer) and other needed packages
 echo "Checking for support tools"
 unset deb_pkgs
 pkg="python3-setuptools"
@@ -84,6 +96,8 @@ check_dpkg
 pkg="python3-pip"
 check_dpkg
 pkg="python3-virtualenv"
+check_dpkg
+pkg="virtualenv"
 check_dpkg
 pkg="python3-flask"
 check_dpkg
@@ -111,16 +125,26 @@ check_dpkg
 if [ "${deb_pkgs}" ] ; then
 	echo "Installing: ${deb_pkgs}"
 	sudo apt update
-	sudo apt --assume-yes install ${deb_pkgs}
+	sudo apt --assume-yes install "${deb_pkgs}"
 	sudo apt clean
 fi
 echo "-----------------------------------"
 
+echo "Establishing virtual environment"
+virtualenv -p python3 "${INSTALL_LOCATION}"
+if [ -f "${INSTALL_LOCATION}/bin/activate" ]; then
+    # shellcheck source=/dev/null
+    source "${INSTALL_LOCATION}/bin/activate"
+else
+    echo "Error activating virtual environment"
+exit 1
+fi
+
 
 echo "Checking for Adafruit-BBIO"
-if [ ! $( pip3 list | cut -d \  -f 1 | grep ^Adafruit-BBIO$ ) ]; then
+if [ ! "$( pip3 list | cut -d \  -f 1 | grep ^Adafruit-BBIO$ )" ]; then
 	echo "Installing Adafruit BBIO"
-	sudo pip3 install Adafruit-BBIO
+	pip3 install Adafruit-BBIO
 else
 	echo "Adafruit-BBIO already installed"
 fi
@@ -172,12 +196,6 @@ sudo systemctl daemon-reload
 sudo systemctl disable beaglebrew.service
 echo "-----------------------------------"
 
-echo "Checking for old install"
-if [ -d /opt/BeagleBrew ]; then
-	echo "Backing up old install"
-	sudo mv -v /opt/BeagleBrew /opt/BeagleBrew.${NOW}
-fi
-echo "-----------------------------------"
 
 echo "Checking for old logfiles"
 if [ -d /var/log/beaglebrew/ ]; then
