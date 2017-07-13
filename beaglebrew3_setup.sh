@@ -23,7 +23,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 ##########################################################################
 
-set -e -u -o pipefail
+set -e -o pipefail
 
 # Where to download misc things
 DOWNLOAD_LOCATION=/var/tmp
