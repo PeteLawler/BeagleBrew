@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Config>
 	<!-- Where the BeagleBrew will be served from -->
-	<RootDir>/opt/BeagleBrew</RootDir>
+    <RootDir>/opt/BeagleBrew3/BeagleBrew3</RootDir>
 
 	<!-- Place templates (themes) in templates folder -->
 	<!-- The static folder must contain the corresponding css and js files -->
@@ -11,13 +11,13 @@
 	<Use_LCD>no</Use_LCD>
 
 	<!-- Log config -->
-	<LogDir>/var/log/beaglebrew/</LogDir>
+	<LogDir>/var/log/beaglebrew3/</LogDir>
 	<LogStatusFile>BeagleBrewStatus</LogStatusFile>
 	<LogDataFile>BeagleBrewData</LogDataFile>
 	<LogFileMode>Append</LogFileMode> <!-- Setting this to anything else (or removing) will Append -->
 
 	<!-- SQLite3 config -->
-	<SQLite3Dir>/var/lib/beaglebrew/</SQLite3Dir>
+	<SQLite3Dir>/var/lib/beaglebrew3/</SQLite3Dir>
 	<SQLite3File>beaglebrew.db</SQLite3File>
 
 	<!-- Time format -->

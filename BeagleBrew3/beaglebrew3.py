@@ -498,7 +498,7 @@ if __name__ == '__main__':
 
     LogDir = xml_root.find('LogDir').text.strip()
     if LogDir == "":
-        LogDir = "/var/log/beaglebrew/"
+        LogDir = "/var/log/beaglebrew3/"
 
     LogDataFile = xml_root.find('LogDataFile').text.strip()
     if LogDataFile == "":
@@ -517,7 +517,7 @@ if __name__ == '__main__':
 
     SQLite3Dir = xml_root.find('SQLite3Dir').text.strip()
     if SQLite3Dir == "":
-        SQLite3Dir = "/var/lib/beaglebrew"
+        SQLite3Dir = "/var/lib/beaglebrew3"
 
     SQLite3File = xml_root.find('SQLite3File').text.strip()
     if SQLite3File == "":
