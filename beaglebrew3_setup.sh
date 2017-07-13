@@ -92,10 +92,6 @@ pkg="python3-setuptools"
 check_dpkg
 pkg="python3-dev"
 check_dpkg
-#pkg="python3-smbus"
-#check_dpkg
-pkg="python3-flask"
-check_dpkg
 pkg="python3-setuptools"
 check_dpkg
 pkg="python3-pip"
@@ -172,10 +168,18 @@ if [ ! "$( pip3 list | cut -d \  -f 1 | grep ^queuelib$ )" ]; then
 	echo "Installing queuelib"
 	pip3 install queuelib
 else
-	echo "queuelibalready installed"
+	echo "queuelibal ready installed"
 fi
 echo "-----------------------------------"
 
+echo "Checking for Flask"
+if [ ! "$( pip3 list | cut -d \  -f 1 | grep ^Flask$ )" ]; then
+	echo "Installing Flask"
+	pip3 install Flask
+else
+	echo "Flask already installed"
+fi
+echo "-----------------------------------"
 
 echo "Testing for ${DOWNLOAD_LOCATION}"
 if [ ! -d ${DOWNLOAD_LOCATION} ]; then

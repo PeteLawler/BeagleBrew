@@ -1,8 +1,8 @@
 # file:///usr/share/doc/gnuplot-doc/htmldocs/node525.html
 reset
 
-logfile="/var/log/beaglebrew/BeagleBrewData0.csv" # need to get this passed to awk at some stage
-outfile="/home/debian/Documents/Graphs/BeagleBrew0.svg"
+logfile="/var/log/beaglebrew3/beaglebrew3Data0.csv" # need to get this passed to awk at some stage
+outfile="/home/debian/Documents/Graphs/beaglebrew30.svg"
 
 set autoscale
 set border linewidth 2
@@ -18,18 +18,18 @@ set timefmt "%Y-%m-%d %H:%M:%S"
 set xtics rotate by 90 offset 0,-7.5
 
 set terminal svg size 1280,960 dynamic background '#ffffff' enhanced font "LiberationSans-Regular,12" \
- name "BeagleBrew" butt dashlength 1.0 mousing
+ name "beaglebrew3" butt dashlength 1.0 mousing
 set output outfile
 set multiplot layout 2,1
 
-set title "BeagleBrew Vessel 1 (Data 0)"
+set title "beaglebrew3 Vessel 1 (Data 0)"
 set xlabel "Time" offset 0,1.5
 set format x " "
 set ylabel "°C"
 
-plot "<awk -F\, '{ if( $3 > 15 ) { print $0 } }' /var/log/beaglebrew/BeagleBrewData0.csv| tr -d \\'\000\\'" \
+plot "<awk -F\, '{ if( $3 > 15 ) { print $0 } }' /var/log/beaglebrew3/beaglebrew3Data0.csv| tr -d \\'\000\\'" \
    using 1:3 title "Measured °" with lines smooth bezier, \
- "<awk -F\, '{ if( $4 > 15 ) { print $0 } }' /var/log/beaglebrew/BeagleBrewData0.csv| tr -d \\'\000'" \
+ "<awk -F\, '{ if( $4 > 15 ) { print $0 } }' /var/log/beaglebrew3/beaglebrew3Data0.csv| tr -d \\'\000'" \
    using 1:4 title "Target °" with lines
 
 set title " "
@@ -38,5 +38,5 @@ set xlabel "Time" offset 0,1.5
 set format x "%Y-%m-%d %H:%M:%S"
 set ylabel "Power"
 
-plot "/var/log/beaglebrew/BeagleBrewData0.csv | tr -d \\'\000\\'" using 1:5 title "Heat %" with lines
+plot "/var/log/beaglebrew3/beaglebrew3Data0.csv | tr -d \\'\000\\'" using 1:5 title "Heat %" with lines
 
