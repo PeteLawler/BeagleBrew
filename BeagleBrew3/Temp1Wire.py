@@ -46,7 +46,7 @@ class Temp1Wire:
 
         if os.path.exists(self.oneWireDir + self.tempSensorId + "/w1_slave"):
             pipe = Popen(["cat", self.oneWireDir + self.tempSensorId + "/w1_slave"], stdout=PIPE)
-            result = pipe.communicate()[0]
+            result = pipe.communicate()[0].decode('utf-8')
             if (result.split('\n')[0].split(' ')[11] == "YES"):
                 temp_C = float(result.split("=")[-1])/1000  # temp in Celcius
         else:
