@@ -137,7 +137,10 @@ fi
 echo "-----------------------------------"
 
 echo "Establishing virtual environment in ${INSTALL_LOCATION}"
-python3 -m venv "${INSTALL_LOCATION}"
+# for python 3.6
+# python3 -m venv "${INSTALL_LOCATION}"
+# still using python 3.5 in some plaes
+virtualenv -p python3 -m "${INSTALL_LOCATION}"
 if [ -f "${INSTALL_LOCATION}/bin/activate" ]; then
     # shellcheck source=/dev/null
     source "${INSTALL_LOCATION}/bin/activate"
