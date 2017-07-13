@@ -21,20 +21,20 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-$SLEEP_PERIOD=0.1
-for $PIN_NUMBER in "66" "67" "68" "69"; do
+SLEEP_PERIOD=0.1
+for PIN_NUMBER in "66" "67" "68" "69"; do
 	echo ${f};
 	sudo bash -c "echo 'echo $PIN_NUMBER > /sys/class/gpio/export' && echo '$PIN_NUMBER' > /sys/class/gpio/export"
-	$SLEEP_PERIOD $SLEEP_PERIOD
+	sleep $SLEEP_PERIOD
 	sudo bash -c "echo 'echo out > /sys/class/gpio/gpio$PIN_NUMBER/direction' && echo 'out' > /sys/class/gpio/gpio$PIN_NUMBER/direction"
-	$SLEEP_PERIOD $SLEEP_PERIOD
+	sleep $SLEEP_PERIOD
 	sudo bash -c "echo 'echo 0 > /sys/class/gpio/gpio$PIN_NUMBER/value' && echo '0' > /sys/class/gpio/gpio$PIN_NUMBER/value"
-	$SLEEP_PERIOD $SLEEP_PERIOD
+	sleep $SLEEP_PERIOD
 	sudo bash -c "echo 'echo 1 > /sys/class/gpio/gpio$PIN_NUMBER/value' && echo '1' > /sys/class/gpio/gpio$PIN_NUMBER/value"
-	$SLEEP_PERIOD $SLEEP_PERIOD
+	sleep $SLEEP_PERIOD
 	sudo bash -c "echo 'echo in > /sys/class/gpio/gpio$PIN_NUMBER/direction' && echo 'in' > /sys/class/gpio/gpio$PIN_NUMBER/direction"
-	$SLEEP_PERIOD $SLEEP_PERIOD
+	sleep $SLEEP_PERIOD
 	sudo bash -c "echo 'echo $PIN_NUMBER > /sys/class/gpio/unexport' && echo '$PIN_NUMBER' > /sys/class/gpio/unexport"
-	$SLEEP_PERIOD $SLEEP_PERIOD
+	sleep $SLEEP_PERIOD
 done
 
