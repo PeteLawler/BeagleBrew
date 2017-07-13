@@ -237,7 +237,7 @@ def getonofftime(cycle_time, duty_cycle):
 def heatProcGPIO(cycle_time, duty_cycle, pinNum, conn):
     p = current_process()
     logstatus("INFO", "Starting: name(%s) pid(%s)" % (p.name, p.pid))
-    if pinNum > 0:
+    if pinNum > "0":
         if gpioNumberingScheme == "BBB":
             pinString = str(pinNum)
         else:
