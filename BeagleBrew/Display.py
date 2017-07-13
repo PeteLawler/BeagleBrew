@@ -1,18 +1,24 @@
 class Display:
+
     def showTemperature(self, temp_str):
         pass
+
     def showDutyCycle(self, duty_cycle):
         pass
+
     def showAutoMode(self, set_point):
         pass
+
     def showBoilMode(self):
         pass
+
     def showManualMode(self):
         pass
+
     def showOffMode(self):
         pass
 
-#class LCD(Display):
+# class LCD(Display):
 #    def __init__(self, tempUnits):
 #        self.tempUnits = tempUnits
 #        ser = serial.Serial("/dev/ttyAMA0", 9600)
@@ -68,6 +74,7 @@ class Display:
 #        ser.write("?y0?x00PID off      ")
 #        ser.write("?y1?x00HLT:")
 #        ser.write("?y3?x00Heat: off      ")
+
 
 class NoDisplay(Display):
     def __init__(self):

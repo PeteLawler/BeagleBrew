@@ -107,7 +107,7 @@ def index():
 def postparams(sensorNum=None):
     param.status["mode"] = request.form["mode"]
     param.status["set_point"] = float(request.form["setpoint"])
-    param.status["duty_cycle"] = float(request.form["dutycycle"]) #is boil duty cycle if mode == "boil"
+    param.status["duty_cycle"] = float(request.form["dutycycle"])  # is boil duty cycle if mode == "boil"
     param.status["cycle_time"] = float(request.form["cycletime"])
     param.status["boil_manage_temp"] = float(request.form.get("boilManageTemp", param.status["boil_manage_temp"]))
     param.status["num_pnts_smooth"] = int(request.form.get("numPntsSmooth", param.status["num_pnts_smooth"]))
@@ -148,7 +148,7 @@ def postparams(sensorNum=None):
 @app.route('/GPIO_Toggle/<GPIO_Num>/<onoff>', methods=['GET'])
 def GPIO_Toggle(GPIO_Num=None, onoff=None):
     if len(pinGPIOList) >= int(GPIO_Num):
-        out = {"pin": pinGPIOList[int(GPIO_Num)-1], "status" : "off"}
+        out = {"pin": pinGPIOList[int(GPIO_Num)-1], "status": "off"}
         if onoff == "on":
             GPIO.output(pinGPIOList[int(GPIO_Num)-1], ON)
             out["status"] = "on"
@@ -390,13 +390,13 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
                     # print temp_ma_list
 
                     # calculate PID every cycle
-                    if (readyPIDcalc == True):
+                    if (readyPIDcalc is True):
                         duty_cycle = pid.calcPID_reg4(temp_ma, set_point, True)
                         # send to heat process every cycle
                         parent_conn_heat.send([cycle_time, duty_cycle])
                         readyPIDcalc = False
                 if mode == "boil":
-                    if (temp > boil_manage_temp) and (manage_boil_trigger == True):  # do once
+                    if (temp > boil_manage_temp) and (manage_boil_trigger is True):  # do once
                         manage_boil_trigger = False
                         duty_cycle = boil_duty_cycle
                         parent_conn_heat.send([cycle_time, duty_cycle])
@@ -469,7 +469,7 @@ def logdata(tank, temp, set_point, heat):
     f.close()
 
 
-def logstatus(log_status_level,status_string):
+def logstatus(log_status_level, status_string):
     f = open(LogDir + LogStatusFile + ".log", LogFileMode)
     f.write("%s, %s, %s, %s\n" % (datetime.utcnow(), getbrewtime(), log_status_level, status_string))
     f.close()

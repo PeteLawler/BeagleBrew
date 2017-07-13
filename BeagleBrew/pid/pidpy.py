@@ -2,39 +2,41 @@
 # Copyright (c) 2012-2015 Stephen P. Smith
 # Copyright (c) 2016-2017 Peter Lawler <relwalretep@gmail.com>
 #
-# Permission is hereby granted, free of charge, to any person obtaining 
-# a copy of this software and associated documentation files 
-# (the "Software"), to deal in the Software without restriction, 
-# including without limitation the rights to use, copy, modify, 
-# merge, publish, distribute, sublicense, and/or sell copies of the Software, 
-# and to permit persons to whom the Software is furnished to do so, 
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files
+# (the "Software"), to deal in the Software without restriction,
+# including without limitation the rights to use, copy, modify,
+# merge, publish, distribute, sublicense, and/or sell copies of the Software,
+# and to permit persons to whom the Software is furnished to do so,
 # subject to the following conditions:
 
-# The above copyright notice and this permission notice shall be included 
+# The above copyright notice and this permission notice shall be included
 # in all copies or substantial portions of the Software.
 
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
-# OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR 
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+# OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 # IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+
 class pidpy(object):
-    ek_1 = 0.0  # e[k-1] = SP[k-1] - PV[k-1] = Tset_hlt[k-1] - Thlt[k-1]
-    ek_2 = 0.0  # e[k-2] = SP[k-2] - PV[k-2] = Tset_hlt[k-2] - Thlt[k-2]
-    xk_1 = 0.0  # PV[k-1] = Thlt[k-1]
-    xk_2 = 0.0  # PV[k-2] = Thlt[k-1]
-    yk_1 = 0.0  # y[k-1] = Gamma[k-1]
-    yk_2 = 0.0  # y[k-2] = Gamma[k-1]
-    lpf_1 = 0.0 # lpf[k-1] = LPF output[k-1]
-    lpf_2 = 0.0 # lpf[k-2] = LPF output[k-2]
-    
-    yk = 0.0 # output
-    
+
+    ek_1 = 0.0   # e[k-1] = SP[k-1] - PV[k-1] = Tset_hlt[k-1] - Thlt[k-1]
+    ek_2 = 0.0   # e[k-2] = SP[k-2] - PV[k-2] = Tset_hlt[k-2] - Thlt[k-2]
+    xk_1 = 0.0   # PV[k-1] = Thlt[k-1]
+    xk_2 = 0.0   # PV[k-2] = Thlt[k-1]
+    yk_1 = 0.0   # y[k-1] = Gamma[k-1]
+    yk_2 = 0.0   # y[k-2] = Gamma[k-1]
+    lpf_1 = 0.0  # lpf[k-1] = LPF output[k-1]
+    lpf_2 = 0.0  # lpf[k-2] = LPF output[k-2]
+
+    yk = 0.0  # output
+
     GMA_HLIM = 100.0
     GMA_LLIM = 0.0
-    
+
     def __init__(self, ts, kc, ti, td):
         self.kc = kc
         self.ti = ti
@@ -58,25 +60,25 @@ class pidpy(object):
             self.k0 = self.kc * self.ts / self.ti
         self.k1 = self.kc * self.td / self.ts
         self.lpf1 = (2.0 * self.k_lpf - self.ts) / (2.0 * self.k_lpf + self.ts)
-        self.lpf2 = self.ts / (2.0 * self.k_lpf + self.ts) 
-        
+        self.lpf2 = self.ts / (2.0 * self.k_lpf + self.ts)
+
     def calcPID_reg3(self, xk, tset, enable):
         ek = 0.0
         lpf = 0.0
-        ek = tset - xk # calculate e[k] = SP[k] - PV[k]
-        #--------------------------------------
+        ek = tset - xk  # calculate e[k] = SP[k] - PV[k]
+        # --------------------------------------
         # Calculate Lowpass Filter for D-term
-        #--------------------------------------
-        lpf = self.lpf1 * pidpy.lpf_1 + self.lpf2 * (ek + pidpy.ek_1);
-        
+        # --------------------------------------
+        lpf = self.lpf1 * pidpy.lpf_1 + self.lpf2 * (ek + pidpy.ek_1)
+
         if (enable):
-            #-----------------------------------------------------------
+            # -----------------------------------------------------------
             # Calculate PID controller:
             # y[k] = y[k-1] + kc*(e[k] - e[k-1] +
             # Ts*e[k]/Ti +
             # Td/Ts*(lpf[k] - 2*lpf[k-1] + lpf[k-2]))
-            #-----------------------------------------------------------
-            self.pp = self.kc * (ek - pidpy.ek_1) # y[k] = y[k-1] + Kc*(PV[k-1] - PV[k])
+            # -----------------------------------------------------------
+            self.pp = self.kc * (ek - pidpy.ek_1)  # y[k] = y[k-1] + Kc*(PV[k-1] - PV[k])
             self.pi = self.k0 * ek  # + Kc*Ts/Ti * e[k]
             self.pd = self.k1 * (lpf - 2.0 * pidpy.lpf_1 + pidpy.lpf_2)
             pidpy.yk += self.pp + self.pi + self.pd
@@ -85,31 +87,31 @@ class pidpy(object):
             self.pp = 0.0
             self.pi = 0.0
             self.pd = 0.0
-        
-        pidpy.ek_1 = ek # e[k-1] = e[k]
-        pidpy.lpf_2 = pidpy.lpf_1 # update stores for LPF
+
+        pidpy.ek_1 = ek  # e[k-1] = e[k]
+        pidpy.lpf_2 = pidpy.lpf_1  # update stores for LPF
         pidpy.lpf_1 = lpf
-            
+
         # limit y[k] to GMA_HLIM and GMA_LLIM
         if (pidpy.yk > pidpy.GMA_HLIM):
             pidpy.yk = pidpy.GMA_HLIM
         if (pidpy.yk < pidpy.GMA_LLIM):
             pidpy.yk = pidpy.GMA_LLIM
-            
+
         return pidpy.yk
-                          
+
     def calcPID_reg4(self, xk, tset, enable):
         ek = 0.0
-        ek = tset - xk # calculate e[k] = SP[k] - PV[k]
-        
+        ek = tset - xk  # calculate e[k] = SP[k] - PV[k]
+
         if (enable):
-            #-----------------------------------------------------------
+            # -----------------------------------------------------------
             # Calculate PID controller:
             # y[k] = y[k-1] + kc*(PV[k-1] - PV[k] +
             # Ts*e[k]/Ti +
             # Td/Ts*(2*PV[k-1] - PV[k] - PV[k-2]))
-            #-----------------------------------------------------------
-            self.pp = self.kc * (pidpy.xk_1 - xk) # y[k] = y[k-1] + Kc*(PV[k-1] - PV[k])
+            # -----------------------------------------------------------
+            self.pp = self.kc * (pidpy.xk_1 - xk)  # y[k] = y[k-1] + Kc*(PV[k-1] - PV[k])
             self.pi = self.k0 * ek  # + Kc*Ts/Ti * e[k]
             self.pd = self.k1 * (2.0 * pidpy.xk_1 - xk - pidpy.xk_2)
             pidpy.yk += self.pp + self.pi + self.pd
@@ -118,25 +120,24 @@ class pidpy(object):
             self.pp = 0.0
             self.pi = 0.0
             self.pd = 0.0
-            
+
         pidpy.xk_2 = pidpy.xk_1  # PV[k-2] = PV[k-1]
         pidpy.xk_1 = xk    # PV[k-1] = PV[k]
-        
+
         # limit y[k] to GMA_HLIM and GMA_LLIM
         if (pidpy.yk > pidpy.GMA_HLIM):
             pidpy.yk = pidpy.GMA_HLIM
         if (pidpy.yk < pidpy.GMA_LLIM):
             pidpy.yk = pidpy.GMA_LLIM
-            
-        return pidpy.yk
-        
 
-if __name__=="__main__":
+        return pidpy.yk
+
+
+if __name__ == "__main__":
 
     sampleTime = 2
-    pid = PID(sampleTime,0,0,0)
+    pid = PID(sampleTime, 0, 0, 0)
     temp = 80
     setpoint = 100
     enable = True
-    print pid.calcPID_reg4(temp, setpoint, enable)
-    
+    print(pid.calcPID_reg4(temp, setpoint, enable))
