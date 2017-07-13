@@ -23,6 +23,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 ##########################################################################
 
+set -e -u -o pipefail
+
 # Where to download misc things
 DOWNLOAD_LOCATION=/var/tmp
 INSTALL_LOCATION=/opt/BeagleBrew3
@@ -85,13 +87,13 @@ done
 
 # Install pip3 (package installer) and other needed packages
 echo "Checking for support tools"
-unset deb_pkgs
+deb_pkgs=""
 pkg="python3-setuptools"
 check_dpkg
 pkg="python3-dev"
 check_dpkg
-pkg="python3-smbus"
-check_dpkg
+#pkg="python3-smbus"
+#check_dpkg
 pkg="python3-flask"
 check_dpkg
 pkg="python3-setuptools"
@@ -99,6 +101,8 @@ check_dpkg
 pkg="python3-pip"
 check_dpkg
 pkg="python3-virtualenv"
+check_dpkg
+pkg="python3-venv"
 check_dpkg
 pkg="virtualenv"
 check_dpkg

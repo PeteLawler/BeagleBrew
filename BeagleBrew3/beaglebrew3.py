@@ -35,7 +35,7 @@ from multiprocessing import Process, Pipe, Queue, current_process
 from queue import Full
 from subprocess import Popen, PIPE, call
 from datetime import datetime
-from smbus import SMBus
+# from smbus import SMBus
 from pid import pidpy as PIDController
 from flask import Flask, render_template, request, jsonify
 
@@ -210,27 +210,27 @@ def getonofftime(cycle_time, duty_cycle):
 
 
 # Stand Alone Heat Process using I2C (optional)
-def heatProcI2C(cycle_time, duty_cycle, conn):
-    p = current_process()
-    logstatus("INFO", "Starting: name(%s) pid(%s)" % (p.name, p.pid))
-    bus = SMBus(0)
-    bus.write_byte_data(0x26, 0x00, 0x00)  # set I/0 to write
-    while (True):
-        while (conn.poll()):  # get last
-            cycle_time, duty_cycle = conn.recv()
-        conn.send([cycle_time, duty_cycle])
-        if duty_cycle == 0:
-            bus.write_byte_data(0x26, 0x09, 0x00)
-            time.sleep(cycle_time)
-        elif duty_cycle == 100:
-            bus.write_byte_data(0x26, 0x09, 0x01)
-            time.sleep(cycle_time)
-        else:
-            on_time, off_time = getonofftime(cycle_time, duty_cycle)
-            bus.write_byte_data(0x26, 0x09, 0x01)
-            time.sleep(on_time)
-            bus.write_byte_data(0x26, 0x09, 0x00)
-            time.sleep(off_time)
+# def heatProcI2C(cycle_time, duty_cycle, conn):
+#     p = current_process()
+#     logstatus("INFO", "Starting: name(%s) pid(%s)" % (p.name, p.pid))
+#     bus = SMBus(0)
+#     bus.write_byte_data(0x26, 0x00, 0x00)  # set I/0 to write
+#     while (True):
+#         while (conn.poll()):  # get last
+#             cycle_time, duty_cycle = conn.recv()
+#         conn.send([cycle_time, duty_cycle])
+#         if duty_cycle == 0:
+#             bus.write_byte_data(0x26, 0x09, 0x00)
+#             time.sleep(cycle_time)
+#         elif duty_cycle == 100:
+#             bus.write_byte_data(0x26, 0x09, 0x01)
+#             time.sleep(cycle_time)
+#         else:
+#             on_time, off_time = getonofftime(cycle_time, duty_cycle)
+#             bus.write_byte_data(0x26, 0x09, 0x01)
+#             time.sleep(on_time)
+#             bus.write_byte_data(0x26, 0x09, 0x00)
+#             time.sleep(off_time)
 
 
 # Stand Alone Heat Process using GPIO
