@@ -25,7 +25,7 @@
 
 # Where to download misc things
 DOWNLOAD_LOCATION=/var/tmp
-INSTALL_LOCATION=/opt/BeagleBrew
+INSTALL_LOCATION=/opt/BeagleBrew3
 BBDOTORG_OVERLAYS_GIT_LOCATION=https://github.com/BeagleBoard/bb.org-overlays.git
 
 OS_ID="$(grep ID /etc/os-release |cut -f 2 -d =)"
@@ -45,8 +45,12 @@ fi
 
 echo "Testing for existing operations"
 if [ "$(systemctl is-active beaglebrew)" = "active" ]; then
-	echo "Stopping existing operations"
+	echo "Stopping beaglebrew operations"
 	sudo systemctl stop beaglebrew;
+fi
+if [ "$(systemctl is-active beaglebrew3)" = "active" ]; then
+	echo "Stopping beaglebrew3 operations"
+	sudo systemctl stop beaglebrew3;
 fi
 
 if [ ! -f "$(which timedatectl)" ]; then
@@ -195,62 +199,55 @@ wget --continue --output-document ${DOWNLOAD_LOCATION}/bb.org-overlays/src/arm/P
   https://raw.githubusercontent.com/PeteLawler/PL-BB-overlays/master/PL-UART4-00A0.dts
 echo "-----------------------------------"
 
-#echo "Testing for patched dtc"
-#if [ ! -L /usr/bin/dtc-v4.1.x ]; then
-#	echo "Installing patched dtc"
-#	bash -c "cd ${DOWNLOAD_LOCATION}/bb.org-overlays && ./dtc-overlay.sh"
-#fi
-#echo "-----------------------------------"
-
 echo "Installing overlays"
 bash -c "cd ${DOWNLOAD_LOCATION}/bb.org-overlays && ./install.sh"
 echo "-----------------------------------"
 
 echo "Installing systemd service"
-sudo cp beaglebrew.service /etc/systemd/system/.
-sudo chmod 644 /etc/systemd/system/beaglebrew.service
+sudo cp beaglebrew3.service /etc/systemd/system/.
+sudo chmod 644 /etc/systemd/system/beaglebrew3.service
 # use @ as a delimiter as INSTALL_LOCATION may contain the sed delimiter
-sudo sed -i 's@INSTALL_LOCATION@'"$INSTALL_LOCATION"'@'g /etc/systemd/system/beaglebrew.service
+sudo sed -i 's@INSTALL_LOCATION@'"$INSTALL_LOCATION"'@'g /etc/systemd/system/beaglebrew3.service
 sudo systemctl daemon-reload
-sudo systemctl disable beaglebrew.service
+sudo systemctl disable beaglebrew3.service
 echo "-----------------------------------"
 
 
 echo "Checking for old logfiles"
-if [ -d /var/log/beaglebrew/ ]; then
+if [ -d /var/log/beaglebrew3/ ]; then
 	echo "Backing up old logfiles"
-	sudo mv /var/log/beaglebrew/ /var/log/beaglebrew.${NOW}
+	sudo mv /var/log/beaglebrew3/ /var/log/beaglebrew3.${NOW}
 fi
 echo "-----------------------------------"
 
 echo "Checking for missing logrotate configuration"
-if [ -f /etc/logrotate.d/beaglebrew ]; then
+if [ -f /etc/logrotate.d/beaglebrew3 ]; then
 	echo "Installing logrotation"
-	sudo bash -c "echo '/var/log/beaglebrew/* {
+	sudo bash -c "echo '/var/log/beaglebrew3/* {
     rotate 5
     weekly
     notifempty
     compress
 }
-' > /etc/logrotate.d/beaglebrew "
+' > /etc/logrotate.d/beaglebrew3 "
 fi
 echo "-----------------------------------"
 
 printf "Installing"
-sudo cp -pvr BeagleBrew ${INSTALL_LOCATION}
+sudo cp -pvr BeagleBrew3 ${INSTALL_LOCATION}
 printf "."
-sudo bash -c "git log |head -1 > ${INSTALL_LOCATION}/beaglebrew-version.txt"
-if [ ! -d /var/log/beaglebrew/ ]; then
+sudo bash -c "git log |head -1 > ${INSTALL_LOCATION}/beaglebrew3-version.txt"
+if [ ! -d /var/log/beaglebrew3/ ]; then
 	printf "."
-	sudo mkdir -p /var/log/beaglebrew/
+	sudo mkdir -p /var/log/beaglebrew3/
 fi
 printf "."
 
-if [ -L "/etc/opt/beaglebrew_config.xml" ]; then
-    sudo mv "/etc/opt/beaglebrew_config.xml" "/etc/opt/beaglebrew_config.xml.${NOW}"
+if [ -L "/etc/opt/beaglebrew3_config.xml" ]; then
+    sudo mv "/etc/opt/beaglebrew3_config.xml" "/etc/opt/beaglebrew3_config.xml.${NOW}"
 fi
-if [ ! "/etc/opt/beaglebrew_config.xml" -ef "/opt/BeagleBrew/beaglebrew_config.xml" ]; then
-	sudo ln --symbolic --verbose /opt/BeagleBrew/beaglebrew_config.xml /etc/opt/
+if [ ! "/etc/opt/beaglebrew3_config.xml" -ef "/${INSTALL_LOCATION}/beaglebrew3_config.xml" ]; then
+	sudo ln --symbolic --verbose /${INSTALL_LOCATION}/beaglebrew3_config.xml /etc/opt/
 fi
 printf ". done.\n"
 echo "-----------------------------------"
@@ -258,7 +255,7 @@ echo "-----------------------------------"
 while true; do
 	read -p "Do you wish to automatically boot BeagleBrew? " yn
 	case $yn in
-		[Yy]* ) sudo systemctl enable beaglebrew.service;
+		[Yy]* ) sudo systemctl enable beaglebrew3.service;
 		break;;
 		[Nn]* ) break;;
 		* ) echo "Please answer yes or no.";;
