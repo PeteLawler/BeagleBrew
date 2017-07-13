@@ -511,9 +511,9 @@ if __name__ == '__main__':
     LogFileMode = xml_root.find('LogFileMode').text.strip()
     if LogFileMode == "Overwrite":
         # See https://docs.python.org/2/library/functions.html#open
-        LogFileMode = "wb"
+        LogFileMode = "w"
     else:
-        LogFileMode = "ab"
+        LogFileMode = "a"
 
     SQLite3Dir = xml_root.find('SQLite3Dir').text.strip()
     if SQLite3Dir == "":
