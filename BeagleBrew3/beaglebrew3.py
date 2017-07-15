@@ -29,6 +29,7 @@ import sqlite3
 import time
 import xml.etree.ElementTree as ET
 
+from systemd import journal
 from Temp1Wire import Temp1Wire
 from Display import Display
 from multiprocessing import Process, Pipe, Queue, current_process
