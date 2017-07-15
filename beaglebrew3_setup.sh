@@ -245,7 +245,7 @@ fi
 echo "-----------------------------------"
 
 printf "Installing"
-sudo cp -pvr BeagleBrew3 ${INSTALL_LOCATION}
+sudo cp -pvr BeagleBrew3/* ${INSTALL_LOCATION}
 printf "."
 sudo bash -c "git log |head -1 > ${INSTALL_LOCATION}/beaglebrew3-version.txt"
 if [ ! -d /var/log/beaglebrew3/ ]; then
@@ -257,8 +257,8 @@ printf "."
 if [ -L "/etc/opt/beaglebrew3_config.xml" ]; then
     sudo mv "/etc/opt/beaglebrew3_config.xml" "/etc/opt/beaglebrew3_config.xml.${NOW}"
 fi
-if [ ! "/etc/opt/beaglebrew3_config.xml" -ef "/${INSTALL_LOCATION}/BeagleBrew3/beaglebrew3_config.xml" ]; then
-	sudo ln --symbolic --verbose /${INSTALL_LOCATION}/BeagleBrew3/beaglebrew3_config.xml /etc/opt/
+if [ ! "/etc/opt/beaglebrew3_config.xml" -ef "/${INSTALL_LOCATION}/beaglebrew3_config.xml" ]; then
+	sudo ln --symbolic --verbose /${INSTALL_LOCATION}/beaglebrew3_config.xml /etc/opt/
 fi
 printf ". done.\n"
 echo "-----------------------------------"
