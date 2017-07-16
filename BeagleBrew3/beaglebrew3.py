@@ -28,7 +28,7 @@ import logging
 
 from time import time, sleep
 from Temp1Wire import Temp1Wire
-from Display import Display
+from Display import NoDisplay
 from pidpy import pidpy as PIDController
 
 from os import chdir
@@ -530,7 +530,7 @@ if __name__ == '__main__':
 #        tempUnits = xml_root.find('Temp_Units').text.strip()
 #        display = Display.LCD(tempUnits)
 #    else:
-    display = Display.NoDisplay()
+    display = NoDisplay()
     gpioNumberingScheme = xml_root.find('GPIO_pin_numbering_scheme').text.strip()
     if gpioNumberingScheme == "BOARD":
         logstatus("INFO", "gpioNumberingScheme == GPIO.BOARD");
