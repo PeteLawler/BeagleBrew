@@ -110,6 +110,8 @@ pkg="bison"
 check_dpkg
 pkg="libpcre3-dev"
 check_dpkg
+pkg="libsystemd-dev"
+check_dpkg
 pkg="curl"
 check_dpkg
 pkg="flex"
@@ -144,6 +146,15 @@ else
     echo "Error activating virtual environment"
 exit 1
 fi
+
+echo "Checking for systemd"
+if [ ! "$( pip3 list | cut -d \  -f 1 | grep ^systemd$ )" ]; then
+	echo "Installing systemd"
+	pip3 install systemd
+else
+	echo "systemd already installed"
+fi
+echo "-----------------------------------"
 
 echo "Checking for Adafruit-BBIO"
 if [ ! "$( pip3 list | cut -d \  -f 1 | grep ^Adafruit-BBIO$ )" ]; then
