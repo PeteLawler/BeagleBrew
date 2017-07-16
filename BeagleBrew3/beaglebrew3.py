@@ -29,7 +29,7 @@ import logging
 from time import time, sleep
 from Temp1Wire import Temp1Wire
 from Display import Display
-from pid import pidpy as PIDController
+from pidpy import pidpy as PIDController
 
 from os import chdir
 from xml.etree import ElementTree as ET
