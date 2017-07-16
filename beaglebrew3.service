@@ -4,7 +4,7 @@ After=network.service
 
 [Service]
 Type=simple
-ExecStart=INSTALL_LOCATION/bin/python3 -u INSTALL_LOCATION/BeagleBrew3/beaglebrew3.py 2>&1
+ExecStart=INSTALL_LOCATION/bin/python3 -u INSTALL_LOCATION/beaglebrew3.py 2>&1
 WorkingDirectory=INSTALL_LOCATION
 
 [Install]
