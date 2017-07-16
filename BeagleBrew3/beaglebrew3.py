@@ -580,7 +580,7 @@ if __name__ == '__main__':
         else:
             GPIO.setup(pinNum, GPIO.OUT)
     for tempSensorId in xml_root.iter('Temp_Sensor_Id'):
-        myTempSensor = Temp1Wire.Temp1Wire(tempSensorId.text.strip())
+        myTempSensor = Temp1Wire(tempSensorId.text.strip())
         if len(pinHeatList) >= myTempSensor.sensorNum + 1:
             pinNum = pinHeatList[myTempSensor.sensorNum]
             readOnly = False
