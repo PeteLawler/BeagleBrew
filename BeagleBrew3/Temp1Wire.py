@@ -21,8 +21,8 @@
 # WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 # IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from os import path
 from subprocess import Popen, PIPE, call
-import os
 
 
 class Temp1Wire:
@@ -35,7 +35,7 @@ class Temp1Wire:
         # Raspbian build in January 2015 (kernel 3.18.8 and higher) has changed the device tree.
         oldOneWireDir = "/sys/bus/w1/devices/w1_bus_master1/"
         newOneWireDir = "/sys/bus/w1/devices/"
-        if os.path.exists(oldOneWireDir):
+        if path.exists(oldOneWireDir):
             self.oneWireDir = oldOneWireDir
         else:
             self.oneWireDir = newOneWireDir
@@ -44,7 +44,7 @@ class Temp1Wire:
     def readTempC(self):
         temp_C = -99  # default to assuming a bad temp reading
 
-        if os.path.exists(self.oneWireDir + self.tempSensorId + "/w1_slave"):
+        if path.exists(self.oneWireDir + self.tempSensorId + "/w1_slave"):
             pipe = Popen(["cat", self.oneWireDir + self.tempSensorId + "/w1_slave"], stdout=PIPE)
             result = pipe.communicate()[0].decode('utf-8')
             if (result.split('\n')[0].split(' ')[11] == "YES"):

@@ -22,22 +22,23 @@
 # IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import logging
-import os
-import random
-import serial
-import sqlite3
-import time
-import xml.etree.ElementTree as ET
+# import random
+# import serial
+# import sqlite3
 
-from systemd import journal
+from time import time, sleep
 from Temp1Wire import Temp1Wire
 from Display import Display
+from pid import pidpy as PIDController
+
+from os import chdir
+from xml.etree import ElementTree as ET
+from systemd import journal
 from multiprocessing import Process, Pipe, Queue, current_process
 from queue import Full
 from subprocess import Popen, PIPE, call
 from datetime import datetime
 # from smbus import SMBus
-from pid import pidpy as PIDController
 from flask import Flask, render_template, request, jsonify
 
 global parent_connA, parent_connB, parent_connC
@@ -187,7 +188,7 @@ def getstatus(sensorNum=None):
 
 
 def getbrewtime():
-    return (time.time() - brewtime)
+    return (time() - brewtime)
 
 
 # Stand Alone Get Temperature Process
@@ -195,10 +196,10 @@ def gettempProc(conn, myTempSensor):
     p = current_process()
     logstatus("INFO", "Starting: name(%s) pid(%s)" % (p.name, p.pid))
     while (True):
-        t = time.time()
-        time.sleep(.5)  # .1+~.83 = ~1.33 seconds
+        t = time()
+        sleep(.5)  # .1+~.83 = ~1.33 seconds
         num = myTempSensor.readTempC()
-        elapsed = "%.2f" % (time.time() - t)
+        elapsed = "%.2f" % (time() - t)
         conn.send([num, myTempSensor.sensorNum, elapsed])
 
 
@@ -222,16 +223,16 @@ def getonofftime(cycle_time, duty_cycle):
 #         conn.send([cycle_time, duty_cycle])
 #         if duty_cycle == 0:
 #             bus.write_byte_data(0x26, 0x09, 0x00)
-#             time.sleep(cycle_time)
+#             sleep(cycle_time)
 #         elif duty_cycle == 100:
 #             bus.write_byte_data(0x26, 0x09, 0x01)
-#             time.sleep(cycle_time)
+#             sleep(cycle_time)
 #         else:
 #             on_time, off_time = getonofftime(cycle_time, duty_cycle)
 #             bus.write_byte_data(0x26, 0x09, 0x01)
-#             time.sleep(on_time)
+#             sleep(on_time)
 #             bus.write_byte_data(0x26, 0x09, 0x00)
-#             time.sleep(off_time)
+#             sleep(off_time)
 
 
 # Stand Alone Heat Process using GPIO
@@ -252,21 +253,21 @@ def heatProcGPIO(cycle_time, duty_cycle, pinNum, conn):
             if duty_cycle == 0:
                 logstatus("INFO", "%s OFF" % pinString)
                 GPIO.output(pinString, OFF)
-                time.sleep(cycle_time)
+                sleep(cycle_time)
             elif duty_cycle == 100:
                 logstatus("INFO", "%s ON" % pinString)
                 GPIO.output(pinString, ON)
                 logstatus("INFO", "Sleeping %s for %s" % (pinString, cycle_time))
-                time.sleep(cycle_time)
+                sleep(cycle_time)
             else:
                 on_time, off_time = getonofftime(cycle_time, duty_cycle)
                 logstatus("INFO", "%s ON" % pinString)
                 GPIO.output(pinString, ON)
-                time.sleep(on_time)
+                sleep(on_time)
                 logstatus("INFO", "%s OFF" % pinString)
                 GPIO.output(pinNum, OFF)
                 logstatus("INFO", "Sleeping %s for %s" % (pinString, off_time))
-                time.sleep(off_time)
+                sleep(off_time)
 
 
 def unPackParamInitAndPost(paramStatus):
@@ -461,7 +462,7 @@ def tempControlProc(myTempSensor, display, pinNum, readOnly, paramStatus, status
                     duty_cycle = 0
                     parent_conn_heat.send([cycle_time, duty_cycle])
                 readyPOST = False
-            time.sleep(.01)
+            sleep(.01)
 
 
 def logdata(tank, temp, set_point, heat):
@@ -478,7 +479,7 @@ def logstatus(log_status_level, status_string):
 
 if __name__ == '__main__':
 
-    brewtime = time.time()
+    brewtime = time()
 
     # The next two calls are not needed for January 2015 or newer builds (kernel 3.18.8 and higher)
     # /boot/config.txt needs 'dtoverlay=w1-gpio' at the bottom of the file
@@ -493,7 +494,7 @@ if __name__ == '__main__':
 
     root_dir_elem = xml_root.find('RootDir')
     if root_dir_elem is not None:
-        os.chdir(root_dir_elem.text.strip())
+        chdir(root_dir_elem.text.strip())
     else:
         logstatus("INFO", "No RootDir tag found in config.xml, running from current directory")
 
