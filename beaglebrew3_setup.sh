@@ -179,7 +179,7 @@ if [ ! "$( pip3 list | cut -d \  -f 1 | grep ^queuelib$ )" ]; then
 	echo "Installing queuelib"
 	pip3 install queuelib
 else
-	echo "queuelibal ready installed"
+	echo "queuelib already installed"
 fi
 echo "-----------------------------------"
 
