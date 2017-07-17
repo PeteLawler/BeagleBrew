@@ -8,8 +8,7 @@ cache:
   - "$HOME/.pyenv"
 
 python:
-  - "2.7"
-  - "3.2"
+  - "3.5"
 
 # command to install dependencies
 addons:
