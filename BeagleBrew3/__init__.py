@@ -1,9 +1,5 @@
-from os import path
-from subprocess import Popen, PIPE, call
-from Temp1Wire import Temp1Wire
 
-from Display import Display
-
+# BeagleBrew3
 from systemd import journal
 from Temp1Wire import Temp1Wire
 from Display import Display
@@ -13,3 +9,11 @@ from datetime import datetime
 # from smbus import SMBus
 from pidpy import pidpy as PIDController
 from flask import Flask, render_template, request, jsonify
+
+# Display
+from Display import Display
+
+# Temp1Wire
+from os import path
+from subprocess import Popen, PIPE, call
+from Temp1Wire import Temp1Wire

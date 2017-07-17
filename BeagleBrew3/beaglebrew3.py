@@ -21,25 +21,26 @@
 # WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 # IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-import logging
 # import random
 # import serial
 # import sqlite3
 
-from time import time, sleep
 from Temp1Wire import Temp1Wire
 from Display import NoDisplay
 from pidpy import pidpy as PIDController
 
-from os import chdir
-from xml.etree import ElementTree as ET
-from systemd import journal
-from multiprocessing import Process, Pipe, Queue, current_process
-from queue import Full
-from subprocess import Popen, PIPE, call
-from datetime import datetime
-# from smbus import SMBus
 from flask import Flask, render_template, request, jsonify
+from systemd import journal
+
+from datetime import datetime
+from logging import getLogger, ERROR
+from multiprocessing import Process, Pipe, Queue, current_process
+from os import chdir
+from queue import Full
+from time import time, sleep
+from subprocess import Popen, PIPE, call
+from xml.etree import ElementTree as ET
+# from smbus import SMBus
 
 global parent_connA, parent_connB, parent_connC
 global statusQ_A, statusQ_B, statusQ_C
@@ -48,8 +49,8 @@ global brewtime, oneWireDir
 
 app = Flask(__name__, template_folder='templates')
 
-werkzeuglog = logging.getLogger('werkzeug')
-werkzeuglog.setLevel(logging.ERROR)
+werkzeuglog = getLogger('werkzeug')
+werkzeuglog.setLevel(ERROR)
 
 
 # Parameters that are used in the temperature control process
