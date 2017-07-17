@@ -1,6 +1,6 @@
 
 # BeagleBrew3
-from systemd import journal
+# from systemd import journal
 from Adafruit_BBIO import GPIO
 from Temp1Wire import Temp1Wire
 from Display import Display
