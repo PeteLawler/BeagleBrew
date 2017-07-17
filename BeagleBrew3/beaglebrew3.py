@@ -549,7 +549,7 @@ if __name__ == '__main__':
             pinNum = 0
             readOnly = True
         if myTempSensor.sensorNum >= 1:
-            display = Display.NoDisplay()
+            display = NoDisplay()
         if myTempSensor.sensorNum == 0:
             statusQ_A = Queue(2)  # blocking queue
             parent_connA, child_conn = Pipe()
