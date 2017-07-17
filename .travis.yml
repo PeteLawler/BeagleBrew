@@ -15,9 +15,9 @@ addons:
   apt:
     packages:
     - libpcre3-dev
-    - python-smbus
-    - python-dev
-    - python-serial
+    - python3-dev
+    - python3-serial
+    - libsystemd-dev
 
 install: "pip install -r requirements.txt"
 
