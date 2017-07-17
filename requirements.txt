@@ -1,5 +1,5 @@
-Adafruit-BBIO==1.0.0
-Flask==0.10.1
+Adafruit-BBIO==1.0.3
+Flask==0.12.2
 #systemd==0.9.15
 pyserial==3.3
 queuelib==1.4.2
