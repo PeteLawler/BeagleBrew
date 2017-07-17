@@ -527,6 +527,11 @@ if __name__ == '__main__':
     if DBFile == "":
         DBFile = "beaglebrew.db"
 
+    SQALCHEMY_FILE = DBDir + DBFile
+    Engine = create_engine('sqlite:///' + SQALCHEMY_FILE, echo=DEBUG)
+    DBSession = sessionmaker(bind=Engine)
+    session = DBSession()
+
     display = NoDisplay()
 
     gpioInverted = xml_root.find('GPIO_Inverted').text.strip()
