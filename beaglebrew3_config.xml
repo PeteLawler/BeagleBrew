@@ -18,7 +18,7 @@
 	<TimeFormat>Elapsed</TimeFormat>
 
 	<!-- If your relay board works inverted (ie, GPIO value 1 = relay off), set to 1 -->
-	<GPIO_Inverted>1</GPIO_Inverted>
+	<GPIO_Inverted>0</GPIO_Inverted>
 
 	<!-- Temperature Sensor Id -->
 	<!-- For Temp Control the Temp_Sensor_Id must have a corresponding GPIO Pin used -->
