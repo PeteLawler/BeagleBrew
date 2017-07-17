@@ -33,6 +33,16 @@ from Adafruit_BBIO import GPIO
 from flask import Flask, render_template, request, jsonify
 #from systemd import journal
 
+from sqlalchemy import Column, ForeignKey, Integer, MetaData, String, Table
+from sqlalchemy import Unicode, UnicodeText
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.dialects.sqlite import \
+            BLOB, BOOLEAN, CHAR, DATE, DATETIME, DECIMAL, FLOAT, \
+            INTEGER, NUMERIC, SMALLINT, TEXT, TIME, TIMESTAMP, \
+            VARCHAR
+
 from datetime import datetime
 from logging import getLogger, ERROR
 from multiprocessing import Process, Pipe, Queue, current_process
@@ -509,13 +519,13 @@ if __name__ == '__main__':
     else:
         LogFileMode = "a"
 
-    SQLite3Dir = xml_root.find('SQLite3Dir').text.strip()
-    if SQLite3Dir == "":
-        SQLite3Dir = "/var/lib/beaglebrew3"
+    DBDir = xml_root.find('BeableBrew3DBDir').text.strip()
+    if DBDir == "":
+        DBDir = "/var/lib/beaglebrew3"
 
-    SQLite3File = xml_root.find('SQLite3File').text.strip()
-    if SQLite3File == "":
-        SQLite3File = "beaglebrew.db"
+    DBFile = xml_root.find('BeagleBrew3DBFile').text.strip()
+    if DBFile == "":
+        DBFile = "beaglebrew.db"
 
     display = NoDisplay()
 

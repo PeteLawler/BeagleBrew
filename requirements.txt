@@ -3,5 +3,6 @@ Flask==0.10.1
 #systemd==0.9.15
 pyserial==3.3
 queuelib==1.4.2
+SQLAlchemy>=1.2.0
 
 

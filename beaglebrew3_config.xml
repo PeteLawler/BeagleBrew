@@ -9,9 +9,9 @@
 	<LogDataFile>BeagleBrewData</LogDataFile>
 	<LogFileMode>Append</LogFileMode> <!-- Setting this to anything else (or removing) will Append -->
 
-	<!-- SQLite3 config -->
-	<SQLite3Dir>/var/lib/beaglebrew3/</SQLite3Dir>
-	<SQLite3File>beaglebrew.db</SQLite3File>
+	<!-- DB config -->
+	<DBDir>/var/lib/beaglebrew3/</DBDir>
+	<DBFile>beaglebrew.db</DBFile>
 
 	<!-- Time format -->
 	<!-- Clock (measured in UTC) or Elapsed -->
