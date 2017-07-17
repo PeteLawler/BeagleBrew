@@ -24,11 +24,6 @@
 	<!-- Clock (measured in UTC) or Elapsed -->
 	<TimeFormat>Elapsed</TimeFormat>
 
-	<!-- GPIO pin numbering scheme - choose BOARD or BCM. -->
-	<!-- If something else than these are given, BCM is chosen as default. -->
-	<!-- BBB Pins use Head_pin or NAME nomenclature as per BBB SRM -->
-	<GPIO_pin_numbering_scheme>BBB</GPIO_pin_numbering_scheme>
-
 	<!-- If your relay board works inverted (ie, GPIO value 1 = relay off), set to 1 -->
 	<GPIO_Inverted>1</GPIO_Inverted>
 

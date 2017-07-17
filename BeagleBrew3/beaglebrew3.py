@@ -28,6 +28,7 @@
 from Temp1Wire import Temp1Wire
 from Display import NoDisplay
 from pidpy import pidpy as PIDController
+from Adafruit_BBIO import GPIO
 
 from flask import Flask, render_template, request, jsonify
 from systemd import journal
@@ -241,10 +242,7 @@ def heatProcGPIO(cycle_time, duty_cycle, pinNum, conn):
     p = current_process()
     logstatus("INFO", "Starting: name(%s) pid(%s)" % (p.name, p.pid))
     if pinNum > "0":
-        if gpioNumberingScheme == "BBB":
-            pinString = str(pinNum)
-        else:
-            pinString = pinNum
+        pinString = str(pinNum)
         logstatus("INFO", "%s GPIO.OUT" % pinString)
         GPIO.setup(pinNum, GPIO.OUT)
         while (True):
@@ -482,13 +480,6 @@ if __name__ == '__main__':
 
     brewtime = time()
 
-    # The next two calls are not needed for January 2015 or newer builds (kernel 3.18.8 and higher)
-    # /boot/config.txt needs 'dtoverlay=w1-gpio' at the bottom of the file
-    call(["modprobe", "w1-gpio"])
-    call(["modprobe", "w1-therm"])
-    call(["modprobe", "i2c-dev"])
-
-    # Retrieve root element from config.xml for parsing
     tree = ET.parse('/etc/opt/beaglebrew3_config.xml')
     xml_root = tree.getroot()
     template_name = xml_root.find('Template').text.strip()
@@ -526,29 +517,7 @@ if __name__ == '__main__':
     if SQLite3File == "":
         SQLite3File = "beaglebrew.db"
 
-#    useLCD = xml_root.find('Use_LCD').text.strip()
-#    if useLCD == "yes":
-#        tempUnits = xml_root.find('Temp_Units').text.strip()
-#        display = Display.LCD(tempUnits)
-#    else:
     display = NoDisplay()
-    gpioNumberingScheme = xml_root.find('GPIO_pin_numbering_scheme').text.strip()
-    if gpioNumberingScheme == "BOARD":
-        logstatus("INFO", "gpioNumberingScheme == GPIO.BOARD");
-        GPIO.setmode(GPIO.BOARD)
-    elif gpioNumberingScheme == "BCM":
-        logstatus("INFO", "gpioNumberingScheme == GPIO.BCM");
-        GPIO.setmode(GPIO.BCM)
-    if gpioNumberingScheme == "BBB":
-        logstatus("INFO", "gpioNumberingScheme == BBB");
-        logstatus("INFO", "Loading Adafruit_BBIO");
-        import Adafruit_BBIO.GPIO as GPIO
-    else:
-        logstatus("INFO", "gpioNumberingScheme catchall (RPi)");
-        logstatus("INFO", "Loading i2c-bcm2708");
-        call(["modprobe", "i2c-bcm2708"])
-        logstatus("INFO", "Loading RPi.GPIO");
-        import RPi.GPIO as GPIO
 
     gpioInverted = xml_root.find('GPIO_Inverted').text.strip()
     if gpioInverted == "0":
@@ -564,22 +533,13 @@ if __name__ == '__main__':
     pinHeatList = []
     for pin in xml_root.iter('Heat_Pin'):
         logstatus("INFO", "Setting up GPIO Pin %s for heat output" % pin)
-        if gpioNumberingScheme == "BBB":
-            pinHeatList.append(pin.text.strip())
-        else:
-            pinHeatList.append(int(pin.text.strip()))
+        pinHeatList.append(pin.text.strip())
     pinGPIOList = []
     for pin in xml_root.iter('GPIO_Pin'):
-        if gpioNumberingScheme == "BBB":
-            pinGPIOList.append(pin.text.strip())
-        else:
-            pinGPIOList.append(int(pin.text.strip()))
+        pinGPIOList.append(pin.text.strip())
     for pinNum in pinGPIOList:
         logstatus("INFO", "Setting up GPIO Pin %s for manual output" % pinNum)
-        if gpioNumberingScheme == "BBB":
-            GPIO.setup(str(pinNum), GPIO.OUT)
-        else:
-            GPIO.setup(pinNum, GPIO.OUT)
+        GPIO.setup(str(pinNum), GPIO.OUT)
     for tempSensorId in xml_root.iter('Temp_Sensor_Id'):
         myTempSensor = Temp1Wire(tempSensorId.text.strip())
         if len(pinHeatList) >= myTempSensor.sensorNum + 1:
