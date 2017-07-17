@@ -482,7 +482,7 @@ if __name__ == '__main__':
 
     tree = ET.parse('/etc/opt/beaglebrew3_config.xml')
     xml_root = tree.getroot()
-    template_name = xml_root.find('Template').text.strip()
+    template_name = 'beaglebrew.html'
 
     root_dir_elem = xml_root.find('RootDir')
     if root_dir_elem is not None:

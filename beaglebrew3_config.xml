@@ -3,13 +3,6 @@
 	<!-- Where the BeagleBrew will be served from -->
     <RootDir>/opt/BeagleBrew3</RootDir>
 
-	<!-- Place templates (themes) in templates folder -->
-	<!-- The static folder must contain the corresponding css and js files -->
-	<Template>beaglebrew.html</Template>
-
-	<!-- Use LCD - yes or no-->
-	<Use_LCD>no</Use_LCD>
-
 	<!-- Log config -->
 	<LogDir>/var/log/beaglebrew3/</LogDir>
 	<LogStatusFile>BeagleBrewStatus</LogStatusFile>
