@@ -38,5 +38,5 @@ set xlabel "Time" offset 0,1.5
 set format x "%Y-%m-%d %H:%M:%S"
 set ylabel "Power"
 
-plot "/var/log/beaglebrew3/beaglebrew3Data0.csv | tr -d \\'\000\\'" using 1:5 title "Heat %" with lines
+plot "/var/log/beaglebrew3/beaglebrew3Data0.csv" using 1:5 title "Heat %" with lines
 
