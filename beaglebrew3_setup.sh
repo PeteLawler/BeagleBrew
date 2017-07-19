@@ -147,49 +147,14 @@ else
 exit 1
 fi
 
-echo "Checking for systemd"
-if [ ! "$( pip3 list | cut -d \  -f 1 | grep ^systemd$ )" ]; then
-	echo "Installing systemd"
-	pip3 install systemd
-else
-	echo "systemd already installed"
+echo "Checking for requirements.txt"
+if [ -r requirements.txt ] && [ -s requirements.txt ]; then
+    echo "requirements.txt is broken"
+    exit 1
 fi
-echo "-----------------------------------"
 
-echo "Checking for Adafruit-BBIO"
-if [ ! "$( pip3 list | cut -d \  -f 1 | grep ^Adafruit-BBIO$ )" ]; then
-	echo "Installing Adafruit BBIO"
-	pip3 install Adafruit-BBIO
-else
-	echo "Adafruit-BBIO already installed"
-fi
-echo "-----------------------------------"
-
-echo "Checking for pyserial"
-if [ ! "$( pip3 list | cut -d \  -f 1 | grep ^pyserial$ )" ]; then
-	echo "Installing pyserial"
-	pip3 install pyserial
-else
-	echo "pyserial already installed"
-fi
-echo "-----------------------------------"
-
-echo "Checking for queuelib"
-if [ ! "$( pip3 list | cut -d \  -f 1 | grep ^queuelib$ )" ]; then
-	echo "Installing queuelib"
-	pip3 install queuelib
-else
-	echo "queuelib already installed"
-fi
-echo "-----------------------------------"
-
-echo "Checking for Flask"
-if [ ! "$( pip3 list | cut -d \  -f 1 | grep ^Flask$ )" ]; then
-	echo "Installing Flask"
-	pip3 install Flask
-else
-	echo "Flask already installed"
-fi
+echo "Installing python requirements.txt into ${INSTALL_LOCATION}"
+pip3 install -r requirements.txt
 echo "-----------------------------------"
 
 echo "Testing for ${DOWNLOAD_LOCATION}"
