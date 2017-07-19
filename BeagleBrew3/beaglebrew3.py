@@ -27,7 +27,7 @@
 
 from Temp1Wire import Temp1Wire
 from Display import NoDisplay
-from pidpy import calcPID_reg4, pidpy as PIDController
+from pidpy import pidpy as PIDController
 from Adafruit_BBIO import GPIO
 
 from flask import Flask, render_template, request, jsonify
