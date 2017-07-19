@@ -21,9 +21,16 @@
 # WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 # IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-from logging import debug, info, warning
+from logging import Formatter, getLogger, handlers
 from os import path
 from subprocess import Popen, PIPE
+
+log = getLogger(__name__)
+loghandler = handlers.SysLogHandler(address='/dev/log')
+
+logformatter = Formatter('%(module)s.%(funcName)s: %(message)s')
+loghandler.setFormatter(logformatter)
+log.addHandler(loghandler)
 
 
 class Temp1Wire:
@@ -39,11 +46,11 @@ class Temp1Wire:
         newOneWireDir = "/sys/bus/w1/devices/"
         if path.exists(oldOneWireDir):
             self.oneWireDir = oldOneWireDir
-            debug("Old 1Wire directory %s " % (oldOneWireDir))
+            log.debug("Old 1Wire directory %s " % (oldOneWireDir))
         else:
             self.oneWireDir = newOneWireDir
-            debug("New 1Wire directory %s " % (newOneWireDir))
-        info("Constructing 1W sensor %s" % (tempSensorId))
+            log.debug("New 1Wire directory %s " % (newOneWireDir))
+        log.info("Constructing 1W sensor %s" % (tempSensorId))
 
     def readTempC(self):
         temp_C = -99  # default to assuming a bad temp reading
@@ -55,7 +62,7 @@ class Temp1Wire:
             if (result.split('\n')[0].split(' ')[11] == "YES"):
                 temp_C = float(result.split("=")[-1])/1000  # temp in Celcius
         else:
-            warning("Sensor missing %s" % (self.oneWireDir + self.tempSensorId
+            log.warning("Sensor missing %s" % (self.oneWireDir + self.tempSensorId
                     + "/w1_slave"))
 
         return temp_C
