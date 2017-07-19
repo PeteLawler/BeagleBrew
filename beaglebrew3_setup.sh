@@ -148,7 +148,7 @@ exit 1
 fi
 
 echo "Checking for requirements.txt"
-if [ -r requirements.txt ] && [ -s requirements.txt ]; then
+if [ ! -r requirements.txt ] && [ ! -s requirements.txt ]; then
     echo "requirements.txt is broken"
     exit 1
 fi
