@@ -3,5 +3,3 @@ Flask==0.12.2
 #systemd==0.9.15
 pyserial==3.3
 queuelib==1.4.2
-
-
