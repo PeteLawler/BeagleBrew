@@ -34,7 +34,7 @@ from flask import Flask, render_template, request, jsonify
 # from systemd import journal
 
 from datetime import datetime
-from logging import getLogger, ERROR
+from logging import Formatter, getLogger, handlers, ERROR
 from multiprocessing import Process, Pipe, Queue, current_process
 from os import chdir
 from queue import Full
@@ -52,6 +52,12 @@ app = Flask(__name__, template_folder='templates')
 
 werkzeuglog = getLogger('werkzeug')
 werkzeuglog.setLevel(ERROR)
+
+log = getLogger(__name__)
+loghandler = handlers.SysLogHandler(address='/dev/log')
+logformatter = Formatter('%(module)s.%(funcName)s: %(message)s')
+loghandler.setFormatter(logformatter)
+log.addHandler(loghandler)
 
 
 # Parameters that are used in the temperature control process
