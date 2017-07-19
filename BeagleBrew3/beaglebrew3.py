@@ -27,7 +27,7 @@
 
 from Temp1Wire import Temp1Wire
 from Display import NoDisplay
-from pidpy import pidpy as PIDController
+from pidpy import calcPID_reg4, pidpy as PIDController
 from Adafruit_BBIO import GPIO
 
 from flask import Flask, render_template, request, jsonify
@@ -437,7 +437,7 @@ num_pnts_smooth %s, k_param %s, i_param %s, d_param %s"
 
                     # calculate PID every cycle
                     if (readyPIDcalc is True):
-                        duty_cycle = pid.calcPID_reg4(temp_ma, set_point, True)
+                        duty_cycle = calcPID_reg4(temp_ma, set_point, True)
                         # send to heat process every cycle
                         parent_conn_heat.send([cycle_time, duty_cycle])
                         readyPIDcalc = False
@@ -525,10 +525,14 @@ def logdata(tank, temp, set_point, heat):
 
 
 def logstatus(log_status_level, status_string):
-    f = open(LogDir + LogStatusFile + ".log", LogFileMode)
-    f.write("%s, %s, %s, %s\n" % (datetime.utcnow(), getbrewtime(),
-                                  log_status_level, status_string))
-    f.close()
+    if log_status_level == "INFO":
+        log.info(status_string)
+    elif log_status_level == "DEBUG":
+        log.debug(status_string)
+    elif log_status_level == "WARNING":
+        log.warning(status_string)
+    elif log_status_level == "CRITICAL":
+        log.critical(status_string)
 
 
 if __name__ == '__main__':
