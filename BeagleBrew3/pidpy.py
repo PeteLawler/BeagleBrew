@@ -20,6 +20,15 @@
 # WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 # IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from logging import Formatter, getLogger, handlers
+
+log = getLogger(__name__)
+loghandler = handlers.SysLogHandler(address='/dev/log')
+
+logformatter = Formatter('%(module)s.%(funcName)s: %(message)s')
+loghandler.setFormatter(logformatter)
+log.addHandler(loghandler)
+
 
 class pidpy(object):
 
@@ -140,4 +149,4 @@ if __name__ == "__main__":
     temp = 80
     setpoint = 100
     enable = True
-    print(pid.calcPID_reg4(temp, setpoint, enable))
+    log.info(pid.calcPID_reg4(temp, setpoint, enable))
