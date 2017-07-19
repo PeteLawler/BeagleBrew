@@ -486,8 +486,8 @@ num_pnts_smooth %s, k_param %s, i_param %s, d_param %s"
                 if mode == "auto":
                     display.showAutoMode(set_point)
                     logstatus("INFO", "auto selected")
-                    pid = PIDController.pidpy(cycle_time, k_param, i_param,
-                                              d_param)  # init pid
+                    pid = PIDController(cycle_time, k_param, i_param,
+                                        d_param)  # init pid
                     duty_cycle = pid.calcPID_reg4(temp_ma, set_point, True)
                     parent_conn_heat.send([cycle_time, duty_cycle])
                 if mode == "boil":

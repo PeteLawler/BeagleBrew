@@ -6,15 +6,17 @@
 
 ***This fork no longer works with RPi.***
 
-Uses [Adafruit's BBIO Python](https://github.com/adafruit/adafruit-beaglebone-io-python) library.
+> Note: Software is [X11 Licensed](http://directory.fsf.org/wiki/License:X11) (aka MIT)
 
-The Adafruit Library seems to work 'best' by using the PIN NAME, as per the [BeableBone Black System Reference Manual] (https://github.com/CircuitCo/BeagleBone-Black/raw/master/BBB_SRM.pdf)
+----------
 
-Note: Software is [X11 Licensed](http://directory.fsf.org/wiki/License:X11) (aka MIT)
+This software is designed to operate on a [BeagleBone Black](http://beagleboard.org/black), a low powered open source single board computer. More information on this hardware can be found on the [BeagleBone Black eWiki](http://elinux.org/Beagleboard:BeagleBoneBlack) page.
+
+It is designed to be run on the [Debian Stable](https://debian.org) operating system and utilises [Python3](https://www.python.org/), [Bootstrap](https://getbootstrap.com/), [jQuery](https://jquery.com), [Flot](http://www.flotcharts.org/), and [ToggleSwitch](https://ghinda.net/css-toggle-switch/)
 
 WARNING: This software uses an unsafe threaded web server. It is highly recommended in production to place it behind a proper WSGI compliant web server such as nginx, lighttpd or Apache. Once this is done, remove the 'threaded=True' call from app.run.
 
-----------
+---------
 
 # Beaglebone Black Brewing Controller
 
@@ -26,10 +28,7 @@ For Flask html template, see templates/beaglebrew.html.  The config.xml file exp
 
 On the client side jQuery and various plugins can be used to display data such as line charts and gauges. Mouse overs on the temperature plot will show the time and temp for the individual points.  It is currently working in a Firefox Browser.
 
-jQuery and two jQuery plugins (jsGauge and Flot) are used in the client:
-[http://jquery.com](http://jquery.com "jQuery")
-[http://code.google.com/p/jsgauge/](http://code.google.com/p/jsgauge/ "jsgauge")
-[http://code.google.com/p/flot/](http://code.google.com/p/flot/ "flot")
+On the hardware, it uses [Adafruit's BBIO Python](https://github.com/adafruit/adafruit-beaglebone-io-python) library. The Adafruit Library seems to work 'best' by using the PIN NAME, as per the [BeableBone Black System Reference Manual] (https://github.com/CircuitCo/BeagleBone-Black/raw/master/BBB_SRM.pdf)
 
 The PID algorithm was translated from C code to Python.  The C code was from "PID Controller Calculus with full C source source code" by Emile van de Logt
 An explanation on how to tune it is from the following web site:

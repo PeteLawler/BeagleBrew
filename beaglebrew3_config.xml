@@ -18,13 +18,12 @@
 	<TimeFormat>Elapsed</TimeFormat>
 
 	<!-- If your relay board works inverted (ie, GPIO value 1 = relay off), set to 1 -->
-	<GPIO_Inverted>1</GPIO_Inverted>
+	<GPIO_Inverted>0</GPIO_Inverted>
 
 	<!-- Temperature Sensor Id -->
 	<!-- For Temp Control the Temp_Sensor_Id must have a corresponding GPIO Pin used -->
 	<!-- for heat, otherwise the temperature sensor is only for temp readout -->
 	<!-- Repeat same element names (Temp_Sensor_Id and optional Heat_Pin) for additional temp sensors -->
-	<!-- Currently limited to 3 temp sensors but that can easily be expanded in raspibrew.py -->
 	<Vessel>My Big Vessel</Vessel>
 	<Temp_Sensor_Id>28-000000000000</Temp_Sensor_Id>
 	<Heat_Pin>TIMER7</Heat_Pin>
